@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 31
-
+    namespace 'com.spreedly.sdk_sample'
 
     defaultConfig {
         applicationId "com.spreedly.sdk_sample"

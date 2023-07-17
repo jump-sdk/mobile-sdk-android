@@ -5,6 +5,7 @@ project.ext.set('pubName', 'express')
 android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
+    namespace 'com.spreedly.express'
 
     defaultConfig {
         minSdkVersion 19

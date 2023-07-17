@@ -6,6 +6,7 @@ project.ext.set('pubName', 'securewidgets')
 android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
+    namespace 'com.spreedly.securewidgets'
 
     defaultConfig {
         minSdkVersion 19
