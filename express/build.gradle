@@ -8,7 +8,7 @@ android {
     namespace 'com.spreedly.express'
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 24
         targetSdkVersion 31
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -51,7 +51,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':core-sdk')
+    implementation project(':core-kmm')
     api 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

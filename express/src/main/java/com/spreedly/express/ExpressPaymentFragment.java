@@ -135,7 +135,7 @@ public class ExpressPaymentFragment extends BottomSheetDialogFragment {
         layout = root;
         Configuration configuration = getResources().getConfiguration();
         int currentNightMode = configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        int color = R.color.design_default_color_on_primary;
+        int color = com.spreedly.securewidgets.R.color.design_default_color_on_primary;
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             TypedValue a = new TypedValue();
             getContext().getTheme().resolveAttribute(android.R.attr.windowBackground, a, true);

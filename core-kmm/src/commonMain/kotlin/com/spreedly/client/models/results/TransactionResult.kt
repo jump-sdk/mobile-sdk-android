@@ -1,12 +1,11 @@
 package com.spreedly.client.models.results
 
-import java.io.Serializable
-import java.util.Date
+import kotlinx.datetime.Instant
 
-class TransactionResult<T>(
+data class TransactionResult<T>(
     val token: String?,
-    val createdAt: Date?,
-    val updatedAt: Date?,
+    val createdAt: Instant?,
+    val updatedAt: Instant?,
     val succeeded: Boolean,
     // maybe enum
     val transactionType: String?,
@@ -15,21 +14,7 @@ class TransactionResult<T>(
     val state: String?,
     // localization?
     val messageKey: String?,
-    message: String?,
-    errors: List<SpreedlyError>?,
-    result: T?
-) : Serializable {
-    @kotlin.jvm.JvmField
-    val message: String?
-    @kotlin.jvm.JvmField
-    val errors: List<SpreedlyError>?
-    @kotlin.jvm.JvmField
+    val message: String?,
+    val errors: List<SpreedlyError>?,
     val result: T?
-
-    init {
-        this.message =
-            if ((message == null || message.isEmpty()) && errors != null && !errors.isEmpty()) errors[0].message else message
-        this.result = result
-        this.errors = errors
-    }
-}
+)

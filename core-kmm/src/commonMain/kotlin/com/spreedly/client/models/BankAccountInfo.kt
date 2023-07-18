@@ -2,71 +2,34 @@ package com.spreedly.client.models
 
 import com.spreedly.client.models.enums.AccountHolderType
 import com.spreedly.client.models.enums.AccountType
-import org.json.JSONObject
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 
-class BankAccountInfo : PaymentMethodInfo {
-    @kotlin.jvm.JvmField
-    var routingNumber: String? = null
-    @kotlin.jvm.JvmField
-    var accountNumber: SpreedlySecureOpaqueString? = null
-    @kotlin.jvm.JvmField
-    var accountType: AccountType? = null
-    @kotlin.jvm.JvmField
-    var accountHolderType: AccountHolderType? = null
+class BankAccountInfo(
+    private val routingNumber: String? = null,
+    private val accountNumber: SpreedlySecureOpaqueString,
+    private val accountType: AccountType? = null,
+    private val accountHolderType: AccountHolderType? = null,
+) : PaymentMethodInfo() {
 
-    constructor(copy: PaymentMethodInfo) : super(copy) {
-        if (copy.javaClass == BankAccountInfo::class.java) {
-            val baCopy = copy as BankAccountInfo
-            accountType = baCopy.accountType
-            accountHolderType = baCopy.accountHolderType
-        }
-    }
-
-    constructor() {}
-    constructor(
-        fullName: String?,
-        routingNumber: String?,
-        accountNumber: SpreedlySecureOpaqueString?,
-        accountType: AccountType?
-    ) {
-        this.fullName = fullName
-        this.routingNumber = routingNumber
-        this.accountNumber = accountNumber
-        this.accountType = accountType
-    }
-
-    constructor(
-        firstName: String?,
-        lastName: String?,
-        routingNumber: String?,
-        accountNumber: SpreedlySecureOpaqueString?,
-        accountType: AccountType?
-    ) {
-        this.firstName = firstName
-        this.lastName = lastName
-        this.routingNumber = routingNumber
-        this.accountNumber = accountNumber
-        this.accountType = accountType
-    }
-
-    public override fun toJson(): JSONObject {
-        val wrapper = JSONObject()
-        val paymentMethod = JSONObject()
-        val bankAccount = JSONObject()
+    override fun toJson(): JsonObject {
+        val paymentMethod = mutableMapOf<String, JsonElement>()
+        val bankAccount = mutableMapOf<String, JsonElement>()
         addCommonJsonFields(paymentMethod, bankAccount)
-        bankAccount.put("bank_routing_number", routingNumber)
-        bankAccount.put("bank_account_number", accountNumber!!._encode())
+        bankAccount.putAsJsonElement("bank_routing_number", routingNumber)
+        bankAccount.putAsJsonElement("bank_account_number", accountNumber._encode())
         try {
-            bankAccount.put("bank_account_type", accountType.toString().lowercase())
+            bankAccount.putAsJsonElement("bank_account_type", accountType.toString().lowercase())
         } catch (e: NullPointerException) {
-            bankAccount.put("bank_account_type", "")
+            bankAccount.putAsJsonElement("bank_account_type", "")
         }
         try {
-            bankAccount.put("bank_account_holder_type", accountHolderType.toString().lowercase())
+            bankAccount.putAsJsonElement("bank_account_holder_type", accountHolderType.toString().lowercase())
         } catch (e: NullPointerException) {
         }
-        paymentMethod.put("bank_account", bankAccount)
-        wrapper.put("payment_method", paymentMethod)
-        return wrapper
+        paymentMethod.put("bank_account", JsonObject(bankAccount))
+        return JsonObject(
+            mapOf("payment_method" to JsonObject(paymentMethod)),
+        )
     }
 }

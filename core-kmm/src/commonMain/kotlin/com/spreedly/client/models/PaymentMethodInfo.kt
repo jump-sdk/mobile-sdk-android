@@ -1,62 +1,40 @@
 package com.spreedly.client.models
 
-import org.json.JSONObject
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 
-abstract class PaymentMethodInfo {
-    @kotlin.jvm.JvmField
-    var company: String? = null
-    @kotlin.jvm.JvmField
-    var firstName: String? = null
-    @kotlin.jvm.JvmField
-    var lastName: String? = null
-    @kotlin.jvm.JvmField
-    var fullName: String? = null
-    @kotlin.jvm.JvmField
-    var address: Address? = null
-    @kotlin.jvm.JvmField
-    var shippingAddress: Address? = null
-    @kotlin.jvm.JvmField
-    var retained: Boolean? = null
-    @kotlin.jvm.JvmField
-    var metadata: JSONObject? = null
-    @kotlin.jvm.JvmField
-    var email: String? = null
-    abstract fun toJson(): JSONObject
+abstract class PaymentMethodInfo(
+    val company: String? = null,
+    val firstName: String? = null,
+    val lastName: String? = null,
+    val fullName: String? = null,
+    val address: Address? = null,
+    val shippingAddress: Address? = null,
+    val retained: Boolean? = null,
+    val metadata: JsonObject? = null,
+    val email: String? = null,
+) {
+    abstract fun toJson(): JsonObject
 
-    protected constructor(copy: PaymentMethodInfo) {
-        company = copy.company
-        firstName = copy.firstName
-        lastName = copy.lastName
-        fullName = copy.fullName
-        address = copy.address
-        shippingAddress = copy.shippingAddress
-        retained = copy.retained
-        metadata = copy.metadata
-        email = copy.email
-    }
-
-    protected constructor() {}
-
-    fun addCommonJsonFields(paymentMethod: JSONObject, subType: JSONObject) {
+    fun addCommonJsonFields(
+        paymentMethodEntries: MutableMap<String, JsonElement>,
+        subTypeEntries: MutableMap<String, JsonElement>,
+    ) {
         if (fullName != null) {
-            subType.put("full_name", fullName)
+            subTypeEntries.putAsJsonElement("full_name", fullName)
         } else {
-            subType.put("first_name", firstName)
-            subType.put("last_name", lastName)
+            subTypeEntries.putAsJsonElement("first_name", firstName)
+            subTypeEntries.putAsJsonElement("last_name", lastName)
         }
-        subType.put("company", company)
-        if (address != null) {
-            address!!.toJson(subType, "")
+        subTypeEntries.putAsJsonElement("company", company)
+        address?.let { it.toJson(subTypeEntries, "") }
+        shippingAddress?.let { it.toJson(subTypeEntries, "shipping_") }
+        paymentMethodEntries.putAsJsonElement("retained", retained)
+        metadata?.let {
+            paymentMethodEntries.put("metadata", it)
         }
-        if (shippingAddress != null) {
-            shippingAddress!!.toJson(subType, "shipping_")
-        }
-        paymentMethod.put("retained", retained)
-        if (metadata != null) {
-            paymentMethod.put("metadata", metadata)
-        }
-        if (email != null) {
-            paymentMethod.put("email", email)
+        email?.let {
+            paymentMethodEntries.putAsJsonElement("email", it)
         }
     }
 }

@@ -1,28 +1,27 @@
 package com.spreedly.client.models
 
-import org.json.JSONObject
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 
-class ApplePayInfo(firstName: String, lastName: String, paymentData: String) : PaymentMethodInfo() {
-    @kotlin.jvm.JvmField
+class ApplePayInfo(
+    firstName: String,
+    lastName: String,
+    private val paymentData: String
+) : PaymentMethodInfo(
+    firstName = firstName,
+    lastName = lastName,
+) {
     var testCardNumber: String? = null
-    @kotlin.jvm.JvmField
-    var paymentData: String
 
-    init {
-        this.firstName = firstName
-        this.lastName = lastName
-        this.paymentData = paymentData
-    }
-
-    public override fun toJson(): JSONObject {
-        val wrapper = JSONObject()
-        val paymentMethod = JSONObject()
-        val applePay = JSONObject()
+    override fun toJson(): JsonObject {
+        val paymentMethod = mutableMapOf<String, JsonElement>()
+        val applePay = mutableMapOf<String, JsonElement>()
         addCommonJsonFields(paymentMethod, applePay)
-        applePay.put("payment_data", paymentData)
-        applePay.put("test_card_number", testCardNumber)
-        paymentMethod.put("apple_pay", applePay)
-        wrapper.put("payment_method", paymentMethod)
-        return wrapper
+        applePay.putAsJsonElement("payment_data", paymentData)
+        applePay.putAsJsonElement("test_card_number", testCardNumber)
+        paymentMethod.put("apple_pay", JsonObject(applePay))
+        return JsonObject(
+            mapOf("payment_method" to JsonObject(paymentMethod)),
+        )
     }
 }

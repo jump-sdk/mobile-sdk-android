@@ -1,17 +1,16 @@
 package com.spreedly.client.models.results
 
-import java.util.Date
+import kotlinx.datetime.Instant
 
-/// Bank Account Result
-class BankAccountResult(
-    token: String?,
-    storageState: String?,
-    test: Boolean,
-    paymentMethodType: String?,
-    createdAt: Date?,
-    updatedAt: Date?,
-    email: String?,
-    errors: List<SpreedlyError>?,
+data class BankAccountResult(
+    override val token: String?,
+    override val storageState: String?,
+    override val test: Boolean,
+    override val paymentMethodType: String?,
+    override val createdAt: Instant?,
+    override val updatedAt: Instant?,
+    override val email: String?,
+    override val errors: List<SpreedlyError>?,
     val bankName: String?,
     val accountType: String?,
     val accountHolderType: String?,
@@ -22,13 +21,4 @@ class BankAccountResult(
     val firstName: String?,
     val lastName: String?,
     val fullName: String?
-) : PaymentMethodResult(
-    token,
-    storageState,
-    test,
-    paymentMethodType,
-    createdAt,
-    updatedAt,
-    email,
-    errors
-)
+) : PaymentMethodResult

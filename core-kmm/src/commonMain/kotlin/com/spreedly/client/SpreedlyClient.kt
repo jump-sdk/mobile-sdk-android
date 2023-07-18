@@ -9,7 +9,6 @@ import com.spreedly.client.models.results.BankAccountResult
 import com.spreedly.client.models.results.CreditCardResult
 import com.spreedly.client.models.results.PaymentMethodResult
 import com.spreedly.client.models.results.TransactionResult
-import io.reactivex.rxjava3.core.Single
 
 /**
  * SpreedlyClient
@@ -19,18 +18,16 @@ import io.reactivex.rxjava3.core.Single
  */
 interface SpreedlyClient {
     fun createString(string: String): SpreedlySecureOpaqueString
-    fun createCreditCardPaymentMethod(info: CreditCardInfo): Single<TransactionResult<CreditCardResult>>
-    fun createBankPaymentMethod(info: BankAccountInfo): Single<TransactionResult<BankAccountResult?>>
-    fun createGooglePaymentMethod(info: GooglePayInfo): Single<TransactionResult<PaymentMethodResult>>
-    fun createApplePaymentMethod(info: ApplePayInfo): Single<TransactionResult<PaymentMethodResult>>
-    fun recache(
+    suspend fun createCreditCardPaymentMethod(info: CreditCardInfo): TransactionResult<CreditCardResult>
+    suspend fun createBankPaymentMethod(info: BankAccountInfo): TransactionResult<BankAccountResult?>
+    suspend fun createGooglePaymentMethod(info: GooglePayInfo): TransactionResult<CreditCardResult>
+    suspend fun createApplePaymentMethod(info: ApplePayInfo): TransactionResult<CreditCardResult>
+    suspend fun recache(
         token: String,
-        cvv: SpreedlySecureOpaqueString
-    ): Single<TransactionResult<PaymentMethodResult>>
+        cvv: SpreedlySecureOpaqueString,
+    ): TransactionResult<CreditCardResult>
 
-    val credentials: String?
     val platformLocalData: String
-    fun setPlatformData(value: String?)
 
     companion object {
         fun newInstance(envKey: String, test: Boolean): SpreedlyClient {

@@ -1,16 +1,16 @@
 package com.spreedly.client.models.results
 
-import java.util.Date
+import kotlinx.datetime.Instant
 
 class CreditCardResult(
-    token: String,
-    storageState: String?,
-    test: Boolean,
-    paymentMethodType: String?,
-    errors: List<SpreedlyError>?,
-    createdAt: Date?,
-    updatedAt: Date?,
-    email: String?,
+    override val token: String,
+    override val storageState: String?,
+    override val test: Boolean,
+    override val paymentMethodType: String?,
+    override val errors: List<SpreedlyError>?,
+    override val createdAt: Instant?,
+    override val updatedAt: Instant?,
+    override val email: String?,
     val lastFourDigits: String?,
     val firstSixDigits: String?,
     val cvv: String?,
@@ -18,13 +18,4 @@ class CreditCardResult(
     val number: String?,
     val month: String?,
     val year: String?
-) : PaymentMethodResult(
-    token,
-    storageState,
-    test,
-    paymentMethodType,
-    createdAt,
-    updatedAt,
-    email,
-    errors
-)
+) : PaymentMethodResult

@@ -1,30 +1,29 @@
 package com.spreedly.client.models
 
-import org.json.JSONObject
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 
-class GooglePayInfo(firstName: String, lastName: String, paymentData: String, retained: Boolean) :
-    PaymentMethodInfo() {
-    @kotlin.jvm.JvmField
-    var paymentData: String
-    @kotlin.jvm.JvmField
+class GooglePayInfo(
+    firstName: String,
+    lastName: String,
+    private val paymentData: String,
+    retained: Boolean
+) : PaymentMethodInfo(
+    firstName = firstName,
+    lastName = lastName,
+    retained = retained,
+) {
     var testCardNumber: String? = null
 
-    init {
-        this.firstName = firstName
-        this.lastName = lastName
-        this.retained = retained
-        this.paymentData = paymentData
-    }
-
-    public override fun toJson(): JSONObject {
-        val wrapper = JSONObject()
-        val paymentMethod = JSONObject()
-        val googlePay = JSONObject()
+    public override fun toJson(): JsonObject {
+        val paymentMethod = mutableMapOf<String, JsonElement>()
+        val googlePay = mutableMapOf<String, JsonElement>()
         addCommonJsonFields(paymentMethod, googlePay)
-        googlePay.put("payment_data", paymentData)
-        googlePay.put("test_card_number", testCardNumber)
-        paymentMethod.put("google_pay", googlePay)
-        wrapper.put("payment_method", paymentMethod)
-        return wrapper
+        googlePay.putAsJsonElement("payment_data", paymentData)
+        googlePay.putAsJsonElement("test_card_number", testCardNumber)
+        paymentMethod.put("google_pay", JsonObject(googlePay))
+        return JsonObject(
+            mapOf("payment_method" to JsonObject(paymentMethod)),
+        )
     }
 }

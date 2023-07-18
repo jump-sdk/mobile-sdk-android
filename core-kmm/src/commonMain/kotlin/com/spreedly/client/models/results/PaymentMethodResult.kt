@@ -1,15 +1,14 @@
 package com.spreedly.client.models.results
 
-import java.util.Date
+import kotlinx.datetime.Instant
 
-open class PaymentMethodResult(
-    val token: String?,
-    val storageState: String?,
-    val test: Boolean,
-    //maybe enum
-    val paymentMethodType: String?,
-    val createdAt: Date?,
-    val updatedAt: Date?,
-    val email: String?,
+interface PaymentMethodResult {
+    val token: String?
+    val storageState: String?
+    val test: Boolean
+    val paymentMethodType: String?
+    val createdAt: Instant?
+    val updatedAt: Instant?
+    val email: String?
     val errors: List<SpreedlyError>?
-)
+}

@@ -1,21 +1,14 @@
 package com.spreedly.client.models
 
 import com.spreedly.client.models.enums.CardBrand
-import java.util.regex.Pattern
 
 class SpreedlySecureOpaqueString {
     private var data: String
-    @kotlin.jvm.JvmField
-    var length: Int
+    private var length: Int
 
     constructor() {
         data = ""
         length = 0
-    }
-
-    constructor(text: String?) {
-        data = text!!
-        length = text.length
     }
 
     fun clear() {
@@ -46,7 +39,7 @@ class SpreedlySecureOpaqueString {
         if (!checkIsValid(data)) {
             return CardBrand.error
         }
-        if (Pattern.matches("^4[0-9]{12}([0-9]{3})?([0-9]{3})?$", data)) {
+        if (Regex("^4[0-9]{12}([0-9]{3})?([0-9]{3})?$").matches(data)) {
             return CardBrand.visa
         } else if (data.length == 16 && inRanges(CardBrand.mastercard.range, data, 6)) {
             return CardBrand.mastercard
@@ -54,41 +47,40 @@ class SpreedlySecureOpaqueString {
             return CardBrand.elo
         } else if (data.length == 16 && inRanges(CardBrand.alelo.range, data, 6)) {
             return CardBrand.alelo
-        } else if (Pattern.matches(
-                "^(6011|65[0-9]{2}|64[4-9][0-9])[0-9]{12,15}|(62[0-9]{14,17})$",
-                data
-            ) && !Pattern.matches("^627416[0-9]{10}$", data)
+        } else if (
+            Regex("^(6011|65[0-9]{2}|64[4-9][0-9])[0-9]{12,15}|(62[0-9]{14,17})$")
+                .matches(data) && !Regex("^627416[0-9]{10}$").matches(data)
         ) {
             return CardBrand.discover
-        } else if (Pattern.matches("^3[47][0-9]{13}$", data)) {
+        } else if (Regex("^3[47][0-9]{13}$").matches(data)) {
             return CardBrand.americanExpress
         } else if (data.length == 16 && binMatch(CardBrand.naranja.bins, data)) {
             return CardBrand.naranja
-        } else if (Pattern.matches("^3(0[0-5]|[68][0-9])[0-9]{11}$", data)) {
+        } else if (Regex("^3(0[0-5]|[68][0-9])[0-9]{11}$").matches(data)) {
             return CardBrand.dinersClub
-        } else if (Pattern.matches("^35(28|29|[3-8][0-9])[0-9]{12}$", data)) {
+        } else if (Regex("^35(28|29|[3-8][0-9])[0-9]{12}$").matches(data)) {
             return CardBrand.jcb
-        } else if (Pattern.matches("^5019[0-9]{12}$", data)) {
+        } else if (Regex("^5019[0-9]{12}$").matches(data)) {
             return CardBrand.dankort
-        } else if (data.length >= 12 && (inRanges(CardBrand.maestro.range, data, 6) || binMatch(
-                CardBrand.maestro.bins,
-                data
-            ))
+        } else if (data.length >= 12 && (
+                inRanges(CardBrand.maestro.range, data, 6) || binMatch(
+                    CardBrand.maestro.bins,
+                    data,
+                )
+                )
         ) {
             return CardBrand.maestro
-        } else if (Pattern.matches(
-                "^(606071|603389|606070|606069|606068|600818)[0-9]{10}$",
-                data
-            )
+        } else if (
+            Regex("^(606071|603389|606070|606069|606068|600818)[0-9]{10}$").matches(data)
         ) {
             return CardBrand.sodexo
-        } else if (Pattern.matches("^(627416|637036)[0-9]{10}$", data)) {
+        } else if (Regex("^(627416|637036)[0-9]{10}$").matches(data)) {
             return CardBrand.vr
         } else if (data.length == 16 && inRanges(CardBrand.cabal.range, data, 8)) {
             return CardBrand.cabal
         } else if (data.length == 16 && inRanges(CardBrand.carnet.range, data, 6) || binMatch(
                 CardBrand.carnet.bins,
-                data
+                data,
             )
         ) {
             return CardBrand.carnet
@@ -109,37 +101,36 @@ class SpreedlySecureOpaqueString {
             return CardBrand.elo
         } else if (inRanges(CardBrand.alelo.range, data, 6)) {
             return CardBrand.alelo
-        } else if (Pattern.matches(
-                "^(6011|65[0-9]{2}|64[4-9][0-9])[0-9]{12,15}|(62[0-9]{14,17})$",
-                data
-            ) && !Pattern.matches("^627416[0-9]{10}$", data)
+        } else if (
+            Regex("^(6011|65[0-9]{2}|64[4-9][0-9])[0-9]{12,15}|(62[0-9]{14,17})$")
+                .matches(data) && !Regex("^627416[0-9]{10}$").matches(data)
         ) {
             return CardBrand.discover
-        } else if (Pattern.matches("^3[47][0-9]*", data)) {
+        } else if (Regex("^3[47][0-9]*").matches(data)) {
             return CardBrand.americanExpress
         } else if (binMatch(CardBrand.naranja.bins, data)) {
             return CardBrand.naranja
-        } else if (Pattern.matches("^3(0[0-5]|[68][0-9])[0-9]*", data)) {
+        } else if (Regex("^3(0[0-5]|[68][0-9])[0-9]*").matches(data)) {
             return CardBrand.dinersClub
-        } else if (Pattern.matches("^35(28|29|[3-8][0-9]*)", data)) {
+        } else if (Regex("^35(28|29|[3-8][0-9]*)").matches(data)) {
             return CardBrand.jcb
-        } else if (Pattern.matches("^5019[0-9]*", data)) {
+        } else if (Regex("^5019[0-9]*").matches(data)) {
             return CardBrand.dankort
         } else if (inRanges(CardBrand.maestro.range, data, 6) || binMatch(
                 CardBrand.maestro.bins,
-                data
+                data,
             )
         ) {
             return CardBrand.maestro
-        } else if (Pattern.matches("^(606071|603389|606070|606069|606068|600818)[0-9]*", data)) {
+        } else if (Regex("^(606071|603389|606070|606069|606068|600818)[0-9]*").matches(data)) {
             return CardBrand.sodexo
-        } else if (Pattern.matches("^(627416|637036)[0-9]{10}$", data)) {
+        } else if (Regex("^(627416|637036)[0-9]{10}$").matches(data)) {
             return CardBrand.vr
         } else if (inRanges(CardBrand.cabal.range, data, 8)) {
             return CardBrand.cabal
         } else if (inRanges(CardBrand.carnet.range, data, 6) || binMatch(
                 CardBrand.carnet.bins,
-                data
+                data,
             )
         ) {
             return CardBrand.carnet
@@ -177,22 +168,22 @@ class SpreedlySecureOpaqueString {
             }
         }
 
-    fun inRanges(ranges: Array<Range?>?, input: String, length: Int): Boolean {
-        if (length > input.length) {
-            return false
-        }
+    private fun inRanges(ranges: List<IntRange>?, input: String, length: Int): Boolean {
+        if (length > input.length) { return false }
+        if (ranges == null) { return true }
         val number = input.substring(0, length).toInt()
-        for (i in ranges!!.indices) {
-            if (ranges[i]!!.inRange(number)) {
+        ranges.forEach {
+            if (it.contains(number)) {
                 return true
             }
         }
         return false
     }
 
-    fun binMatch(bins: Array<String?>?, number: String): Boolean {
-        for (i in bins!!.indices) {
-            if (number.startsWith(bins[i]!!)) {
+    private fun binMatch(bins: List<String>?, number: String): Boolean {
+        if (bins == null) { return true }
+        bins.forEach {
+            if (number.startsWith(it)) {
                 return true
             }
         }

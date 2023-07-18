@@ -1,72 +1,80 @@
 package com.spreedly.client.models
 
-import org.json.JSONObject
-import java.io.Serializable
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.jsonPrimitive
 
-class Address : Serializable {
-    @kotlin.jvm.JvmField
-    var address1: String? = null
-    @kotlin.jvm.JvmField
-    var address2: String? = null
-    @kotlin.jvm.JvmField
-    var city: String? = null
-    @kotlin.jvm.JvmField
-    var state: String? = null
-    @kotlin.jvm.JvmField
-    var zip: String? = null
-    @kotlin.jvm.JvmField
-    var country: String? = null
-    @kotlin.jvm.JvmField
-    var phoneNumber: String? = null
+class Address(
+    val address1: String? = null,
+    val address2: String? = null,
+    val city: String? = null,
+    val state: String? = null,
+    val zip: String? = null,
+    val country: String? = null,
+    val phoneNumber: String? = null,
+) {
 
-    constructor() {}
-    constructor(
-        address1: String?,
-        address2: String?,
-        city: String?,
-        state: String?,
-        zip: String?,
-        country: String?,
-        phoneNumber: String?
-    ) {
-        this.address1 = address1
-        this.address2 = address2
-        this.city = city
-        this.state = state
-        this.zip = zip
-        this.country = country
-        this.phoneNumber = phoneNumber
+    fun toJson(jsonObject: JsonObject?, prefix: String): JsonObject {
+        val jsonEntries: MutableMap<String, JsonElement> =
+            jsonObject?.toMutableMap() ?: mutableMapOf()
+        return JsonObject(toJson(jsonEntries, prefix))
     }
 
-    fun toJson(json: JSONObject?, prefix: String): JSONObject {
-        var json = json
-        if (json == null) json = JSONObject()
-        json.put(prefix + "address1", address1)
-        json.put(prefix + "address2", address2)
-        json.put(prefix + "city", city)
-        json.put(prefix + "state", state)
-        json.put(prefix + "zip", zip)
-        json.put(prefix + "country", country)
-        json.put(prefix + "phone_number", phoneNumber)
-        return json
+    fun toJson(
+        jsonEntries: MutableMap<String, JsonElement>,
+        prefix: String,
+    ): MutableMap<String, JsonElement> {
+        jsonEntries.putAsJsonElement(prefix + "address1", address1)
+        jsonEntries.putAsJsonElement(prefix + "address2", address2)
+        jsonEntries.putAsJsonElement(prefix + "city", city)
+        jsonEntries.putAsJsonElement(prefix + "state", state)
+        jsonEntries.putAsJsonElement(prefix + "zip", zip)
+        jsonEntries.putAsJsonElement(prefix + "country", country)
+        jsonEntries.putAsJsonElement(prefix + "phone_number", phoneNumber)
+        return jsonEntries
     }
 
     companion object {
-        @kotlin.jvm.JvmStatic
-        fun fromJson(json: JSONObject, prefix: String): Address? {
-            return if (json.has(prefix + "address1")) {
+        fun fromJson(json: JsonObject, prefix: String): Address? {
+            return if (json.containsKey(prefix + "address1")) {
                 Address(
-                    json.optString(prefix + "address1"),
-                    json.optString(prefix + "address2"),
-                    json.optString(prefix + "city"),
-                    json.optString(prefix + "state"),
-                    json.optString(prefix + "zip"),
-                    json.optString(prefix + "country"),
-                    json.optString(prefix + "phone_number")
+                    address1 = json[prefix + "address1"]?.jsonPrimitive?.contentOrNull,
+                    address2 = json[prefix + "address2"]?.jsonPrimitive?.contentOrNull,
+                    city = json[prefix + "city"]?.jsonPrimitive?.contentOrNull,
+                    state = json[prefix + "state"]?.jsonPrimitive?.contentOrNull,
+                    zip = json[prefix + "zip"]?.jsonPrimitive?.contentOrNull,
+                    country = json[prefix + "country"]?.jsonPrimitive?.contentOrNull,
+                    phoneNumber = json[prefix + "phone_number"]?.jsonPrimitive?.contentOrNull,
                 )
             } else {
                 null
             }
         }
+    }
+}
+
+internal fun MutableMap<String, JsonElement>.putAsJsonElement(key: String, value: String?) {
+    value?.let {
+        this.put(key, JsonPrimitive(it))
+    } ?: run {
+        this.remove(key)
+    }
+}
+
+internal fun MutableMap<String, JsonElement>.putAsJsonElement(key: String, value: Boolean?) {
+    value?.let {
+        this.put(key, JsonPrimitive(it))
+    } ?: run {
+        this.remove(key)
+    }
+}
+
+internal fun MutableMap<String, JsonElement>.putAsJsonElement(key: String, value: Int?) {
+    value?.let {
+        this.put(key, JsonPrimitive(it))
+    } ?: run {
+        this.remove(key)
     }
 }

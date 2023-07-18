@@ -1,15 +1,18 @@
 package com.spreedly.client.models
 
-import org.json.JSONObject
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 
 class RecacheInfo(val cvv: SpreedlySecureOpaqueString) {
-    fun toJson(): JSONObject {
-        val wrapper = JSONObject()
-        val paymentMethod = JSONObject()
-        val creditCard = JSONObject()
-        creditCard.put("verification_value", cvv._encode())
-        paymentMethod.put("credit_card", creditCard)
-        wrapper.put("payment_method", paymentMethod)
-        return wrapper
+    fun toJson(): JsonObject {
+        val creditCard = JsonObject(
+            mapOf("verification_value" to JsonPrimitive(cvv._encode())),
+        )
+        val paymentMethod = JsonObject(
+            mapOf("credit_card" to creditCard),
+        )
+        return JsonObject(
+            mapOf("payment_method" to paymentMethod),
+        )
     }
 }
