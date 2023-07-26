@@ -27,11 +27,8 @@ internal class SpreedlyClientImpl(
     private val authenticatedURL = "/payment_methods.json"
     private val unauthenticatedURL = "/payment_methods/restricted.json"
 
-    override fun createString(string: String): SpreedlySecureOpaqueString {
-        val spreedlySecureOpaqueString = SpreedlySecureOpaqueString()
-        spreedlySecureOpaqueString.append(string)
-        return spreedlySecureOpaqueString
-    }
+    override fun createString(string: String): SpreedlySecureOpaqueString =
+        SpreedlySecureOpaqueString(string)
 
     override suspend fun createCreditCardPaymentMethod(info: CreditCardInfo): TransactionResult<CreditCardResult> {
         val authenticated = shouldDoAuthenticatedRequest(info)

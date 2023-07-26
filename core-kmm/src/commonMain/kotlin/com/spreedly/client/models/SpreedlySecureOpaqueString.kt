@@ -4,21 +4,18 @@ import com.spreedly.client.models.enums.CardBrand
 
 class SpreedlySecureOpaqueString {
     private var data: String
-    private var length: Int
+    private val length: Int get() = data.length
 
-    constructor() {
-        data = ""
-        length = 0
+    constructor(data: String) {
+        this.data = data
     }
 
     fun clear() {
         data = ""
-        length = 0
     }
 
     fun append(string: String) {
         data += string
-        length = data.length
     }
 
     fun removeLastCharacter() {
@@ -26,15 +23,14 @@ class SpreedlySecureOpaqueString {
             return
         }
         data = data.substring(0, length - 1)
-        length = data.length
     }
 
     fun _encode(): String {
-        data = data.replace(" ".toRegex(), "")
+        data = data.replace(" ", "")
         return data
     }
 
-    fun detectCardType(): CardBrand? {
+    fun detectCardType(): CardBrand {
         data = data.replace(" ".toRegex(), "")
         if (!checkIsValid(data)) {
             return CardBrand.error
@@ -88,7 +84,7 @@ class SpreedlySecureOpaqueString {
         return CardBrand.unknown
     }
 
-    fun softDetect(): CardBrand? {
+    fun softDetect(): CardBrand {
         data = data.replace(" ".toRegex(), "")
         if (length > 19) {
             return CardBrand.unknown

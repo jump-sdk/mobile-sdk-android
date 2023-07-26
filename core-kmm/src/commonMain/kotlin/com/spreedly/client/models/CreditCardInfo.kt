@@ -4,10 +4,10 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
 class CreditCardInfo(
-    private val number: SpreedlySecureOpaqueString,
-    private val verificationValue: SpreedlySecureOpaqueString,
-    private val month: Int = 0,
-    private val year: Int = 0,
+    val number: SpreedlySecureOpaqueString,
+    val verificationValue: SpreedlySecureOpaqueString,
+    val month: Int = 0,
+    val year: Int = 0,
     private val allowBlankName: Boolean? = null,
     private val allowExpiredDate: Boolean? = null,
     private val allowBlankDate: Boolean? = null,
