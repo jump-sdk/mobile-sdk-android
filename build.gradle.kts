@@ -5,6 +5,7 @@ plugins {
     id("com.android.library") version libs.versions.android.gradle.plugin.get() apply false
     id("com.android.application") version libs.versions.android.gradle.plugin apply false
     id("io.gitlab.arturbosch.detekt") version libs.versions.detekt.get()
+    id("org.sonarqube") version "4.2.1.3168"
 }
 
 allprojects {
@@ -32,5 +33,13 @@ allprojects {
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:$detektVersion")
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
         detektPlugins("com.braisgabin.detekt:kotlin-compiler-wrapper:0.0.4")
+    }
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "jump-sdk_mobile-sdk-android")
+        property("sonar.organization", "jump-sdk")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
