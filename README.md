@@ -1,5 +1,9 @@
 [![Android CI](https://github.com/jump-sdk/mobile-sdk-android/actions/workflows/android.yml/badge.svg)](https://github.com/jump-sdk/mobile-sdk-android/actions/workflows/android.yml)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jump-sdk_mobile-sdk-android&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jump-sdk_mobile-sdk-android)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=jump-sdk_mobile-sdk-android&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=jump-sdk_mobile-sdk-android)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=jump-sdk_mobile-sdk-android&metric=bugs)](https://sonarcloud.io/summary/new_code?id=jump-sdk_mobile-sdk-android)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jump-sdk_mobile-sdk-android&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=jump-sdk_mobile-sdk-android)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jump-sdk_mobile-sdk-android&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=jump-sdk_mobile-sdk-android)
 [![Known Vulnerabilities](https://snyk.io/test/github/jump-sdk/mobile-sdk-android/badge.svg)](https://snyk.io/test/github/jump-sdk/mobile-sdk-android)
 
 
