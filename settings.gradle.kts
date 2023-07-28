@@ -7,7 +7,6 @@ pluginManagement {
     }
 }
 
-include(":core-sdk")
 include(":sdk_sample")
 include(":securewidgets")
 include(":core-kmm")

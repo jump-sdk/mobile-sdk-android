@@ -1,10 +1,7 @@
-![Lint](https://api.cirrus-ci.com/github/ergonlabs/spreedly-android.svg?test=Lint%20check%20sources)
-![Test](https://api.cirrus-ci.com/github/ergonlabs/spreedly-android.svg?test=Run%20Tests)
-![Build](https://api.cirrus-ci.com/github/ergonlabs/spreedly-android.svg?test=Build%20Libraries)
+[![Android CI](https://github.com/jump-sdk/mobile-sdk-android/actions/workflows/android.yml/badge.svg)](https://github.com/jump-sdk/mobile-sdk-android/actions/workflows/android.yml)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jump-sdk_mobile-sdk-android&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jump-sdk_mobile-sdk-android)
+[![Known Vulnerabilities](https://snyk.io/test/github/jump-sdk/mobile-sdk-android/badge.svg)](https://snyk.io/test/github/jump-sdk/mobile-sdk-android)
 
-# spreedly-android
-
-Not actively maintained at this time. Contact Support with questions.
 
 # Integration
 All integration options require a Spreedly account and an environment key. See [Create Your API Credentials](https://docs.spreedly.com/basics/credentials/#environment-key) for details.
