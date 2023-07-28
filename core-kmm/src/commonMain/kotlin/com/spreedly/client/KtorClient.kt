@@ -40,6 +40,7 @@ class KtorClient(
     private val client = HttpClient(engine) {
         expectSuccess = false
         install(ContentNegotiation) {
+            @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
             json(
                 Json {
                     encodeDefaults = true

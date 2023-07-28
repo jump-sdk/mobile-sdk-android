@@ -1,7 +1,0 @@
-include ':spreedly3ds2'
-include ':sdk-seglan-release'
-include ':core-sdk'
-include ':sdk_sample'
-include ':securewidgets'
-include ':express'
-include ':core-kmm'

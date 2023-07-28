@@ -1,27 +1,15 @@
-object Versions {
-    const val ktor = "2.3.2"
-    const val kotlin = "1.8.22"
-}
-
 plugins {
-    kotlin("multiplatform") version "1.8.22"
-    kotlin("plugin.serialization") version "1.8.22"
+    kotlin("multiplatform")
+    kotlin("plugin.serialization")
     id("com.android.library")
+    id("io.gitlab.arturbosch.detekt") version libs.versions.detekt.get()
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 @Suppress("UnusedPrivateProperty")
 kotlin {
     targetHierarchy.default()
-
-    android {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-    }
-
+    androidTarget()
     listOf(
         iosX64(),
         iosArm64(),
@@ -35,22 +23,19 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-core:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-content-negotiation:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-logging:${Versions.ktor}")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:${Versions.ktor}")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                implementation(libs.bundles.ktor.common)
+                implementation(libs.kotlinx.dateTime)
+                implementation(libs.coroutines.core)
             }
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test"))
+                implementation(libs.bundles.commonTest)
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
+                implementation(libs.ktor.client.okHttp)
             }
         }
         val iosX64Main by getting
@@ -62,7 +47,7 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:${Versions.ktor}")
+                implementation(libs.ktor.client.ios)
             }
         }
     }
@@ -70,8 +55,12 @@ kotlin {
 
 android {
     namespace = "com.spreedly.client"
-    compileSdk = 33
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.minSdk.get().toInt()
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
