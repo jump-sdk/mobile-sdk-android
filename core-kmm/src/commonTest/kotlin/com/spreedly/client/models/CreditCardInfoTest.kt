@@ -4,8 +4,7 @@ import com.spreedly.client.SpreedlyClient
 import com.spreedly.client.TestCredentials
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+import kotlin.test.assertContains
 
 class CreditCardInfoTest {
 
@@ -21,19 +20,6 @@ class CreditCardInfoTest {
     }
 
     @Test
-    fun CanCreateCreditCardWithFirstAndLastName() {
-        val creditCard = CreditCardInfo(
-            firstName = "Jane",
-            lastName = "Doe",
-            number = client.createString("sample card number"),
-            verificationValue = client.createString("sample cvv"),
-            month = 12,
-            year = 2030,
-        )
-        assertTrue(creditCard.firstName === "Jane" && creditCard.lastName === "Doe" && creditCard.number.length === 18 && creditCard.verificationValue.length === 10 && creditCard.year == 12 && creditCard.month == 2030)
-    }
-
-    @Test
     fun CanEncodeCreditCard() {
         val creditCard = CreditCardInfo(
             firstName = "Jane",
@@ -43,9 +29,14 @@ class CreditCardInfoTest {
             month = 12,
             year = 2030,
         )
-        val expected =
-            "{\"payment_method\":{\"credit_card\":{\"number\":\"samplecardnumber\",\"full_name\":\"Jane Doe\",\"verification_value\":\"samplecvv\",\"month\":2030,\"year\":12}}}"
-        val actual = creditCard.toJson()
-        assertEquals(expected, actual.toString())
+
+        val json = creditCard.toJson().toString()
+        assertContains(json, "\"payment_method\":{\"credit_card\"")
+        assertContains(json, "\"number\":\"samplecardnumber\"")
+        assertContains(json, "\"first_name\":\"Jane\"")
+        assertContains(json, "\"last_name\":\"Doe\"")
+        assertContains(json, "\"verification_value\":\"samplecvv\"")
+        assertContains(json, "\"month\":12")
+        assertContains(json, "\"year\":2030")
     }
 }

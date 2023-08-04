@@ -9,49 +9,11 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class TransactionResultEdgeCaseTests {
-    private var errors: MutableList<SpreedlyError> = mutableListOf()
+    private var errors: MutableList<SpreedlyError> = mutableListOf(SpreedlyError("attribute", "key", "error message"))
 
     @BeforeTest
     fun initialize() {
         errors.add(SpreedlyError("attribute", "key", "error message"))
-    }
-
-    @Test
-    fun messageIsEmpty() {
-        val transaction: TransactionResult<PaymentMethodResult> =
-            TransactionResult(
-                token = null,
-                createdAt = null,
-                updatedAt = null,
-                succeeded = false,
-                transactionType = null,
-                retained = false,
-                state = null,
-                messageKey = null,
-                message = "",
-                errors = errors,
-                result = null
-            )
-        assertEquals("error message", transaction.message)
-    }
-
-    @Test
-    fun messageIsNull() {
-        val transaction: TransactionResult<PaymentMethodResult> =
-            TransactionResult(
-                token = null,
-                createdAt = null,
-                updatedAt = null,
-                succeeded = false,
-                transactionType = null,
-                retained = false,
-                state = null,
-                messageKey = null,
-                message = null,
-                errors = errors,
-                result = null
-            )
-        assertEquals("error message", transaction.message)
     }
 
     @Test

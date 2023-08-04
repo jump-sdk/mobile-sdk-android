@@ -12,7 +12,7 @@ class BankAccountInfo(
     val accountNumber: SpreedlySecureOpaqueString,
     val accountType: AccountType?,
     val accountHolderType: AccountHolderType? = null,
-    retained: Boolean = false,
+    retained: Boolean? = null,
 ) : PaymentMethodInfo(
     firstName = firstName,
     lastName = lastName,
@@ -25,14 +25,13 @@ class BankAccountInfo(
         addCommonJsonFields(paymentMethod, bankAccount)
         bankAccount.putAsJsonElement("bank_routing_number", routingNumber)
         bankAccount.putAsJsonElement("bank_account_number", accountNumber._encode())
-        try {
-            bankAccount.putAsJsonElement("bank_account_type", accountType.toString().lowercase())
-        } catch (e: NullPointerException) {
+        accountType?.also {
+            bankAccount.putAsJsonElement("bank_account_type", it.toString().lowercase())
+        } ?: run {
             bankAccount.putAsJsonElement("bank_account_type", "")
         }
-        try {
-            bankAccount.putAsJsonElement("bank_account_holder_type", accountHolderType.toString().lowercase())
-        } catch (e: NullPointerException) {
+        accountHolderType?.let {
+            bankAccount.putAsJsonElement("bank_account_holder_type", it.toString().lowercase())
         }
         paymentMethod.put("bank_account", JsonObject(bankAccount))
         return JsonObject(

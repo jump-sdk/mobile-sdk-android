@@ -7,7 +7,7 @@ class ApplePayInfo(
     firstName: String,
     lastName: String,
     val paymentData: String,
-    retained: Boolean = false,
+    retained: Boolean? = null,
 ) : PaymentMethodInfo(
     firstName = firstName,
     lastName = lastName,
