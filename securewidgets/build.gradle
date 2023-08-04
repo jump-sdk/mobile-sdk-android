@@ -4,12 +4,11 @@ apply plugin: 'com.android.library'
 project.ext.set('pubName', 'securewidgets')
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 34
     namespace 'com.spreedly.securewidgets'
     defaultConfig {
-        minSdkVersion 24
-        targetSdkVersion 31
+        minSdkVersion 26
+        targetSdkVersion 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'

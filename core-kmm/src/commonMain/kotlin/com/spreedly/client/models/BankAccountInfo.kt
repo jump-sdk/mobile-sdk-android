@@ -6,11 +6,18 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
 class BankAccountInfo(
-    val routingNumber: String? = null,
+    firstName: String,
+    lastName: String,
+    val routingNumber: String,
     val accountNumber: SpreedlySecureOpaqueString,
-    val accountType: AccountType? = null,
+    val accountType: AccountType?,
     val accountHolderType: AccountHolderType? = null,
-) : PaymentMethodInfo() {
+    retained: Boolean = false,
+) : PaymentMethodInfo(
+    firstName = firstName,
+    lastName = lastName,
+    retained = retained,
+) {
 
     override fun toJson(): JsonObject {
         val paymentMethod = mutableMapOf<String, JsonElement>()

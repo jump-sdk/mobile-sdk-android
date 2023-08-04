@@ -4,15 +4,15 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
 abstract class PaymentMethodInfo(
-    val company: String? = null,
-    val firstName: String? = null,
-    val lastName: String? = null,
-    val fullName: String? = null,
-    val address: Address? = null,
-    val shippingAddress: Address? = null,
-    val retained: Boolean? = null,
-    val metadata: JsonObject? = null,
-    val email: String? = null,
+    open val company: String? = null,
+    open val firstName: String? = null,
+    open val lastName: String? = null,
+    open val fullName: String? = null,
+    open val address: Address? = null,
+    open val shippingAddress: Address? = null,
+    open val retained: Boolean? = null,
+    open val metadata: JsonObject? = null,
+    open val email: String? = null,
 ) {
     abstract fun toJson(): JsonObject
 

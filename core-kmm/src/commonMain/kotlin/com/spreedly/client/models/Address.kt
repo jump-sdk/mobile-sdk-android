@@ -54,27 +54,3 @@ class Address(
         }
     }
 }
-
-internal fun MutableMap<String, JsonElement>.putAsJsonElement(key: String, value: String?) {
-    value?.let {
-        this.put(key, JsonPrimitive(it))
-    } ?: run {
-        this.remove(key)
-    }
-}
-
-internal fun MutableMap<String, JsonElement>.putAsJsonElement(key: String, value: Boolean?) {
-    value?.let {
-        this.put(key, JsonPrimitive(it))
-    } ?: run {
-        this.remove(key)
-    }
-}
-
-internal fun MutableMap<String, JsonElement>.putAsJsonElement(key: String, value: Int?) {
-    value?.let {
-        this.put(key, JsonPrimitive(it))
-    } ?: run {
-        this.remove(key)
-    }
-}

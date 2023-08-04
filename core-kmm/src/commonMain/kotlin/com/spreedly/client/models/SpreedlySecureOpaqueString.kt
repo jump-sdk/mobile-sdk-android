@@ -4,7 +4,7 @@ import com.spreedly.client.models.enums.CardBrand
 
 class SpreedlySecureOpaqueString {
     private var data: String
-    private val length: Int get() = data.length
+    val length: Int get() = data.length
 
     constructor(data: String) {
         this.data = data
@@ -164,7 +164,7 @@ class SpreedlySecureOpaqueString {
             }
         }
 
-    private fun inRanges(ranges: List<IntRange>?, input: String, length: Int): Boolean {
+    fun inRanges(ranges: List<IntRange>?, input: String, length: Int): Boolean {
         if (length > input.length) { return false }
         if (ranges == null) { return true }
         val number = input.substring(0, length).toInt()

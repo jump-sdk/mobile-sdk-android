@@ -6,7 +6,7 @@ import kotlinx.serialization.json.JsonObject
 class GooglePayInfo(
     firstName: String,
     lastName: String,
-    private val paymentData: String,
+    val paymentData: String,
     retained: Boolean
 ) : PaymentMethodInfo(
     firstName = firstName,
@@ -15,7 +15,7 @@ class GooglePayInfo(
 ) {
     var testCardNumber: String? = null
 
-    public override fun toJson(): JsonObject {
+    override fun toJson(): JsonObject {
         val paymentMethod = mutableMapOf<String, JsonElement>()
         val googlePay = mutableMapOf<String, JsonElement>()
         addCommonJsonFields(paymentMethod, googlePay)

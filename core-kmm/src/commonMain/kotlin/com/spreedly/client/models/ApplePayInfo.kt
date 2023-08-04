@@ -6,10 +6,12 @@ import kotlinx.serialization.json.JsonObject
 class ApplePayInfo(
     firstName: String,
     lastName: String,
-    private val paymentData: String
+    val paymentData: String,
+    retained: Boolean = false,
 ) : PaymentMethodInfo(
     firstName = firstName,
     lastName = lastName,
+    retained = retained,
 ) {
     var testCardNumber: String? = null
 

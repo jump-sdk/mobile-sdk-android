@@ -163,7 +163,7 @@ internal class SpreedlyClientImpl(
             }
     }
 
-    private fun parseDate(dateString: String?): Instant? {
+    fun parseDate(dateString: String?): Instant? {
         if (dateString == null) {
             return null
         }
