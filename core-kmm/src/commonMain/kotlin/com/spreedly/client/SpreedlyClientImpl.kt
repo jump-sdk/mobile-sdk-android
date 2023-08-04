@@ -24,8 +24,8 @@ internal class SpreedlyClientImpl(
     private val test: Boolean,
 ) : SpreedlyClient {
     private val client = KtorClient(key = key, secret = secret)
-    private val authenticatedURL = "/payment_methods.json"
-    private val unauthenticatedURL = "/payment_methods/restricted.json"
+    private val authenticatedURL = "/v1/payment_methods.json"
+    private val unauthenticatedURL = "/v1/payment_methods/restricted.json"
 
     override fun createString(string: String): SpreedlySecureOpaqueString =
         SpreedlySecureOpaqueString(string)
@@ -67,9 +67,9 @@ internal class SpreedlyClientImpl(
         cvv: SpreedlySecureOpaqueString,
     ): TransactionResult<CreditCardResult> {
         return client.sendRequest(
-            RecacheInfo(cvv).toJson(),
-            "/payment_methods/$token/recache.json",
-            true,
+            requestBody = RecacheInfo(cvv).toJson(),
+            url = "/v1/payment_methods/$token/recache.json",
+            authenticated = true,
         )
             .let { processCCMap(it) }
     }

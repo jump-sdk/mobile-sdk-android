@@ -4,7 +4,6 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=jump-sdk_mobile-sdk-android&metric=bugs)](https://sonarcloud.io/summary/new_code?id=jump-sdk_mobile-sdk-android)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jump-sdk_mobile-sdk-android&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=jump-sdk_mobile-sdk-android)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jump-sdk_mobile-sdk-android&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=jump-sdk_mobile-sdk-android)
-[![Known Vulnerabilities](https://snyk.io/test/github/jump-sdk/mobile-sdk-android/badge.svg)](https://snyk.io/test/github/jump-sdk/mobile-sdk-android)
 
 
 # Integration

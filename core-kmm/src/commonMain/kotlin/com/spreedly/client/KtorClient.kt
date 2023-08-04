@@ -14,6 +14,8 @@ import io.ktor.http.contentType
 import io.ktor.http.takeFrom
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.utils.io.core.toByteArray
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -21,10 +23,8 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
-import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
 
-private const val BASE_URL = "https://core.spreedly.com/v1"
+private const val BASE_URL = "https://core.spreedly.com"
 private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 expect val engine: HttpClientEngine
 
@@ -71,7 +71,6 @@ class KtorClient(
         } else {
             requestBody
         }
-//        requestBody.put("platform-meta", SpreedlyClientImpl.getPlatformData())
 
         client
             .post(url) {

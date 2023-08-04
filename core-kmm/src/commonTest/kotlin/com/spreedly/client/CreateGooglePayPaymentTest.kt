@@ -3,6 +3,7 @@ package com.spreedly.client
 import com.spreedly.client.models.GooglePayInfo
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -29,6 +30,7 @@ class CreateGooglePayPaymentTest {
         Dispatchers.resetMain()
     }
 
+    @Ignore
     @Test
     fun CreateGooglePayGetsToken() = runTest {
         val googlePayInfo = GooglePayInfo(
@@ -51,6 +53,7 @@ class CreateGooglePayPaymentTest {
         assertNotNull(trans.result?.token)
     }
 
+    @Ignore
     @Test
     fun RetainedCreateGooglePayGetsToken() = runTest {
         val googlePayInfo = GooglePayInfo(

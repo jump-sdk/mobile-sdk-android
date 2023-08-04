@@ -48,6 +48,9 @@ class RecacheTest {
     @Test
     fun BadTokenReturnsErrorMessage() = runTest {
         val trans = client.recache("notatoken", client.createString("423"))
-        assertEquals("Unable to find the specified payment method.", trans.message)
+        assertEquals(
+            expected = "Unable to find the specified payment method.",
+            actual = trans.errors?.first()?.message,
+        )
     }
 }

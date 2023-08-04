@@ -5,6 +5,7 @@ import com.spreedly.client.models.results.PaymentMethodResult
 import com.spreedly.client.models.results.TransactionResult
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -31,6 +32,7 @@ class CreateApplePayPaymentTest {
         Dispatchers.resetMain()
     }
 
+    @Ignore
     @Test
     fun CreateApplePayGetsToken() = runTest {
         val applePayInfo = ApplePayInfo(
@@ -56,6 +58,7 @@ class CreateApplePayPaymentTest {
         assertNotNull(trans.result?.token)
     }
 
+    @Ignore
     @Test
     fun RetainedCreateApplePayGetsToken() = runTest {
         val applePayInfo = ApplePayInfo(

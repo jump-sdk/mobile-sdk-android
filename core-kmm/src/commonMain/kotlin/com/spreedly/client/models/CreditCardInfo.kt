@@ -16,6 +16,11 @@ class CreditCardInfo(
     lastName = lastName,
     retained = retained,
 ) {
+    init {
+        require(year >= 2023) { "Year must be 2023 or later" }
+        require(month in 1..12) { "Month must be between 1 and 12" }
+    }
+
     override fun toJson(): JsonObject {
         val paymentMethod = mutableMapOf<String, JsonElement>()
         val creditCard = mutableMapOf<String, JsonElement>()

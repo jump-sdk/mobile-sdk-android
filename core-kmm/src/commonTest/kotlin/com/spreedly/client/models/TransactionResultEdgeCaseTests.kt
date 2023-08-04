@@ -30,7 +30,7 @@ class TransactionResultEdgeCaseTests {
                 messageKey = null,
                 message = "success message",
                 errors = errors,
-                result = null
+                result = null,
             )
         assertEquals("success message", transaction.message)
     }
@@ -49,7 +49,7 @@ class TransactionResultEdgeCaseTests {
                 messageKey = null,
                 message = null,
                 errors = listOf(),
-                result = null
+                result = null,
             )
         assertNull(transaction.message)
     }
@@ -68,7 +68,7 @@ class TransactionResultEdgeCaseTests {
                 messageKey = null,
                 message = null,
                 errors = null,
-                result = null
+                result = null,
             )
         assertNull(transaction.message)
     }
