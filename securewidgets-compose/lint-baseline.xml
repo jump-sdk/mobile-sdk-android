@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.1.0" type="baseline" client="gradle" dependencies="true" name="AGP (8.1.0)" variant="all" version="8.1.0">
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose.material:material than 1.5.0-rc01 is available: 1.6.0-alpha02"
+        errorLine1="compose = &quot;1.5.0-rc01&quot;"
+        errorLine2="          ~~~~~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="19"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose.ui:ui than 1.5.0-rc01 is available: 1.6.0-alpha02"
+        errorLine1="compose = &quot;1.5.0-rc01&quot;"
+        errorLine2="          ~~~~~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="19"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose.ui:ui-tooling than 1.5.0-rc01 is available: 1.6.0-alpha02"
+        errorLine1="compose = &quot;1.5.0-rc01&quot;"
+        errorLine2="          ~~~~~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="19"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="Upgrade `androidx.compose.foundation` for keyboard and mouse support"
+        errorLine1="compose = &quot;1.5.0-rc01&quot;"
+        errorLine2="          ~~~~~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="19"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="ComposableLambdaParameterNaming"
+        message="Composable lambda parameter should be named `content`"
+        errorLine1="    label: @Composable (() -> Unit)?,"
+        errorLine2="    ~~~~~">
+        <location
+            file="src/main/kotlin/com/spreedly/composewidgets/SecureCreditCardField.kt"
+            line="22"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ComposableLambdaParameterNaming"
+        message="Composable lambda parameter should be named `content`"
+        errorLine1="    label: @Composable (() -> Unit)?,"
+        errorLine2="    ~~~~~">
+        <location
+            file="src/main/kotlin/com/spreedly/composewidgets/SecureTextField.kt"
+            line="35"
+            column="5"/>
+    </issue>
+
+</issues>

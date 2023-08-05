@@ -1,4 +1,4 @@
-package com.spreedly.securewidgets
+package com.spreedly.composewidgets
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -20,35 +20,39 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalAutofill
 import androidx.compose.ui.platform.LocalAutofillTree
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SecureTextField(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     autofill: AutofillType,
-    onValueChange: (SpreedlySecureOpaqueString) -> Unit,
-    label: @Composable (() -> Unit)? = null,
     textStyle: TextStyle,
     shape: Shape,
     colors: TextFieldColors,
-    keyboardOptions: KeyboardOptions,
+    onValueChange: (SpreedlySecureOpaqueString) -> Unit,
+    label: @Composable (() -> Unit)?,
 ) {
-    var value by rememberSaveable {
-        mutableStateOf("")
-    }
+    var value by rememberSaveable { mutableStateOf("") }
     OutlinedTextField(
         modifier = modifier.autofill(
             autofillTypes = listOf(autofill),
             onFill = { value = it },
         ),
         value = value,
-        onValueChange = { onValueChange(SpreedlySecureOpaqueString(it)) },
+        onValueChange = { number ->
+            value = number.filter { it.isDigit() }
+            onValueChange(SpreedlySecureOpaqueString(value))
+        },
         label = label,
         textStyle = textStyle,
         shape = shape,
         colors = colors,
-        keyboardOptions = keyboardOptions,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = KeyboardType.Number,
+        ),
+        singleLine = true,
     )
 }
 

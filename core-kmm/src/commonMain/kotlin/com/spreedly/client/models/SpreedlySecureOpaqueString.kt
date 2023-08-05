@@ -5,6 +5,10 @@ import com.spreedly.client.models.enums.CardBrand
 class SpreedlySecureOpaqueString(private var data: String) {
     val length: Int get() = data.length
 
+    override fun toString(): String {
+        return "SpreedlySecureOpaqueString(length=$length)"
+    }
+
     fun clear() {
         data = ""
     }
@@ -179,5 +183,20 @@ class SpreedlySecureOpaqueString(private var data: String) {
             }
         }
         return false
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as SpreedlySecureOpaqueString
+
+        if (data != other.data) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return data.hashCode()
     }
 }

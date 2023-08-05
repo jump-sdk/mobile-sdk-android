@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.spreedly.securewidgets"
+    namespace = "com.spreedly.composewidgets"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -15,15 +15,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     buildFeatures {
         compose = true
     }
@@ -37,13 +28,27 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+    lint {
+        checkDependencies = true
+        abortOnError = true
+        checkDependencies = true
+        ignoreWarnings = false
+        checkAllWarnings = true
+        warningsAsErrors = true
+        explainIssues = true
+        showAll = true
+        disable.add("InvalidPackage")
+        xmlReport = true
+        htmlReport = false
+        baseline = file("lint-baseline.xml")
+    }
 }
 
 dependencies {
     implementation(libs.androidx.core)
     implementation(libs.appcompat)
     implementation(libs.compose.material)
-    implementation(projects.coreKmm)
+    api(projects.coreKmm)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

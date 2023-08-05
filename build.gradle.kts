@@ -18,7 +18,6 @@ allprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
     detekt {
         config.setFrom(files(rootProject.file("detekt.yml")))
-        parallel = true
         reports {
             xml.required.set(true)
             txt.required.set(false)

@@ -1,7 +1,8 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Spreedly SDK Sample</string>
     <string name="tab_core_api">Core</string>
-    <string name="tab_secure_widgets">Secure Widgets</string>
+    <string name="tab_secure_widgets">Widgets</string>
+    <string name="tab_compose_widgets" tools:ignore="ExtraTranslation">Compose</string>
     <string name="tab_3ds2">3DS2</string>
     <string name="tab_express">Express</string>
     <string name="month_hint">Month</string>

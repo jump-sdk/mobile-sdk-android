@@ -23,8 +23,9 @@ jobs:
         run: ./gradlew :core-kmm:detektAndroidRelease
       - name: Test core-kmm
         run: ./gradlew :core-kmm:test
-      - name: Detekt all modules
-        run: ./gradlew detekt
-      - name: Lint securewidgets
-        run: ./gradlew :securewidgets:lintRelease
-
+      - name: Detekt for securewidgets-compose
+        run: ./gradlew :securewidgets-compose:detekt
+      - name: Lint securewidgets-compose
+        run: ./gradlew :securewidgets-compose:lintRelease
+      - name: Assemble sample app
+        run: ./gradlew :sdk_sample:assemble

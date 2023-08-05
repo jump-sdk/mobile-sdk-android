@@ -14,12 +14,6 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
-
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
@@ -55,6 +49,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
 }
 
 
@@ -69,6 +69,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation project(path: ':securewidgets')
+    implementation project(path: ':securewidgets-compose')
+    implementation libs.androidx.ui
+    implementation libs.compose.material
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0-alpha03'
     androidTestImplementation 'androidx.test:rules:1.4.1-alpha03'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

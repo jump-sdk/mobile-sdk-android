@@ -26,7 +26,7 @@ import kotlinx.serialization.json.JsonObject
 
 private const val BASE_URL = "https://core.spreedly.com"
 private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-expect val engine: HttpClientEngine
+internal expect val engine: HttpClientEngine
 
 class KtorClient(
     private val key: String,
@@ -84,7 +84,6 @@ class KtorClient(
 }
 
 @OptIn(ExperimentalEncodingApi::class)
-internal fun safeBase64(source: ByteArray): String =
-    Base64.encode(source)
-        .replace("\n", "")
-        .replace("\r", "")
+internal fun safeBase64(source: ByteArray): String = Base64.encode(source)
+    .replace("\n", "")
+    .replace("\r", "")
