@@ -7,7 +7,6 @@ import com.spreedly.client.models.GooglePayInfo
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.results.BankAccountResult
 import com.spreedly.client.models.results.CreditCardResult
-import com.spreedly.client.models.results.PaymentMethodResult
 import com.spreedly.client.models.results.TransactionResult
 
 /**
@@ -19,7 +18,7 @@ import com.spreedly.client.models.results.TransactionResult
 interface SpreedlyClient {
     fun createString(string: String): SpreedlySecureOpaqueString
     suspend fun createCreditCardPaymentMethod(info: CreditCardInfo): TransactionResult<CreditCardResult>
-    suspend fun createBankPaymentMethod(info: BankAccountInfo): TransactionResult<BankAccountResult?>
+    suspend fun createBankPaymentMethod(info: BankAccountInfo): TransactionResult<BankAccountResult>
     suspend fun createGooglePaymentMethod(info: GooglePayInfo): TransactionResult<CreditCardResult>
     suspend fun createApplePaymentMethod(info: ApplePayInfo): TransactionResult<CreditCardResult>
     suspend fun recache(

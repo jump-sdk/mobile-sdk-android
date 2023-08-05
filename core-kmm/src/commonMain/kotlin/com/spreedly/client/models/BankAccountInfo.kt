@@ -6,18 +6,29 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
 class BankAccountInfo(
-    firstName: String,
-    lastName: String,
+    firstName: String?,
+    lastName: String?,
+    fullName: String?,
     val routingNumber: String,
     val accountNumber: SpreedlySecureOpaqueString,
     val accountType: AccountType?,
     val accountHolderType: AccountHolderType? = null,
     retained: Boolean? = null,
+    address: Address? = null,
+    shippingAddress: Address? = null,
 ) : PaymentMethodInfo(
     firstName = firstName,
     lastName = lastName,
+    fullName = fullName,
     retained = retained,
+    address = address,
+    shippingAddress = shippingAddress,
 ) {
+    init {
+        require(!fullName.isNullOrBlank() || (!firstName.isNullOrBlank() && !lastName.isNullOrBlank())) {
+            "Either fullName or firstName and lastName must be provided"
+        }
+    }
 
     override fun toJson(): JsonObject {
         val paymentMethod = mutableMapOf<String, JsonElement>()

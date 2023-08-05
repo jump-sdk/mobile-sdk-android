@@ -160,3 +160,6 @@ enum class CardBrand(val range: List<IntRange>?, val bins: List<String>?) {
     error(null, null),
     ;
 }
+
+val CardBrand.isValid: Boolean
+    get() = this != CardBrand.error && this != CardBrand.unknown

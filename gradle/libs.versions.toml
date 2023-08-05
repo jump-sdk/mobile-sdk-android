@@ -17,21 +17,25 @@ androidx-lifecycle = "2.6.1"
 androidx-test-junit = "1.1.5"
 
 compose = "1.5.0-rc01"
-compose-material3 = "1.1.1"
 # https://androidx.dev/storage/compose-compiler/repository/
 # https://developer.android.com/jetpack/androidx/releases/compose-compiler
 composeCompiler = "1.5.1"
 
 kotlinx-coroutines = "1.7.3"
 kotlinx-datetime = "0.4.0"
-ktor = "2.3.2"
+ktor = "2.3.3"
 
-detekt = "1.23.0"
+detekt = "1.23.1"
 junit = "5.10.0"
 kotlinpoet = "1.14.2"
 paparazi = "1.3.1"
 robolectric = "4.10.3"
 turbine = "1.0.0"
+
+junit-junit = "4.13.2"
+androidx-test-ext-junit = "1.1.5"
+espresso-core = "3.5.1"
+appcompat = "1.6.1"
 
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
@@ -45,7 +49,6 @@ compose-activity = { module = "androidx.activity:activity-compose", version.ref 
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 
@@ -67,10 +70,15 @@ junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref 
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 roboelectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+junit = { group = "junit", name = "junit", version.ref = "junit-junit" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 [plugins]
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 [bundles]
 compose = [

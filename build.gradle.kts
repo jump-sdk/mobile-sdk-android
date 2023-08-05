@@ -13,10 +13,11 @@ allprojects {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven("https://jitpack.io")
     }
     apply(plugin = "io.gitlab.arturbosch.detekt")
     detekt {
-        config.setFrom(files(project.rootProject.file("detekt.yml")))
+        config.setFrom(files(rootProject.file("detekt.yml")))
         parallel = true
         reports {
             xml.required.set(true)
@@ -33,6 +34,7 @@ allprojects {
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:$detektVersion")
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
         detektPlugins("com.braisgabin.detekt:kotlin-compiler-wrapper:0.0.4")
+        detektPlugins("com.github.hbmartin:hbmartin-detekt-rules:0.0.9")
     }
 }
 

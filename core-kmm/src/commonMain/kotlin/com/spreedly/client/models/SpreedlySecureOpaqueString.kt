@@ -2,13 +2,8 @@ package com.spreedly.client.models
 
 import com.spreedly.client.models.enums.CardBrand
 
-class SpreedlySecureOpaqueString {
-    private var data: String
+class SpreedlySecureOpaqueString(private var data: String) {
     val length: Int get() = data.length
-
-    constructor(data: String) {
-        this.data = data
-    }
 
     fun clear() {
         data = ""
@@ -31,8 +26,8 @@ class SpreedlySecureOpaqueString {
     }
 
     fun detectCardType(): CardBrand {
-        data = data.replace(" ".toRegex(), "")
-        if (!checkIsValid(data)) {
+        val data = data.replace(" ", "")
+        if (!checkIsValid(data) || data.length > 19) {
             return CardBrand.error
         }
         if (Regex("^4[0-9]{12}([0-9]{3})?([0-9]{3})?$").matches(data)) {
@@ -85,7 +80,7 @@ class SpreedlySecureOpaqueString {
     }
 
     fun softDetect(): CardBrand {
-        data = data.replace(" ".toRegex(), "")
+        val data = data.replace(" ", "")
         if (length > 19) {
             return CardBrand.unknown
         }
@@ -134,7 +129,7 @@ class SpreedlySecureOpaqueString {
         return CardBrand.unknown
     }
 
-    fun checkIsValid(numbers: String): Boolean {
+    private fun checkIsValid(numbers: String): Boolean {
         try {
             numbers.toDouble()
         } catch (e: Exception) {
@@ -164,7 +159,7 @@ class SpreedlySecureOpaqueString {
             }
         }
 
-    fun inRanges(ranges: List<IntRange>?, input: String, length: Int): Boolean {
+    private fun inRanges(ranges: List<IntRange>?, input: String, length: Int): Boolean {
         if (length > input.length) { return false }
         if (ranges == null) { return true }
         val number = input.substring(0, length).toInt()

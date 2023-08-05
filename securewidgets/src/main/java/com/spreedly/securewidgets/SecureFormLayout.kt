@@ -17,7 +17,6 @@ import com.spreedly.client.SpreedlyClient.Companion.newInstance
 import com.spreedly.client.models.Address
 import com.spreedly.client.models.BankAccountInfo
 import com.spreedly.client.models.CreditCardInfo
-import com.spreedly.client.models.PaymentMethodInfo
 import com.spreedly.client.models.enums.AccountHolderType
 import com.spreedly.client.models.enums.AccountType
 import com.spreedly.client.models.enums.CardBrand
@@ -25,15 +24,12 @@ import com.spreedly.client.models.results.BankAccountResult
 import com.spreedly.client.models.results.CreditCardResult
 import com.spreedly.client.models.results.SpreedlyError
 import com.spreedly.client.models.results.TransactionResult
-import com.spreedly.securewidgets.SecureCreditCardField
-import com.spreedly.securewidgets.SecureExpirationDate
-import com.spreedly.securewidgets.SecureTextField
 
 /**
  * TODO: document your custom view class.
  */
 class SecureFormLayout : LinearLayout {
-    private var spreedlyClient: SpreedlyClient? = null
+    var spreedlyClient: SpreedlyClient? = null
     var accountTypeHelper: AccountTypeHelper?
     var fullNameInput: TextInputLayout? = null
     var firstNameInput: TextInputLayout? = null
@@ -67,9 +63,6 @@ class SecureFormLayout : LinearLayout {
     var accountHolderTypeSpinner: Spinner? = null
     var accountHolderTypeRadio: RadioGroup? = null
     var errorView: TextView? = null
-    var paymentMethodDefaults: PaymentMethodInfo? = null
-    var creditCardDefaults: CreditCardInfo? = null
-    var bankAccountDefaults: BankAccountInfo? = null
     var sameAddress: CheckBox? = null
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -80,29 +73,26 @@ class SecureFormLayout : LinearLayout {
         accountTypeHelper = AccountTypeHelper(context)
     }
 
+    fun setSpreedlyClient(envKey: String, test: Boolean) {
+        spreedlyClient = newInstance(envKey, test)
+    }
+
     fun setSpreedlyClient(envKey: String, envSecret: String?, test: Boolean) {
         spreedlyClient = newInstance(envKey, envSecret!!, test)
     }
-
-    fun setSpreedlyClient(client: SpreedlyClient) {
-        spreedlyClient = client
-    }
-
-    val client: SpreedlyClient?
-        get() = spreedlyClient
 
     public override fun onFinishInflate() {
         super.onFinishInflate()
         init()
     }
 
-    suspend fun createCreditCardPaymentMethod(): TransactionResult<CreditCardResult> {
+    suspend fun createCreditCardPaymentMethod(): TransactionResult<CreditCardResult>? {
         Log.i("Spreedly", "createCreditCardPaymentMethod firing")
         resetCardErrors()
         resetGenericErrors()
         var hasError = validateNames()
         hasError = validateAddress(hasError)
-        if (creditCardNumberField == null || creditCardNumberField!!.text?.detectCardType() === CardBrand.error) {
+        if (creditCardNumberField == null || creditCardNumberField!!.text!!.detectCardType() === CardBrand.error) {
             creditCardNumberField!!.setError(context.getString(R.string.error_bad_card_number))
             hasError = true
         }
@@ -111,20 +101,17 @@ class SecureFormLayout : LinearLayout {
             hasError = true
         }
         if (hasError) {
-            return object : Single<TransactionResult<CreditCardResult?>?>() {
-                protected override fun subscribeActual(observer: SingleObserver<in TransactionResult<CreditCardResult?>?>) {}
-            }
+            return null
         }
         val info = createCreditCardInfo()
-        val result: TransactionResult<CreditCardResult> =
-            spreedlyClient.createCreditCardPaymentMethod(info)
-        return result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-            .map { transaction: TransactionResult<CreditCardResult> ->
-                if (!transaction.succeeded) {
-                    handleErrors(transaction.errors!!)
-                }
-                transaction
-            }
+        val transaction: TransactionResult<CreditCardResult> =
+            spreedlyClient!!.createCreditCardPaymentMethod(info)
+        return if (!transaction.succeeded) {
+            handleErrors(transaction.errors ?: listOf())
+            null
+        } else {
+            transaction
+        }
     }
 
     suspend fun createBankAccountPaymentMethod(): TransactionResult<BankAccountResult>? {
@@ -134,10 +121,10 @@ class SecureFormLayout : LinearLayout {
         var hasError = validateNames()
         hasError = validateAddress(hasError)
         if (bankAccountNumberField != null) {
-            if (bankAccountNumberField!!.text.length === 0) {
+            if (bankAccountNumberField!!.text!!.length === 0) {
                 hasError = true
                 bankAccountNumberField!!.setError(context.getString(R.string.error_blank_account_number))
-            } else if (!bankAccountNumberField!!.text.isNumber) {
+            } else if (!bankAccountNumberField!!.text!!.isNumber) {
                 hasError = true
                 bankAccountNumberField!!.setError(context.getString(R.string.error_bad_account_number))
             }
@@ -157,20 +144,17 @@ class SecureFormLayout : LinearLayout {
             }
         }
         if (hasError) {
-            return object : Single<TransactionResult<BankAccountResult?>?>() {
-                protected override fun subscribeActual(observer: SingleObserver<in TransactionResult<BankAccountResult?>?>) {}
-            }
+            return null
         }
         val info = createBankAccountInfo()
-        val result: Single<TransactionResult<BankAccountResult>?> =
-            spreedlyClient.createBankPaymentMethod(info)
-        return result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).map(
-            Function<TransactionResult<BankAccountResult>?, TransactionResult<BankAccountResult>?> { transaction: TransactionResult<BankAccountResult>? ->
-                if (!transaction!!.succeeded) {
-                    handleErrors(transaction.errors!!)
-                }
-                transaction
-            })
+        val transaction: TransactionResult<BankAccountResult> =
+            spreedlyClient!!.createBankPaymentMethod(info)
+        return if (!transaction.succeeded) {
+            handleErrors(transaction.errors ?: listOf())
+            null
+        } else {
+            transaction
+        }
     }
 
     fun handleErrors(errors: List<SpreedlyError>) {
@@ -278,8 +262,7 @@ class SecureFormLayout : LinearLayout {
             hasError = true
         }
         if (lastNameInput != null && getString(lastNameInput!!).length == 0) {
-            lastNameInput!!.error =
-                context.getString(R.string.error_blank_last_name)
+            lastNameInput!!.error = context.getString(R.string.error_blank_last_name)
             hasError = true
         }
         return hasError
@@ -289,8 +272,7 @@ class SecureFormLayout : LinearLayout {
         var hasError = hasError
         if (address1Input != null && getString(address1Input!!).length == 0) {
             hasError = true
-            address1Input!!.error =
-                context.getString(R.string.error_blank_address)
+            address1Input!!.error = context.getString(R.string.error_blank_address)
         }
         if (cityInput != null && getString(cityInput!!).length == 0) {
             hasError = true
@@ -310,13 +292,11 @@ class SecureFormLayout : LinearLayout {
         }
         if (shippingCityInput != null && getString(shippingCityInput!!).length == 0) {
             hasError = true
-            shippingCityInput!!.error =
-                context.getString(R.string.error_blank_city)
+            shippingCityInput!!.error = context.getString(R.string.error_blank_city)
         }
         if (shippingStateInput != null && getString(shippingStateInput!!).length == 0) {
             hasError = true
-            shippingStateInput!!.error =
-                context.getString(R.string.error_blank_state)
+            shippingStateInput!!.error = context.getString(R.string.error_blank_state)
         }
         if (shippingZipInput != null && getString(shippingZipInput!!).length == 0) {
             hasError = true
@@ -374,151 +354,116 @@ class SecureFormLayout : LinearLayout {
         errorView = findViewById(R.id.spreedly_generic_error)
     }
 
-    fun setPaymentMethodDefaults(paymentMethodDefaults: PaymentMethodInfo?) {
-        this.paymentMethodDefaults = paymentMethodDefaults
-    }
-
-    fun setCreditCardDefaults(creditCardDefaults: CreditCardInfo?) {
-        this.creditCardDefaults = creditCardDefaults
-    }
-
-    fun setDefaultBankInfo(defaultBankAccountInfo: BankAccountInfo?) {
-        bankAccountDefaults = defaultBankAccountInfo
-    }
-
     private fun createCreditCardInfo(): CreditCardInfo {
-        val info: CreditCardInfo
-        info = if (creditCardDefaults != null) {
-            CreditCardInfo(creditCardDefaults)
-        } else if (paymentMethodDefaults != null) {
-            CreditCardInfo(paymentMethodDefaults)
-        } else {
-            CreditCardInfo()
-        }
-        addAddress(info)
-        addShippingAddress(info)
-        addName(info)
-        if (creditCardNumberField != null) {
-            info.number = creditCardNumberField!!.text!!
-        }
-        if (cvvField != null) {
-            info.verificationValue = cvvField!!.text!!
-        }
-        if (expirationField != null) {
-            info.year = expirationField!!.getYear()
-            info.month = expirationField!!.getMonth()
-        }
-        return info
+        val address = getAddress()
+        val shippingAddress = getShippingAddress()
+        val name = getName()
+        val number = creditCardNumberField?.let { it.text }
+        val cvv = cvvField?.let { it.text }
+        val month = expirationField?.let { it.getMonth() }
+        val year = expirationField?.let { it.getYear() }
+
+        return CreditCardInfo(
+            firstName = name.second.first,
+            lastName = name.second.second,
+            fullName = name.first,
+            number = number!!,
+            verificationValue = cvv!!,
+            month = month!!,
+            year = year!!,
+            address = address,
+            shippingAddress = shippingAddress,
+        )
     }
 
     private fun createBankAccountInfo(): BankAccountInfo {
-        val info: BankAccountInfo
-        info = if (bankAccountDefaults != null) {
-            BankAccountInfo(bankAccountDefaults)
-        } else if (paymentMethodDefaults != null) {
-            BankAccountInfo(paymentMethodDefaults)
-        } else {
-            BankAccountInfo()
-        }
-        addAddress(info)
-        addShippingAddress(info)
-        addName(info)
-        if (bankAccountNumberField != null) {
-            info.accountNumber = bankAccountNumberField!!.text!!
-        }
-        if (routingNumberInput != null) {
-            info.routingNumber = getString(routingNumberInput!!)
-        }
-        if (accountTypeSpinner != null) {
-            info.accountType = AccountType.valueOf(
-                accountTypeSpinner!!.selectedItem.toString()
-            )
+        val address = getAddress()
+        val shippingAddress = getShippingAddress()
+        val name = getName()
+        val bankAccount = bankAccountNumberField!!.text!!
+        val routingNumber = getString(routingNumberInput!!)
+
+        val accountType = if (accountTypeSpinner != null) {
+            AccountType.valueOf(accountTypeSpinner!!.selectedItem.toString())
         } else if (accountTypeRadio != null) {
-            info.accountType = accountTypeHelper!!.getAccountType(
-                (findViewById<View>(
-                    accountTypeRadio!!.checkedRadioButtonId
-                ) as RadioButton).text.toString()
+            accountTypeHelper!!.getAccountType(
+                (
+                    findViewById<View>(
+                        accountTypeRadio!!.checkedRadioButtonId,
+                    ) as RadioButton
+                    ).text.toString(),
             )
         } else if (accountTypeInput != null) {
-            info.accountType = AccountType.valueOf(
-                getString(
-                    accountTypeInput!!
-                )
-            )
+            AccountType.valueOf(getString(accountTypeInput!!))
+        } else {
+            null
         }
-        if (accountHolderTypeSpinner != null) {
-            info.accountHolderType = AccountHolderType.valueOf(
-                accountHolderTypeSpinner!!.selectedItem.toString()
-            )
+        val accountHolderType = if (accountHolderTypeSpinner != null) {
+                AccountHolderType.valueOf(accountHolderTypeSpinner!!.selectedItem.toString())
         } else if (accountHolderTypeRadio != null) {
-            info.accountHolderType = accountTypeHelper!!.getAccountHolderType(
-                (findViewById<View>(
-                    accountHolderTypeRadio!!.checkedRadioButtonId
-                ) as RadioButton).text.toString()
+            accountTypeHelper!!.getAccountHolderType(
+                (
+                    findViewById<View>(
+                        accountHolderTypeRadio!!.checkedRadioButtonId,
+                    ) as RadioButton
+                    ).text.toString(),
             )
         } else if (accountHolderTypeInput != null) {
-            info.accountHolderType = AccountHolderType.valueOf(
-                getString(
-                    accountHolderTypeInput!!
-                )
+            AccountHolderType.valueOf(getString(accountHolderTypeInput!!))
+        } else {
+            null
+        }
+        return BankAccountInfo(
+            firstName = name.second.first,
+            lastName = name.second.second,
+            fullName = name.first,
+            routingNumber = routingNumber,
+            accountNumber = bankAccount,
+            accountType = accountType,
+            accountHolderType = accountHolderType,
+            address = address,
+            shippingAddress = shippingAddress,
+        )
+    }
+
+    private fun getAddress(): Address {
+        val address1 = getString(address1Input!!)
+        val address2 = getString(address2Input!!)
+        val city = getString(cityInput!!)
+        val state = getString(stateInput!!)
+        val zip = getString(zipInput!!)
+        return Address(
+            address1 = address1,
+            address2 = address2,
+            city = city,
+            state = state,
+            zip = zip
+        )
+    }
+
+    private fun getShippingAddress(): Address {
+        return if (getBoolean(sameAddress)) {
+            getAddress()
+        } else {
+            val address1 = getString(shippingAddress1Input!!)
+            val address2 = getString(shippingAddress2Input!!)
+            val city = getString(shippingCityInput!!)
+            val state = getString(shippingStateInput!!)
+            val zip = getString(shippingZipInput!!)
+            return Address(
+                address1 = address1,
+                address2 = address2,
+                city = city,
+                state = state,
+                zip = zip
             )
         }
-        return info
     }
 
-    private fun addAddress(info: PaymentMethodInfo) {
-        val address = Address()
-        if (address1Input != null) {
-            address.address1 = getString(address1Input!!)
-        }
-        if (address2Input != null) {
-            address.address2 = getString(address2Input!!)
-        }
-        if (cityInput != null) {
-            address.city = getString(cityInput!!)
-        }
-        if (stateInput != null) {
-            address.state = getString(stateInput!!)
-        }
-        if (zipInput != null) {
-            address.zip = getString(zipInput!!)
-        }
-        info.address = address
-    }
-
-    private fun addShippingAddress(info: PaymentMethodInfo) {
-        if (getBoolean(sameAddress)) {
-            info.shippingAddress = info.address
-        } else {
-            val address = Address()
-            if (shippingAddress1Input != null) {
-                address.address1 = getString(shippingAddress1Input!!)
-            }
-            if (shippingAddress2Input != null) {
-                address.address2 = getString(shippingAddress2Input!!)
-            }
-            if (shippingCityInput != null) {
-                address.city = getString(shippingCityInput!!)
-            }
-            if (shippingStateInput != null) {
-                address.state = getString(shippingStateInput!!)
-            }
-            if (shippingZipInput != null) {
-                address.zip = getString(shippingZipInput!!)
-            }
-            info.shippingAddress = address
-        }
-    }
-
-    private fun addName(info: PaymentMethodInfo) {
-        if (firstNameInput != null) {
-            info.firstName = getString(firstNameInput!!)
-        }
-        if (lastNameInput != null) {
-            info.lastName = getString(lastNameInput!!)
-        }
-        if (fullNameInput != null) {
-            info.fullName = getString(fullNameInput!!)
-        }
+    private fun getName(): Pair<String, Pair<String, String>> {
+        return getString(fullNameInput!!) to Pair(
+            getString(firstNameInput!!),
+            getString(lastNameInput!!),
+        )
     }
 }

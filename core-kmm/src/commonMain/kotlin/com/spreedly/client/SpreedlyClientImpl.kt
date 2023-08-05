@@ -41,7 +41,7 @@ internal class SpreedlyClientImpl(
         return info.retained == true && secret != null
     }
 
-    override suspend fun createBankPaymentMethod(info: BankAccountInfo): TransactionResult<BankAccountResult?> {
+    override suspend fun createBankPaymentMethod(info: BankAccountInfo): TransactionResult<BankAccountResult> {
         val authenticated = shouldDoAuthenticatedRequest(info)
         val url = if (authenticated) authenticatedURL else unauthenticatedURL
         return client.sendRequest(info.toJson(), url, authenticated)
@@ -111,7 +111,7 @@ internal class SpreedlyClientImpl(
         )
     }
 
-    private fun processBAMap(raw: JsonObject): TransactionResult<BankAccountResult?> {
+    private fun processBAMap(raw: JsonObject): TransactionResult<BankAccountResult> {
         val rawTransaction = raw["transaction"] as? JsonObject ?: JsonObject(emptyMap())
         val rawResult = rawTransaction["payment_method"] as? JsonObject
         val result: BankAccountResult? = rawResult?.let {

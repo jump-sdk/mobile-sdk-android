@@ -14,7 +14,7 @@
         android:fullBackupContent="@xml/backup_descriptor"
         android:usesCleartextTraffic="false">
         <activity
-            android:name=".MainActivity"
+            android:name="com.spreedly.sdk_sample.MainActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize"
             android:exported="true"
