@@ -59,7 +59,7 @@ fun SecureCreditCardField(
 data class SecureCreditCardNumber(
     val number: SpreedlySecureOpaqueString,
     val isValid: Boolean,
-    val brand: CardBrand?,
+    val brand: CardBrand,
 )
 
 private val SpreedlySecureOpaqueString.cardBrand: CardBrand
