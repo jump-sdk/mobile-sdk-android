@@ -7,7 +7,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import com.spreedly.client.models.enums.CardBrand
 
 // https://dev.to/benyam7/formatting-credit-card-number-input-in-jetpack-compose-android-2nal
-
+@Suppress("MagicNumber")
 class CreditCardNumberTransformation(
     private val cardBrand: CardBrand,
     private val separator: String,
@@ -32,15 +32,6 @@ class CreditCardNumberTransformation(
             if (i == 3 || i == 9 && i != 14) out += separator
         }
 
-        /**
-         * The offset translator should ignore the hyphen characters, so conversion from
-         *  original offset to transformed text works like
-         *  - The 4th char of the original text is 5th char in the transformed text. (i.e original[4th] == transformed[5th]])
-         *  - The 11th char of the original text is 13th char in the transformed text. (i.e original[11th] == transformed[13th])
-         *  Similarly, the reverse conversion works like
-         *  - The 5th char of the transformed text is 4th char in the original text. (i.e  transformed[5th] == original[4th] )
-         *  - The 13th char of the transformed text is 11th char in the original text. (i.e transformed[13th] == original[11th])
-         */
         val creditCardOffsetTranslator = object : OffsetMapping {
             override fun originalToTransformed(offset: Int): Int {
                 return when (offset) {

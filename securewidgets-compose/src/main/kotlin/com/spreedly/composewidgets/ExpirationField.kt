@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 
+@Suppress("CognitiveComplexMethod")
 @Composable
 fun ExpirationField(
     onValueChange: (ValidatedExpirationDate) -> Unit,
@@ -38,40 +39,11 @@ fun ExpirationField(
                 2 -> {
                     if (filtered.toInt() in 1..12) {
                         value = filtered
-                    } else {
-                        // noop
                     }
                 }
                 else -> {
-                    try {
-                        val year = filtered.substring(2)
-                        when (year.length) {
-                            1 -> {
-                                if (year == "2") {
-                                    value = filtered
-                                }
-                            }
-                            2 -> {
-                                if (year.toInt() >= 20) {
-                                    value = filtered
-                                }
-                            }
-                            3 -> {
-                                if (year.toInt() >= 202) {
-                                    value = filtered
-                                }
-                            }
-                            4 -> {
-                                if (year.toInt() >= 2023) {
-                                    value = filtered
-                                }
-                            }
-                            else -> {
-                                // noop
-                            }
-                        }
-                    } catch (e: NumberFormatException) {
-                        // noop
+                    if (isValidYear(filtered)) {
+                        value = filtered
                     }
                 }
             }
@@ -98,11 +70,29 @@ fun ExpirationField(
     )
 }
 
+@Suppress("MagicNumber")
+private fun isValidYear(filtered: String): Boolean {
+    return try {
+        val year = filtered.substring(2)
+        when (year.length) {
+            1 -> year == "2"
+            2 -> year.toInt() >= 20
+            3 -> year.toInt() >= 202
+            4 -> year.toInt() >= 2023
+            else -> false
+        }
+    } catch (e: NumberFormatException) {
+        false
+    }
+}
+
+@Suppress("DataClassContainsFunctions")
 data class ValidatedExpirationDate(
     private val month: Int? = null,
     private val year: Int? = null,
 ) {
     fun getValidatedMonthAndYear(): Pair<Int, Int>? {
+        @Suppress("ComplexCondition", "MagicNumber")
         return if (month != null && month in 1..12 && year != null && year >= 2023) {
             month to year
         } else {

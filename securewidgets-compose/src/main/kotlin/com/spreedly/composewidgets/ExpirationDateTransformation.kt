@@ -16,13 +16,11 @@ class ExpirationDateTransformation(private val separator: String) : VisualTransf
         }
 
         val offsetTranslator = object : OffsetMapping {
-            override fun originalToTransformed(offset: Int): Int {
-                return if (offset <= 1) offset else offset + separatorSize
-            }
+            override fun originalToTransformed(offset: Int): Int =
+                if (offset <= 1) offset else offset + separatorSize
 
-            override fun transformedToOriginal(offset: Int): Int {
-                return if (offset <= 2) offset else offset - separatorSize
-            }
+            override fun transformedToOriginal(offset: Int): Int =
+                if (offset <= 2) offset else offset - separatorSize
         }
 
         return TransformedText(

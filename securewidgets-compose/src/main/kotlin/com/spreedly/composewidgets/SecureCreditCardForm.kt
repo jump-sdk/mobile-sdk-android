@@ -20,17 +20,17 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.spreedly.client.models.CreditCardInfo
 import com.spreedly.client.models.CreditCardInfoBuilder
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.CardBrand
 
+@Suppress("LongMethod")
 @Composable
 fun SecureCreditCardForm(
+    fieldSpacing: Dp,
     modifier: Modifier = Modifier,
     fieldModifier: Modifier = Modifier,
-    fieldSpacing: Dp = 16.dp,
     textStyle: TextStyle = LocalTextStyle.current,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
     shape: Shape = MaterialTheme.shapes.small,
@@ -102,7 +102,8 @@ fun SecureCreditCardForm(
                     .getValidatedMonthAndYear()
                     ?.let { (month, year) ->
                         creditCardInfoBuilder.copy(month = month, year = year)
-                    } ?: creditCardInfoBuilder.copy(month = null, year = null)
+                    }
+                    ?: creditCardInfoBuilder.copy(month = null, year = null)
                 onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
             },
             label = { labelFactory(stringResource(id = R.string.expiration_hint)) },

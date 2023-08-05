@@ -6,8 +6,7 @@ class SpreedlySecureOpaqueString(private var data: String) {
     val length: Int get() = data.length
 
     override fun toString(): String {
-//        return "SpreedlySecureOpaqueString(length=$length)"
-        return data
+        return "SpreedlySecureOpaqueString(length=$length)"
     }
 
     fun clear() {

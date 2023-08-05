@@ -43,6 +43,7 @@ class ComposeWidgetsFragment : Fragment() {
                             SecureCreditCardForm(
                                 modifier = Modifier.padding(16.dp),
                                 fieldModifier = Modifier.fillMaxWidth(),
+                                fieldSpacing = 16.dp,
                                 onValidCreditCardInfo = { cardBrand, creditCardInfo ->
                                     brand = cardBrand
                                     Log.i(
