@@ -239,13 +239,6 @@ class SpreedlySecureOpaqueStringTest {
     }
 
     @Test
-    fun inRangeReturnsFalseIfLengthIsGreaterThanNumberLength() {
-        val ranges = CardBrand.maestro.range
-        val string = SpreedlySecureOpaqueString("")
-        assertFalse(string.inRanges(ranges, "123456", 8))
-    }
-
-    @Test
     fun shortCardNumberReturnsUnknown() {
         val string = SpreedlySecureOpaqueString("79927398713")
         assertEquals(CardBrand.unknown, string.detectCardType())

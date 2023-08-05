@@ -33,6 +33,7 @@ class CreateCreditCardPaymentTest {
     @Test
     fun CreateCreditCardHasToken() = runTest {
         val cc = CreditCardInfo(
+            fullName = null,
             firstName = "Joe",
             lastName = "Jones",
             number = client.createString("5555555555554444"),
@@ -42,13 +43,13 @@ class CreateCreditCardPaymentTest {
             retained = false,
         )
         val trans = client.createCreditCardPaymentMethod(cc)
-        println(trans)
         assertNotNull(trans.result?.token)
     }
 
     @Test
     fun RetainedCreateCreditCardHasToken() = runTest {
         val cc = CreditCardInfo(
+            fullName = null,
             firstName = "Joe",
             lastName = "Jones",
             number = client.createString("5555555555554444"),
@@ -65,6 +66,7 @@ class CreateCreditCardPaymentTest {
     @Test
     fun badCreditCardFails() = runTest {
         val cc = CreditCardInfo(
+            fullName = null,
             firstName = "Joe",
             lastName = "Jones",
             number = client.createString("55555555555"),
@@ -80,6 +82,7 @@ class CreateCreditCardPaymentTest {
     fun initializationFailsWithEmptyCredentials() = runTest {
         val badClient = SpreedlyClient.newInstance("", "", true)
         val cc = CreditCardInfo(
+            fullName = null,
             firstName = "Joe",
             lastName = "Jones",
             number = client.createString("5555555555554444"),

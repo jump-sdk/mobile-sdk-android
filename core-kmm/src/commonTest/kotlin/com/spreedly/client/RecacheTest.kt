@@ -32,6 +32,7 @@ class RecacheTest {
     @Test
     fun RecacheReturnsToken() = runTest {
         val cc = CreditCardInfo(
+            fullName = null,
             firstName = "Joe",
             lastName = "Jones",
             number = client.createString("5555555555554444"),

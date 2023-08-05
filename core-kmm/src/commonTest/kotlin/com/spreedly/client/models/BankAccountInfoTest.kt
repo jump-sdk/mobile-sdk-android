@@ -5,8 +5,6 @@ import com.spreedly.client.TestCredentials
 import com.spreedly.client.models.enums.AccountType
 import kotlin.test.Test
 import kotlin.test.assertContains
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class BankAccountInfoTest {
     var client: SpreedlyClient = SpreedlyClient.newInstance(
@@ -18,6 +16,7 @@ class BankAccountInfoTest {
     @Test
     fun CanEncodeBankAccount() {
         val bankAccount = BankAccountInfo(
+            fullName = null,
             firstName = "Jane",
             lastName = "Doe",
             routingNumber = "1234567",
@@ -37,6 +36,7 @@ class BankAccountInfoTest {
     @Test
     fun nullAccountTypeSetsEmptyString() {
         val bankAccount = BankAccountInfo(
+            fullName = null,
             firstName = "Jane",
             lastName = "Doe",
             routingNumber = "1234567",

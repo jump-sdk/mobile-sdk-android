@@ -26,7 +26,7 @@ class CreditCardInfo(
         require(year >= 2023) { "Year must be 2023 or later" }
         require(month in 1..12) { "Month must be between 1 and 12" }
         require(
-            !fullName.isNullOrBlank() ||
+            !fullName.isNullOrBlank() xor
                 (!firstName.isNullOrBlank() && !lastName.isNullOrBlank()),
         ) {
             "Either fullName or firstName and lastName must be provided"
