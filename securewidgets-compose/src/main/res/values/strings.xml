@@ -1,0 +1,5 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="cvc_hint">CVC</string>
+    <string name="card_number_hint">Card Number</string>
+    <string name="card_name_hint">Name on Card</string>
+</resources>

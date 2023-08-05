@@ -7,9 +7,9 @@ pluginManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+include(":core-kmm")
 include(":sdk_sample")
 include(":securewidgets")
-include(":core-kmm")
-
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":securewidgets-compose")

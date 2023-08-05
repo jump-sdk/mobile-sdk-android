@@ -7,7 +7,6 @@
     <disabledRules>
       <list>
         <option value="experimental:function-naming" />
-        <option value="experimental:function-naming" />
       </list>
     </disabledRules>
     <editorConfigPath>$PROJECT_DIR$/.editorconfig</editorConfigPath>

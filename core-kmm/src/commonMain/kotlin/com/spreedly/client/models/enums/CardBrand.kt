@@ -163,3 +163,25 @@ enum class CardBrand(val range: List<IntRange>?, val bins: List<String>?) {
 
 val CardBrand.isValid: Boolean
     get() = this != CardBrand.error && this != CardBrand.unknown
+
+// source: https://en.wikipedia.org/wiki/Payment_card_number
+fun CardBrand.validateNumberLength(number: String): Boolean {
+    return when (this) {
+        CardBrand.americanExpress -> number.length == 15
+        CardBrand.dinersClub -> number.length in 14..19
+        CardBrand.discover -> number.length in 16..19
+        CardBrand.jcb -> number.length in 16..19
+        CardBrand.maestro -> number.length in 12..19
+        CardBrand.mastercard -> number.length == 16
+        CardBrand.visa -> number.length == 13 || number.length == 16 || number.length == 19
+        CardBrand.unknown -> false
+        CardBrand.error -> false
+        else -> number.length in 12..19
+    }
+}
+
+val CardBrand.maxNumberLength: Int get() = when (this) {
+    CardBrand.americanExpress -> 15
+    CardBrand.mastercard -> 16
+    else -> 19
+}
