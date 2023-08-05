@@ -49,4 +49,26 @@ class BankAccountInfo(
             mapOf("payment_method" to JsonObject(paymentMethod)),
         )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as BankAccountInfo
+
+        if (routingNumber != other.routingNumber) return false
+        if (accountNumber != other.accountNumber) return false
+        if (accountType != other.accountType) return false
+        if (accountHolderType != other.accountHolderType) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = routingNumber.hashCode()
+        result = 31 * result + accountNumber.hashCode()
+        result = 31 * result + (accountType?.hashCode() ?: 0)
+        result = 31 * result + (accountHolderType?.hashCode() ?: 0)
+        return result
+    }
 }

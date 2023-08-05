@@ -26,4 +26,22 @@ class ApplePayInfo(
             mapOf("payment_method" to JsonObject(paymentMethod)),
         )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as ApplePayInfo
+
+        if (paymentData != other.paymentData) return false
+        if (testCardNumber != other.testCardNumber) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = paymentData.hashCode()
+        result = 31 * result + (testCardNumber?.hashCode() ?: 0)
+        return result
+    }
 }

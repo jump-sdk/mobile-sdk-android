@@ -15,7 +15,7 @@ import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
 fun ExpirationField(
-    onValueChange: (String) -> Unit,
+    onValueChange: (ValidatedExpirationDate) -> Unit,
     textStyle: TextStyle,
     shape: Shape,
     colors: TextFieldColors,
@@ -75,7 +75,17 @@ fun ExpirationField(
                     }
                 }
             }
-            onValueChange(value)
+            if (value.length != 6) {
+                onValueChange(ValidatedExpirationDate())
+            } else {
+                try {
+                    val month = value.take(2).toInt()
+                    val year = value.substring(2).toInt()
+                    onValueChange(ValidatedExpirationDate(month = month, year = year))
+                } catch (e: NumberFormatException) {
+                    onValueChange(ValidatedExpirationDate())
+                }
+            }
         },
         label = label,
         textStyle = textStyle,
@@ -86,4 +96,17 @@ fun ExpirationField(
             keyboardType = KeyboardType.Number,
         ),
     )
+}
+
+data class ValidatedExpirationDate(
+    private val month: Int? = null,
+    private val year: Int? = null,
+) {
+    fun getValidatedMonthAndYear(): Pair<Int, Int>? {
+        return if (month != null && month in 1..12 && year != null && year >= 2023) {
+            month to year
+        } else {
+            null
+        }
+    }
 }

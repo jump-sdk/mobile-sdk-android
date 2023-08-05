@@ -25,7 +25,10 @@ class CreditCardInfo(
     init {
         require(year >= 2023) { "Year must be 2023 or later" }
         require(month in 1..12) { "Month must be between 1 and 12" }
-        require(!fullName.isNullOrBlank() || (!firstName.isNullOrBlank() && !lastName.isNullOrBlank())) {
+        require(
+            !fullName.isNullOrBlank() ||
+                (!firstName.isNullOrBlank() && !lastName.isNullOrBlank()),
+        ) {
             "Either fullName or firstName and lastName must be provided"
         }
     }
@@ -42,5 +45,27 @@ class CreditCardInfo(
         return JsonObject(
             mapOf("payment_method" to JsonObject(paymentMethod)),
         )
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as CreditCardInfo
+
+        if (number != other.number) return false
+        if (verificationValue != other.verificationValue) return false
+        if (month != other.month) return false
+        if (year != other.year) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = number.hashCode()
+        result = 31 * result + verificationValue.hashCode()
+        result = 31 * result + month
+        result = 31 * result + year
+        return result
     }
 }

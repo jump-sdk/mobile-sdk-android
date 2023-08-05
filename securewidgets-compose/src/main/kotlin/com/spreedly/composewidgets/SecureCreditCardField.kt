@@ -21,7 +21,7 @@ import com.spreedly.client.models.enums.validateNumberLength
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SecureCreditCardField(
-    onValueChange: (SecureCreditCardValue) -> Unit,
+    onValueChange: (SecureCreditCardNumber) -> Unit,
     textStyle: TextStyle,
     shape: Shape,
     colors: TextFieldColors,
@@ -40,7 +40,7 @@ fun SecureCreditCardField(
         onValueChange = { cardNumber ->
             brand = cardNumber.cardBrand
             onValueChange(
-                SecureCreditCardValue(
+                SecureCreditCardNumber(
                     number = cardNumber,
                     isValid = brand.isValid && brand.validateNumberLength(cardNumber._encode()),
                     brand = brand,
@@ -56,7 +56,7 @@ fun SecureCreditCardField(
     )
 }
 
-data class SecureCreditCardValue(
+data class SecureCreditCardNumber(
     val number: SpreedlySecureOpaqueString,
     val isValid: Boolean,
     val brand: CardBrand?,
