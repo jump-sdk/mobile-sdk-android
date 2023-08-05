@@ -6,6 +6,8 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import com.spreedly.client.models.enums.CardBrand
 
+// https://dev.to/benyam7/formatting-credit-card-number-input-in-jetpack-compose-android-2nal
+
 class CreditCardNumberTransformation(
     private val cardBrand: CardBrand,
     private val separator: String,
@@ -72,15 +74,19 @@ class CreditCardNumberTransformation(
 //    xxxx-xxxxxx-xxxx
         val creditCardOffsetTranslator = object : OffsetMapping {
             override fun originalToTransformed(offset: Int): Int {
-                if (offset <= 3) return offset
-                if (offset <= 9) return offset + 1
-                return offset + 2
+                return when (offset) {
+                    in 0..3 -> offset
+                    in 4..9 -> offset + 1
+                    else -> offset + 2
+                }
             }
 
             override fun transformedToOriginal(offset: Int): Int {
-                if (offset <= 4) return offset
-                if (offset <= 11) return offset - 1
-                return offset - 2
+                return when (offset) {
+                    in 0..4 -> offset
+                    in 5..11 -> offset - 1
+                    else -> offset - 2
+                }
             }
         }
         return TransformedText(AnnotatedString(out), creditCardOffsetTranslator)
@@ -95,20 +101,23 @@ class CreditCardNumberTransformation(
         }
         val creditCardOffsetTranslator = object : OffsetMapping {
             override fun originalToTransformed(offset: Int): Int {
-                println(offset)
-                if (offset <= 3) return offset
-                if (offset <= 7) return offset + 1
-                if (offset <= 11) return offset + 2
-                if (offset <= 16) return offset + 3
-                return offset + 4
+                return when (offset) {
+                    in 0..3 -> offset
+                    in 4..7 -> offset + 1
+                    in 8..11 -> offset + 2
+                    in 12..16 -> offset + 3
+                    else -> offset + 4
+                }
             }
 
             override fun transformedToOriginal(offset: Int): Int {
-                if (offset <= 4) return offset
-                if (offset <= 9) return offset - 1
-                if (offset <= 14) return offset - 2
-                if (offset <= 19) return offset - 3
-                return offset - 4
+                return when (offset) {
+                    in 0..4 -> offset
+                    in 5..9 -> offset - 1
+                    in 10..14 -> offset - 2
+                    in 15..19 -> offset - 3
+                    else -> offset - 4
+                }
             }
         }
 

@@ -5,33 +5,29 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
-class ExpirationDateTransformation: VisualTransformation {
+class ExpirationDateTransformation(private val separator: String) : VisualTransformation {
+    private val separatorSize = separator.length
     override fun filter(text: AnnotatedString): TransformedText {
-        val trimmed = if(text.text.length >= 4) text.text.substring(0..3) else text.text
         var out = ""
 
-        for(i in trimmed.indices) {
-            out += trimmed[i]
-            if(i == 1) out += "/" // Adding slash after second character
+        for (i in text.indices) {
+            out += text[i]
+            if (i == 1) out += separator
         }
 
-        val offsetTranslator = object: OffsetMapping {
+        val offsetTranslator = object : OffsetMapping {
             override fun originalToTransformed(offset: Int): Int {
-                if(offset <= 1) return offset // From 0 to 1, offset doesn't change
-                if(offset <= 4) return offset + 1 // From 2 to 4, offset take into account the added slash
-                return 5
+                return if (offset <= 1) offset else offset + separatorSize
             }
 
             override fun transformedToOriginal(offset: Int): Int {
-                if(offset <= 2) return offset
-                if(offset <= 5) return offset - 1
-                return 4
+                return if (offset <= 2) offset else offset - separatorSize
             }
         }
 
         return TransformedText(
             AnnotatedString(out),
-            offsetTranslator
+            offsetTranslator,
         )
     }
 }

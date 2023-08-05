@@ -59,5 +59,15 @@ fun SecureForm(
             shape = shape,
         )
         Spacer(modifier = Modifier.height(fieldSpacing))
+        ExpirationField(
+            modifier = fieldModifier,
+            onValueChange = {
+                Log.i("ComposeWidgetsFragment", "expiration: $it")
+            },
+            label = { labelFactory(stringResource(id = R.string.expiration_hint)) },
+            textStyle = textStyle,
+            colors = colors,
+            shape = shape,
+        )
     }
 }
