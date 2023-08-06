@@ -12,13 +12,9 @@ import com.google.android.material.textfield.TextInputLayout
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.CardBrand
 
-/**
- * TODO: document your custom view class.
- */
 class SecureCreditCardField : SecureTextField {
     var visible = true
     private var clickListener: OnClickListener? = null
-    private val hasError = false
     var cardBrandHelper: CardBrandHelper? = null
     var previous = ""
     private var ccTransformationMethod: CreditCardTransformationMethod
@@ -34,7 +30,7 @@ class SecureCreditCardField : SecureTextField {
     override fun onFinishInflate() {
         super.onFinishInflate()
         cardBrandHelper = CardBrandHelper()
-        clickListener = OnClickListener { v: View? ->
+        clickListener = OnClickListener { _: View? ->
             Log.i("Spreedly", "button clicked")
             val s = editText.selectionEnd
             if (visible) {
@@ -102,7 +98,7 @@ class SecureCreditCardField : SecureTextField {
                 } else {
                     textLayout.error = null
                 }
-                if (text.length > 15 && text.length < 20 && brand !== CardBrand.error) {
+                if (text.length in 16..19 && brand !== CardBrand.error) {
                     visible = false
                     setEndIcons()
                 } else {
@@ -119,7 +115,7 @@ class SecureCreditCardField : SecureTextField {
                 }
                 lock = true
                 var newText = ""
-                for (i in 0 until text.length) {
+                for (i in text.indices) {
                     if (i != 0 && i % 4 == 0 && i < 16) {
                         newText += " "
                     }

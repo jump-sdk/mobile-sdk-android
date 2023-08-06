@@ -23,7 +23,6 @@ open class SecureTextField : FrameLayout {
     }
 
     private fun init() {
-        val id = this.id
         var view = findTextInputLayout(this)
         if (view !is TextInputLayout) {
             textLayout = TextInputLayout(this.context)
@@ -81,13 +80,17 @@ open class SecureTextField : FrameLayout {
     }
 
     private fun setHint() {
-        val id = id
-        if (id == R.id.spreedly_credit_card_number) {
-            textLayout.hint = context.getString(R.string.hint_credit_card_number)
-        } else if (id == R.id.spreedly_cvv) {
-            textLayout.hint = context.getString(R.string.hint_cvv)
-        } else if (id == R.id.spreedly_ba_account_number) {
-            textLayout.hint = context.getString(R.string.hint_account_number)
+        textLayout.hint = when (id) {
+            R.id.spreedly_credit_card_number -> {
+                context.getString(R.string.hint_credit_card_number)
+            }
+            R.id.spreedly_cvv -> {
+                context.getString(R.string.hint_cvv)
+            }
+            R.id.spreedly_ba_account_number -> {
+                context.getString(R.string.hint_account_number)
+            }
+            else -> ""
         }
     }
 

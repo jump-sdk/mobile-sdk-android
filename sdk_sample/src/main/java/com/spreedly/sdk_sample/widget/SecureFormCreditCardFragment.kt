@@ -1,4 +1,4 @@
-package com.spreedly.sdk_sample.widget
+package com.spreedly.sdk_sample.widget // ktlint-disable package-name
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +12,9 @@ import com.spreedly.sdk_sample.R
 class SecureFormCreditCardFragment : Fragment() {
     private var mViewModel: SecureFormCreditCardViewModel? = null
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.secure_form_credit_card_fragment, container, false)
     }
@@ -21,19 +22,18 @@ class SecureFormCreditCardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mViewModel = ViewModelProvider(this).get(
-            SecureFormCreditCardViewModel::class.java
+            SecureFormCreditCardViewModel::class.java,
         )
-        mViewModel!!.layout = view!!.findViewById(R.id.credit_card_form)
-        mViewModel!!.error = view!!.findViewById(R.id.error)
-        mViewModel!!.token = view!!.findViewById(R.id.token)
+        mViewModel!!.layout = requireView().findViewById(R.id.credit_card_form)
+        mViewModel!!.error = requireView().findViewById(R.id.error)
+        mViewModel!!.token = requireView().findViewById(R.id.token)
         mViewModel!!.layout!!.setSpreedlyClient(
             "XsQXqPtrgCOnpexSwyhzN9ngr2c",
             "ghEGueczUT4BhJv54K24G6B4Oy9yWaM5R4dR2yt5gRsx3xnwbZE0OZ0mRg2zyI5g",
-            true
+            true,
         )
-        mViewModel!!.setDefaults()
-        view!!.findViewById<Button>(R.id.spreedly_cc_submit)
-            .setOnClickListener { b: View? -> mViewModel!!.submitCreditCard() }
+        requireView().findViewById<Button>(R.id.spreedly_cc_submit)
+            .setOnClickListener { mViewModel!!.submitCreditCard() }
     }
 
     companion object {

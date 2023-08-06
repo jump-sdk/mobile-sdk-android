@@ -25,9 +25,6 @@ import com.spreedly.client.models.results.CreditCardResult
 import com.spreedly.client.models.results.SpreedlyError
 import com.spreedly.client.models.results.TransactionResult
 
-/**
- * TODO: document your custom view class.
- */
 class SecureFormLayout : LinearLayout {
     var spreedlyClient: SpreedlyClient? = null
     var accountTypeHelper: AccountTypeHelper?
@@ -123,10 +120,14 @@ class SecureFormLayout : LinearLayout {
         if (bankAccountNumberField != null) {
             if (bankAccountNumberField!!.text!!.length === 0) {
                 hasError = true
-                bankAccountNumberField!!.setError(context.getString(R.string.error_blank_account_number))
+                bankAccountNumberField!!.setError(
+                    context.getString(R.string.error_blank_account_number),
+                )
             } else if (!bankAccountNumberField!!.text!!.isNumber) {
                 hasError = true
-                bankAccountNumberField!!.setError(context.getString(R.string.error_bad_account_number))
+                bankAccountNumberField!!.setError(
+                    context.getString(R.string.error_bad_account_number),
+                )
             }
         }
         if (routingNumberInput != null) {
@@ -399,7 +400,7 @@ class SecureFormLayout : LinearLayout {
             null
         }
         val accountHolderType = if (accountHolderTypeSpinner != null) {
-                AccountHolderType.valueOf(accountHolderTypeSpinner!!.selectedItem.toString())
+            AccountHolderType.valueOf(accountHolderTypeSpinner!!.selectedItem.toString())
         } else if (accountHolderTypeRadio != null) {
             accountTypeHelper!!.getAccountHolderType(
                 (
@@ -437,7 +438,7 @@ class SecureFormLayout : LinearLayout {
             address2 = address2,
             city = city,
             state = state,
-            zip = zip
+            zip = zip,
         )
     }
 
@@ -455,7 +456,7 @@ class SecureFormLayout : LinearLayout {
                 address2 = address2,
                 city = city,
                 state = state,
-                zip = zip
+                zip = zip,
             )
         }
     }

@@ -16,7 +16,6 @@ class SecureFormCreditCardViewModel : ViewModel() {
     @JvmField
     var error: TextView? = null
 
-    // TODO: Implement the ViewModel
     fun submitCreditCard() {
         token?.text = ""
         error?.text = ""
@@ -39,6 +38,4 @@ class SecureFormCreditCardViewModel : ViewModel() {
             }
         }
     }
-
-    fun setDefaults() {}
 }
