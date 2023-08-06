@@ -14,7 +14,7 @@ import kotlin.coroutines.suspendCoroutine
 object PaymentCardRecognition {
     suspend fun getIntent(
         context: Context,
-        environment: Int, // WalletConstants.ENVIRONMENT_PRODUCTION
+        environment: Int, // e.g. WalletConstants.ENVIRONMENT_PRODUCTION
     ): PendingIntent? = suspendCoroutine { continuation ->
         Wallet.getPaymentsClient(
             context,

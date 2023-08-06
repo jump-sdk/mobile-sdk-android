@@ -26,9 +26,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import com.google.android.gms.wallet.WalletConstants
-import com.spreedly.client.SecureCreditCardNumber
 import com.spreedly.client.models.CreditCardInfo
 import com.spreedly.client.models.CreditCardInfoBuilder
+import com.spreedly.client.models.SecureCreditCardNumber
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.CardBrand
 
@@ -42,7 +42,8 @@ import com.spreedly.client.models.enums.CardBrand
  * @param colors The colors customization for the input fields.
  * @param shape The shape customization for the input fields.
  * @param walletEnvironment The environment for OCR detection, should be a WalletConstants.ENVIRONMENT_* value.
- * @param labelFactory The composable function used to display the labels for input fields. Takes a string as a parameter.
+ * @param labelFactory The composable function used to render the labels for input fields.
+ *                      Takes a hint string as a parameter.
  * @param onValidCreditCardInfo The callback function triggered when valid credit card information is provided.
  *                              It provides the detected card brand and credit card info as parameters.
  *                              Will be null if internal validation fails.

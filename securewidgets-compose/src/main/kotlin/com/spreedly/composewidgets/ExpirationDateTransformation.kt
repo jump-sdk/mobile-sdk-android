@@ -5,6 +5,7 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
+@Suppress("AvoidVarsExceptWithDelegate")
 class ExpirationDateTransformation(private val separator: String) : VisualTransformation {
     private val separatorSize = separator.length
     override fun filter(text: AnnotatedString): TransformedText {

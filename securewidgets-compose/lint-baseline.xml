@@ -25,6 +25,17 @@
 
     <issue
         id="GradleDependency"
+        message="A newer version of androidx.compose.ui:ui than 1.5.0-rc01 is available: 1.6.0-alpha02"
+        errorLine1="compose = &quot;1.5.0-rc01&quot;"
+        errorLine2="          ~~~~~~~~~~~~">
+        <location
+            file="../gradle/libs.versions.toml"
+            line="19"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
         message="A newer version of androidx.compose.ui:ui-tooling than 1.5.0-rc01 is available: 1.6.0-alpha02"
         errorLine1="compose = &quot;1.5.0-rc01&quot;"
         errorLine2="          ~~~~~~~~~~~~">
@@ -52,7 +63,7 @@
         errorLine2="    ~~~~~">
         <location
             file="src/main/kotlin/com/spreedly/composewidgets/ExpirationField.kt"
-            line="25"
+            line="44"
             column="5"/>
     </issue>
 
@@ -70,22 +81,11 @@
     <issue
         id="ComposableLambdaParameterNaming"
         message="Composable lambda parameter should be named `content`"
-        errorLine1="    label: @Composable (() -> Unit)?,"
+        errorLine1="    label: @Composable() (() -> Unit)?,"
         errorLine2="    ~~~~~">
         <location
             file="src/main/kotlin/com/spreedly/composewidgets/SecureCreditCardField.kt"
-            line="30"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="ComposableLambdaParameterNaming"
-        message="Composable lambda parameter should be named `content`"
-        errorLine1="    label: @Composable (() -> Unit)?,"
-        errorLine2="    ~~~~~">
-        <location
-            file="src/main/kotlin/com/spreedly/composewidgets/SecureTextField.kt"
-            line="31"
+            line="55"
             column="5"/>
     </issue>
 
@@ -96,7 +96,7 @@
         errorLine2="    ~~~~~">
         <location
             file="src/main/kotlin/com/spreedly/composewidgets/SecureVerificationNumberField.kt"
-            line="24"
+            line="38"
             column="5"/>
     </issue>
 
@@ -107,7 +107,7 @@
         errorLine2="    ~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/spreedly/composewidgets/SecureCreditCardForm.kt"
-            line="36"
+            line="61"
             column="5"/>
     </issue>
 

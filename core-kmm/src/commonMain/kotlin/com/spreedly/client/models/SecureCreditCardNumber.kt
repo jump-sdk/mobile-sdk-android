@@ -1,6 +1,5 @@
-package com.spreedly.client
+package com.spreedly.client.models
 
-import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.CardBrand
 import com.spreedly.client.models.enums.isValid
 import com.spreedly.client.models.enums.validateNumberLength

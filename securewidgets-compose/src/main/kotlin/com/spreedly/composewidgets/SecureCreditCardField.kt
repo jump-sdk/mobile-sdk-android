@@ -19,11 +19,27 @@ import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import com.spreedly.client.SecureCreditCardNumber
-import com.spreedly.client.cardBrand
+import com.spreedly.client.models.SecureCreditCardNumber
+import com.spreedly.client.models.cardBrand
 import com.spreedly.client.models.enums.CardBrand
 import com.spreedly.client.models.enums.maxNumberLength
 
+/**
+ * Composable function representing a secure input field for entering credit card numbers.
+ *
+ * @param onValueChange The callback triggered when the value of the credit card number changes.
+ *                      It receives the entered credit card number, brand, and validity
+ * @param textStyle The text style to be applied to the input text.
+ * @param shape The shape customization for the credit card input field.
+ * @param colors The colors customization for the text field.
+ * @param modifier The modifier for the credit card input field.
+ * @param recognitionIntent The PendingIntent to initiate OCR card recognition if available.
+ * @param cardRecognitionLauncher The ManagedActivityResultLauncher for launching the card recognition process.
+ * @param separator The separator string to visually group digits in the credit card number.
+ *                  Must be only one character. Defaults to a single space.
+ * @param initialValue The initial value to populate the credit card input field, used for OCR updates.
+ * @param label The composable function used to display the label for the input field.
+ */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SecureCreditCardField(

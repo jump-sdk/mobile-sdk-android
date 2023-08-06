@@ -17,7 +17,9 @@ import com.spreedly.client.models.results.TransactionResult
  */
 interface SpreedlyClient {
     fun createString(string: String): SpreedlySecureOpaqueString
-    suspend fun createCreditCardPaymentMethod(info: CreditCardInfo): TransactionResult<CreditCardResult>
+    suspend fun createCreditCardPaymentMethod(
+        info: CreditCardInfo,
+    ): TransactionResult<CreditCardResult>
     suspend fun createBankPaymentMethod(info: BankAccountInfo): TransactionResult<BankAccountResult>
     suspend fun createGooglePaymentMethod(info: GooglePayInfo): TransactionResult<CreditCardResult>
     suspend fun createApplePaymentMethod(info: ApplePayInfo): TransactionResult<CreditCardResult>
@@ -26,20 +28,13 @@ interface SpreedlyClient {
         cvv: SpreedlySecureOpaqueString,
     ): TransactionResult<CreditCardResult>
 
-    val platformLocalData: String
-
     companion object {
         fun newInstance(envKey: String, test: Boolean): SpreedlyClient {
             return SpreedlyClientImpl(envKey, null, test)
         }
 
-        @kotlin.jvm.JvmStatic
         fun newInstance(envKey: String, envSecret: String, test: Boolean): SpreedlyClient {
             return SpreedlyClientImpl(envKey, envSecret, test)
         }
-
-        @kotlin.jvm.JvmStatic
-        val platformData: String
-            get() = SpreedlyClientImpl.Companion.getPlatformData()
     }
 }

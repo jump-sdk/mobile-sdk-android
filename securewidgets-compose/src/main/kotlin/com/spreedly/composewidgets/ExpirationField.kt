@@ -14,6 +14,23 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 
+/**
+ * Composable function representing an input field for entering expiration dates of credit cards.
+ *
+ * @param onValueChange The callback triggered when the value of the expiration date changes.
+ *                      It receives the entered expiration date information. The value is non-null,
+ *                      call getValidatedMonthAndYear() to get the month and year integer pair,
+ *                      which will itself be null if the month or year are not valid.
+ * @param textStyle The text style to be applied to the input text.
+ * @param shape The shape customization for the expiration date input field.
+ * @param colors The colors customization for the text field.
+ * @param modifier The modifier for the expiration date input field.
+ * @param initialValue The initial value to populate the expiration date input field. Used to
+ *                      update from OCR.
+ * @param separator The separator string used to visually separate the month and year values.
+ * @param label The composable function used to display the label for the input field.
+ *              It provides a label as a content parameter.
+ */
 @Suppress("CognitiveComplexMethod")
 @Composable
 fun ExpirationField(

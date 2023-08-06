@@ -7,7 +7,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import com.spreedly.client.models.enums.CardBrand
 
 // https://dev.to/benyam7/formatting-credit-card-number-input-in-jetpack-compose-android-2nal
-@Suppress("MagicNumber")
+@Suppress("MagicNumber", "AvoidVarsExceptWithDelegate")
 class CreditCardNumberTransformation(
     private val cardBrand: CardBrand,
     private val separator: String,
