@@ -1,7 +1,7 @@
 plugins {
+    id("com.android.library")
     kotlin("multiplatform")
     kotlin("plugin.serialization")
-    id("com.android.library")
     id("maven-publish")
     id("org.jetbrains.dokka")
 }
@@ -13,7 +13,9 @@ version = System.getenv()["GITHUB_RUN_NUMBER"] ?: "1"
 @Suppress("UnusedPrivateProperty")
 kotlin {
     targetHierarchy.default()
-    androidTarget()
+    androidTarget {
+        publishLibraryVariants("release")
+    }
     listOf(
         iosX64(),
         iosArm64(),

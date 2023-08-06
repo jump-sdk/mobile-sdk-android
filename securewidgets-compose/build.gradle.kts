@@ -12,6 +12,11 @@ version = System.getenv()["GITHUB_RUN_NUMBER"] ?: "1"
 android {
     namespace = "com.spreedly.composewidgets"
     compileSdk = libs.versions.compileSdk.get().toInt()
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
@@ -63,12 +68,12 @@ dependencies {
 
 publishing {
     publications {
-        create<MavenPublication>("ReleaseAar") {
+        create<MavenPublication>("release") {
             afterEvaluate {
                 tasks.withType(AbstractPublishToMaven::class.java) {
                     dependsOn(tasks.getByName("assembleRelease"))
                 }
-                artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+                from(components["release"])
             }
         }
     }
