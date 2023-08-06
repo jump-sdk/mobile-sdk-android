@@ -13,7 +13,7 @@ All integration options require a Spreedly account and an environment key. See [
 This library is not publicly published and must be built and delivered via your own maven repository or local setup.
 
 ## Customization with `SecureCreditCardForm`
-See the [documentation on the Composable function](https://github.com/jump-sdk/mobile-sdk-android/blob/master/securewidgets-compose/src/main/kotlin/com/spreedly/composewidgets/SecureCreditCardForm.kt#L37) for details on how to customize the form.
+See the [documentation](https://jump-sdk.github.io/mobile-sdk-android/securewidgets-compose/com.spreedly.composewidgets/-secure-credit-card-form.html) for details on how to customize the form.
 
 See also the [sample usage](https://github.com/jump-sdk/mobile-sdk-android/blob/master/sdk_sample/src/main/java/com/spreedly/sdk_sample/widget/ComposeWidgetsFragment.kt#L65) in the demo app
 
