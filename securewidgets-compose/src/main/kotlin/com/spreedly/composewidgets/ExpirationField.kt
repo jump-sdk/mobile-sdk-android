@@ -59,22 +59,6 @@ fun ExpirationField(
     )
 }
 
-@Suppress("MagicNumber")
-private fun isValidYear(filtered: String): Boolean {
-    return try {
-        val year = filtered.substring(2)
-        when (year.length) {
-            1 -> year == "2"
-            2 -> year.toInt() >= 20
-            3 -> year.toInt() >= 202
-            4 -> year.toInt() >= 2023
-            else -> false
-        }
-    } catch (e: NumberFormatException) {
-        false
-    }
-}
-
 @Suppress("DataClassContainsFunctions")
 data class ValidatedExpirationDate(
     private val month: Int? = null,

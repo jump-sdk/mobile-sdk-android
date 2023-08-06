@@ -35,25 +35,22 @@ object PaymentCardRecognition {
     }
 
     fun fromResult(activityResult: ActivityResult): Pair<String, ValidatedExpirationDate>? =
-        when (activityResult.resultCode) {
-            Activity.RESULT_OK -> {
-                activityResult.data
-                    ?.let { intent ->
-                        PaymentCardRecognitionResult.getFromIntent(intent)
-                    }
-                    ?.let { result ->
-                        result.pan to ValidatedExpirationDate(
-                            month = result.creditCardExpirationDate?.month,
-                            year = result.creditCardExpirationDate?.year,
-                        )
-                    }
-            }
-            else -> {
-                Log.e(
-                    "PaymentCardRecognition",
-                    "card recognition canceled: ${activityResult.resultCode}",
-                )
-                null
-            }
+        if (activityResult.resultCode == Activity.RESULT_OK) {
+            activityResult.data
+                ?.let { intent ->
+                    PaymentCardRecognitionResult.getFromIntent(intent)
+                }
+                ?.let { result ->
+                    result.pan to ValidatedExpirationDate(
+                        month = result.creditCardExpirationDate?.month,
+                        year = result.creditCardExpirationDate?.year,
+                    )
+                }
+        } else {
+            Log.e(
+                "PaymentCardRecognition",
+                "card recognition canceled: ${activityResult.resultCode}",
+            )
+            null
         }
 }
