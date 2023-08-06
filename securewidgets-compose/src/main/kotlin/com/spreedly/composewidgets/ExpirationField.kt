@@ -6,6 +6,7 @@ import androidx.compose.material.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -21,42 +22,30 @@ fun ExpirationField(
     shape: Shape,
     colors: TextFieldColors,
     modifier: Modifier,
+    initialValue: ValidatedExpirationDate = ValidatedExpirationDate(),
     separator: String = " / ",
     label: @Composable (() -> Unit)?,
 ) {
-    var value by rememberSaveable { mutableStateOf("") }
-    val transformation = ExpirationDateTransformation(separator)
+    var value by rememberSaveable(initialValue) {
+        mutableStateOf(
+            initialValue.getValidatedMonthAndYear()?.let { (month, year) ->
+                "%02d%d".format(month, year)
+            } ?: "",
+        )
+    }
+    val transformation = remember(separator) { ExpirationDateTransformation(separator) }
 
     OutlinedTextField(
         modifier = modifier,
         value = value,
         onValueChange = { date ->
-            val filtered = date.filter { it.isDigit() }
-            when (filtered.length) {
-                in 0..1 -> {
-                    value = filtered
-                }
-                2 -> {
-                    if (filtered.toInt() in 1..12) {
-                        value = filtered
-                    }
-                }
-                else -> {
-                    if (isValidYear(filtered)) {
-                        value = filtered
-                    }
-                }
-            }
-            if (value.length != 6) {
+            value = date.filter { it.isDigit() }
+            try {
+                val month = value.take(2).toInt()
+                val year = value.substring(2).toInt()
+                onValueChange(ValidatedExpirationDate(month = month, year = year))
+            } catch (e: NumberFormatException) {
                 onValueChange(ValidatedExpirationDate())
-            } else {
-                try {
-                    val month = value.take(2).toInt()
-                    val year = value.substring(2).toInt()
-                    onValueChange(ValidatedExpirationDate(month = month, year = year))
-                } catch (e: NumberFormatException) {
-                    onValueChange(ValidatedExpirationDate())
-                }
             }
         },
         label = label,

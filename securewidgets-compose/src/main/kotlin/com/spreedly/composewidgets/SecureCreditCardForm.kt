@@ -1,6 +1,8 @@
 package com.spreedly.composewidgets
 
 import android.app.PendingIntent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -13,20 +15,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
+import com.google.android.gms.wallet.WalletConstants
+import com.spreedly.client.SecureCreditCardNumber
 import com.spreedly.client.models.CreditCardInfo
 import com.spreedly.client.models.CreditCardInfoBuilder
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.CardBrand
-import kotlin.reflect.KSuspendFunction0
 
 @Suppress("LongMethod")
 @Composable
@@ -37,22 +41,60 @@ fun SecureCreditCardForm(
     textStyle: TextStyle = LocalTextStyle.current,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
     shape: Shape = MaterialTheme.shapes.small,
-    cardRecognitionIntent: KSuspendFunction0<PendingIntent?>,
+    walletEnvironment: Int? = WalletConstants.ENVIRONMENT_TEST,
     labelFactory: @Composable (String) -> Unit = { Text(it) },
     onValidCreditCardInfo: (CardBrand, CreditCardInfo?) -> Unit,
 ) {
-    val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
     val creditCardInfoBuilder = rememberSaveable(
         saver = CreditCardInfoBuilderSaver,
     ) {
         CreditCardInfoBuilder()
     }
     var brand by rememberSaveable { mutableStateOf(CardBrand.unknown) }
-    var recognitionIntent: PendingIntent? by rememberSaveable {
+    var recognitionIntent: PendingIntent? by remember(context) {
         mutableStateOf(null)
     }
-    LaunchedEffect(cardRecognitionIntent) {
-        recognitionIntent = cardRecognitionIntent()
+    val cardChanged: (SecureCreditCardNumber) -> Unit = {
+        brand = it.brand
+        creditCardInfoBuilder.cardNumber = if (it.isValid) {
+            it.number
+        } else {
+            null
+        }
+        onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
+    }
+    val expirationChanged: (ValidatedExpirationDate) -> Unit = { validatedDate ->
+        validatedDate
+            .getValidatedMonthAndYear()
+            ?.let { (month, year) ->
+                creditCardInfoBuilder.month = month
+                creditCardInfoBuilder.year = year
+            }
+            ?: run {
+                creditCardInfoBuilder.month = null
+                creditCardInfoBuilder.year = null
+            }
+        onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
+    }
+    LaunchedEffect(context) {
+        walletEnvironment?.let { env ->
+            PaymentCardRecognition
+                .getIntent(context, env)
+                ?.let { recognitionIntent = it }
+        }
+    }
+    var initialCardNumber by remember { mutableStateOf("") }
+    var initialExpiration by remember { mutableStateOf(ValidatedExpirationDate()) }
+    val cardRecognitionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartIntentSenderForResult(),
+    ) {
+        PaymentCardRecognition.fromResult(it)?.let { (cardNumber, expiration) ->
+            initialCardNumber = cardNumber
+            cardChanged(SecureCreditCardNumber(SpreedlySecureOpaqueString(cardNumber)))
+            initialExpiration = expiration
+            expirationChanged(expiration)
+        }
     }
 
     Column(modifier) {
@@ -74,20 +116,14 @@ fun SecureCreditCardForm(
         Spacer(modifier = Modifier.height(fieldSpacing))
         SecureCreditCardField(
             modifier = fieldModifier,
-            onValueChange = {
-                brand = it.brand
-                creditCardInfoBuilder.cardNumber = if (it.isValid) {
-                    it.number
-                } else {
-                    null
-                }
-                onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
-            },
+            onValueChange = cardChanged,
             label = { labelFactory(stringResource(id = R.string.card_number_hint)) },
             textStyle = textStyle,
             colors = colors,
             shape = shape,
+            initialValue = initialCardNumber,
             recognitionIntent = recognitionIntent,
+            cardRecognitionLauncher = cardRecognitionLauncher,
         )
         Spacer(modifier = Modifier.height(fieldSpacing))
         SecureVerificationNumberField(
@@ -108,23 +144,12 @@ fun SecureCreditCardForm(
         Spacer(modifier = Modifier.height(fieldSpacing))
         ExpirationField(
             modifier = fieldModifier,
-            onValueChange = { validatedDate ->
-                validatedDate
-                    .getValidatedMonthAndYear()
-                    ?.let { (month, year) ->
-                        creditCardInfoBuilder.month = month
-                        creditCardInfoBuilder.year = year
-                    }
-                    ?: run {
-                        creditCardInfoBuilder.month = null
-                        creditCardInfoBuilder.year = null
-                    }
-                onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
-            },
+            onValueChange = expirationChanged,
             label = { labelFactory(stringResource(id = R.string.expiration_hint)) },
             textStyle = textStyle,
             colors = colors,
             shape = shape,
+            initialValue = initialExpiration,
         )
     }
 }
