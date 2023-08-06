@@ -51,8 +51,30 @@
         errorLine1="    label: @Composable (() -> Unit)?,"
         errorLine2="    ~~~~~">
         <location
+            file="src/main/kotlin/com/spreedly/composewidgets/ExpirationField.kt"
+            line="25"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ComposableLambdaParameterNaming"
+        message="Composable lambda parameter should be named `content`"
+        errorLine1="    label: @Composable (() -> Unit)?,"
+        errorLine2="    ~~~~~">
+        <location
+            file="src/main/kotlin/com/spreedly/composewidgets/NameField.kt"
+            line="24"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ComposableLambdaParameterNaming"
+        message="Composable lambda parameter should be named `content`"
+        errorLine1="    label: @Composable (() -> Unit)?,"
+        errorLine2="    ~~~~~">
+        <location
             file="src/main/kotlin/com/spreedly/composewidgets/SecureCreditCardField.kt"
-            line="22"
+            line="30"
             column="5"/>
     </issue>
 
@@ -63,7 +85,29 @@
         errorLine2="    ~~~~~">
         <location
             file="src/main/kotlin/com/spreedly/composewidgets/SecureTextField.kt"
-            line="35"
+            line="31"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ComposableLambdaParameterNaming"
+        message="Composable lambda parameter should be named `content`"
+        errorLine1="    label: @Composable (() -> Unit)?,"
+        errorLine2="    ~~~~~">
+        <location
+            file="src/main/kotlin/com/spreedly/composewidgets/SecureVerificationNumberField.kt"
+            line="24"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ComposableLambdaParameterPosition"
+        message="Composable lambda parameter should be the last parameter so it can be used as a trailing lambda"
+        errorLine1="    labelFactory: @Composable (String) -> Unit = { Text(it) },"
+        errorLine2="    ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/spreedly/composewidgets/SecureCreditCardForm.kt"
+            line="36"
             column="5"/>
     </issue>
 
