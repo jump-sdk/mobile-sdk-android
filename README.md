@@ -10,32 +10,11 @@
 All integration options require a Spreedly account and an environment key. See [Create Your API Credentials](https://docs.spreedly.com/basics/credentials/#environment-key) for details.
 
 ## Installation
-We recommend using [Gradle](https://docs.gradle.org/current/userguide/userguide.html) to integrate the Spreedly SDK with your project. the `Spreedly` package provides basic, low-level APIs for custom integrations.
+This library is not publicly published and must be built and delivered via your own maven repository or local setup.
 
-First add the following to your [repositories section of your build.gradle file](https://docs.gradle.org/current/userguide/declaring_repositories.html#sec:declaring_multiple_repositories):
-
-    maven {
-        url = uri('https://raw.githubusercontent.com/spreedly/mobile-sdk-android/maven/')
-    }
-
-Add the following [dependencies to your build.gradle file](https://docs.gradle.org/current/userguide/declaring_dependencies.html#declaring-dependencies):
-
-    dependencies {
-	    // core sdk
-        implementation 'com.spreedly:client:0.1-beta'
-
-		// SecureWidget customizable widgets
-        implementation 'com.spreedly:securewidgets:0.1-beta'
-    }
-
-## Customization with `SecureForm`
- The `SecureForm` is implemented with `Column`.
-
- The `SecureForm` expects expects to use the following custom views:
-
- - `SecureTextField` - An extended `TextInputLayout` with a `getText()` method that returns a `SpreedlySecureOpaqueString` instead of a `String`
- - `SecureCreditCardField` - An extended `SecureTextField` that validates, formats and masks a credit card number.
- - `SecureExpirationDate` - A `LinearLayout` that contains two spinners for month and year. Has a `getMonth()` and `getYear()` method that returns selected values.
+## Customization with `SecureCreditCardForm`
+See the [documentation on the Composable function](https://github.com/jump-sdk/mobile-sdk-android/blob/master/securewidgets-compose/src/main/kotlin/com/spreedly/composewidgets/SecureCreditCardForm.kt#L37) for details on how to customize the form.
+See also the [sample usage](https://github.com/jump-sdk/mobile-sdk-android/blob/master/sdk_sample/src/main/java/com/spreedly/sdk_sample/widget/ComposeWidgetsFragment.kt#L65) in the demo app
 
 ### SecureForm Components
 The `SecureForm` finds views based on expected ids.
