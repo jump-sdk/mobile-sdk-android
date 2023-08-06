@@ -1,4 +1,4 @@
-package com.spreedly.composewidgets
+package com.spreedly.composewidgets.utils
 
 import android.app.Activity
 import android.app.PendingIntent
@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResult
 import com.google.android.gms.wallet.PaymentCardRecognitionIntentRequest
 import com.google.android.gms.wallet.PaymentCardRecognitionResult
 import com.google.android.gms.wallet.Wallet
+import com.spreedly.composewidgets.ValidatedExpirationDate
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 

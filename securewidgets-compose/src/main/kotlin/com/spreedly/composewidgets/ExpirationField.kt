@@ -1,7 +1,7 @@
 package com.spreedly.composewidgets
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import com.spreedly.composewidgets.utils.ExpirationDateTransformation
+import com.spreedly.composewidgets.utils.PaddableOutlinedTextField
 
 /**
  * Composable function representing an input field for entering expiration dates of credit cards.
@@ -39,6 +41,7 @@ fun ExpirationField(
     shape: Shape,
     colors: TextFieldColors,
     modifier: Modifier,
+    textFieldPadding: PaddingValues,
     initialValue: ValidatedExpirationDate = ValidatedExpirationDate(),
     separator: String = " / ",
     label: @Composable (() -> Unit)?,
@@ -52,7 +55,7 @@ fun ExpirationField(
     }
     val transformation = remember(separator) { ExpirationDateTransformation(separator) }
 
-    OutlinedTextField(
+    PaddableOutlinedTextField(
         modifier = modifier,
         value = value,
         onValueChange = { date ->
@@ -73,6 +76,8 @@ fun ExpirationField(
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Number,
         ),
+        contentPadding = textFieldPadding,
+        singleLine = true,
     )
 }
 

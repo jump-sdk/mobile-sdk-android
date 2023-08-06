@@ -1,6 +1,6 @@
 package com.spreedly.composewidgets
 
-import androidx.compose.material.OutlinedTextField
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
+import com.spreedly.composewidgets.utils.PaddableOutlinedTextField
+import com.spreedly.composewidgets.utils.autofill
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -21,11 +23,12 @@ fun NameField(
     shape: Shape,
     colors: TextFieldColors,
     modifier: Modifier,
+    textFieldPadding: PaddingValues,
     label: @Composable (() -> Unit)?,
 ) {
     var value by rememberSaveable { mutableStateOf("") }
 
-    OutlinedTextField(
+    PaddableOutlinedTextField(
         modifier = modifier.autofill(
             autofillTypes = listOf(AutofillType.PersonFullName),
             onFill = {
@@ -42,5 +45,7 @@ fun NameField(
         textStyle = textStyle,
         shape = shape,
         colors = colors,
+        contentPadding = textFieldPadding,
+        singleLine = true,
     )
 }

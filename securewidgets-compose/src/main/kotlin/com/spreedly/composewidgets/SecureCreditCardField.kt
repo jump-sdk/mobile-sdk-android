@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.IntentSenderRequest
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.TextFieldColors
@@ -23,6 +24,7 @@ import com.spreedly.client.models.SecureCreditCardNumber
 import com.spreedly.client.models.cardBrand
 import com.spreedly.client.models.enums.CardBrand
 import com.spreedly.client.models.enums.maxNumberLength
+import com.spreedly.composewidgets.utils.CreditCardNumberTransformation
 
 /**
  * Composable function representing a secure input field for entering credit card numbers.
@@ -47,6 +49,7 @@ fun SecureCreditCardField(
     textStyle: TextStyle,
     shape: Shape,
     colors: TextFieldColors,
+    textFieldPadding: PaddingValues,
     modifier: Modifier = Modifier,
     recognitionIntent: PendingIntent? = null,
     cardRecognitionLauncher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>? = null,
@@ -85,9 +88,11 @@ fun SecureCreditCardField(
                     Icon(
                         painter = painterResource(id = R.drawable.baseline_photo_camera_24),
                         contentDescription = "Scan card",
+                        tint = colors.cursorColor(isError = false).value,
                     )
                 }
             }
         },
+        contentPadding = textFieldPadding,
     )
 }

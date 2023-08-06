@@ -4,8 +4,10 @@ import android.app.PendingIntent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -31,6 +33,7 @@ import com.spreedly.client.models.CreditCardInfoBuilder
 import com.spreedly.client.models.SecureCreditCardNumber
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.CardBrand
+import com.spreedly.composewidgets.utils.PaymentCardRecognition
 
 /**
  * Composable function that creates a secure credit card input form for collecting credit card information.
@@ -48,6 +51,7 @@ import com.spreedly.client.models.enums.CardBrand
  *                              It provides the detected card brand and credit card info as parameters.
  *                              Will be null if internal validation fails.
  */
+@OptIn(ExperimentalMaterialApi::class)
 @Suppress("LongMethod")
 @Composable
 fun SecureCreditCardForm(
@@ -59,6 +63,7 @@ fun SecureCreditCardForm(
     shape: Shape = MaterialTheme.shapes.small,
     walletEnvironment: Int? = WalletConstants.ENVIRONMENT_TEST,
     labelFactory: @Composable (String) -> Unit = { Text(it) },
+    textFieldPadding: PaddingValues = TextFieldDefaults.outlinedTextFieldPadding(),
     onValidCreditCardInfo: (CardBrand, CreditCardInfo?) -> Unit,
 ) {
     val context = LocalContext.current
@@ -128,6 +133,7 @@ fun SecureCreditCardForm(
             textStyle = textStyle,
             colors = colors,
             shape = shape,
+            textFieldPadding = textFieldPadding,
         )
         Spacer(modifier = Modifier.height(fieldSpacing))
         SecureCreditCardField(
@@ -140,6 +146,7 @@ fun SecureCreditCardForm(
             initialValue = initialCardNumber,
             recognitionIntent = recognitionIntent,
             cardRecognitionLauncher = cardRecognitionLauncher,
+            textFieldPadding = textFieldPadding,
         )
         Spacer(modifier = Modifier.height(fieldSpacing))
         SecureVerificationNumberField(
@@ -156,6 +163,7 @@ fun SecureCreditCardForm(
             textStyle = textStyle,
             colors = colors,
             shape = shape,
+            textFieldPadding = textFieldPadding,
         )
         Spacer(modifier = Modifier.height(fieldSpacing))
         ExpirationField(
@@ -166,6 +174,7 @@ fun SecureCreditCardForm(
             colors = colors,
             shape = shape,
             initialValue = initialExpiration,
+            textFieldPadding = textFieldPadding,
         )
     }
 }

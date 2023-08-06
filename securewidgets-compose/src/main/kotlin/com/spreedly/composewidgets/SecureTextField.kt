@@ -1,7 +1,7 @@
 package com.spreedly.composewidgets
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,6 +16,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import com.spreedly.client.models.SpreedlySecureOpaqueString
+import com.spreedly.composewidgets.utils.PaddableOutlinedTextField
+import com.spreedly.composewidgets.utils.autofill
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -27,13 +29,14 @@ fun SecureTextField(
     colors: TextFieldColors,
     maxValueLength: Int,
     visualTransformation: VisualTransformation,
+    contentPadding: PaddingValues,
     onValueChange: (SpreedlySecureOpaqueString) -> Unit,
     initialValue: String = "",
     trailingIcon: @Composable (() -> Unit)? = null,
     label: @Composable (() -> Unit)?,
 ) {
     var value by rememberSaveable(initialValue) { mutableStateOf(initialValue) }
-    OutlinedTextField(
+    PaddableOutlinedTextField(
         modifier = modifier.autofill(
             autofillTypes = listOf(autofill),
             onFill = {
@@ -56,5 +59,6 @@ fun SecureTextField(
         singleLine = true,
         visualTransformation = visualTransformation,
         trailingIcon = trailingIcon,
+        contentPadding = contentPadding,
     )
 }

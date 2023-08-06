@@ -1,4 +1,4 @@
-package com.spreedly.composewidgets
+package com.spreedly.composewidgets.utils
 
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier

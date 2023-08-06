@@ -1,5 +1,6 @@
 package com.spreedly.composewidgets
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -33,6 +34,7 @@ fun SecureVerificationNumberField(
     textStyle: TextStyle,
     shape: Shape,
     colors: TextFieldColors,
+    textFieldPadding: PaddingValues,
     modifier: Modifier,
     cardBrand: CardBrand? = null,
     label: @Composable (() -> Unit)?,
@@ -52,6 +54,7 @@ fun SecureVerificationNumberField(
     colors = colors,
     maxValueLength = cardBrand.maxLength,
     visualTransformation = VisualTransformation.None,
+    contentPadding = textFieldPadding,
 )
 
 val CardBrand?.maxLength: Int
