@@ -3,6 +3,7 @@ plugins {
     kotlin("plugin.serialization")
     id("com.android.library")
     id("maven-publish")
+    id("org.jetbrains.dokka")
 }
 
 group = "com.jump.spreedly"
