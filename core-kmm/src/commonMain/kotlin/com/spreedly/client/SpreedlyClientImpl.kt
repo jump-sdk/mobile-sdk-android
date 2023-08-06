@@ -30,7 +30,9 @@ internal class SpreedlyClientImpl(
     override fun createString(string: String): SpreedlySecureOpaqueString =
         SpreedlySecureOpaqueString(string)
 
-    override suspend fun createCreditCardPaymentMethod(info: CreditCardInfo): TransactionResult<CreditCardResult> {
+    override suspend fun createCreditCardPaymentMethod(
+        info: CreditCardInfo,
+    ): TransactionResult<CreditCardResult> {
         val authenticated = shouldDoAuthenticatedRequest(info)
         val url = if (authenticated) authenticatedURL else unauthenticatedURL
         return client.sendRequest(info.toJson(), url, authenticated)
@@ -41,21 +43,27 @@ internal class SpreedlyClientImpl(
         return info.retained == true && secret != null
     }
 
-    override suspend fun createBankPaymentMethod(info: BankAccountInfo): TransactionResult<BankAccountResult> {
+    override suspend fun createBankPaymentMethod(
+        info: BankAccountInfo,
+    ): TransactionResult<BankAccountResult> {
         val authenticated = shouldDoAuthenticatedRequest(info)
         val url = if (authenticated) authenticatedURL else unauthenticatedURL
         return client.sendRequest(info.toJson(), url, authenticated)
             .let { processBAMap(it) }
     }
 
-    override suspend fun createGooglePaymentMethod(info: GooglePayInfo): TransactionResult<CreditCardResult> {
+    override suspend fun createGooglePaymentMethod(
+        info: GooglePayInfo,
+    ): TransactionResult<CreditCardResult> {
         val authenticated = shouldDoAuthenticatedRequest(info)
         val url = if (authenticated) authenticatedURL else unauthenticatedURL
         return client.sendRequest(info.toJson(), url, authenticated)
             .let { processCCMap(it) }
     }
 
-    override suspend fun createApplePaymentMethod(info: ApplePayInfo): TransactionResult<CreditCardResult> {
+    override suspend fun createApplePaymentMethod(
+        info: ApplePayInfo,
+    ): TransactionResult<CreditCardResult> {
         val authenticated = shouldDoAuthenticatedRequest(info)
         val url = if (authenticated) authenticatedURL else unauthenticatedURL
         return client.sendRequest(info.toJson(), url, authenticated)

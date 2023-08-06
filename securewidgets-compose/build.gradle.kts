@@ -45,10 +45,12 @@ android {
 }
 
 dependencies {
+    api(projects.coreKmm)
     implementation(libs.androidx.core)
     implementation(libs.appcompat)
+    implementation(libs.compose.activity)
     implementation(libs.compose.material)
-    api(projects.coreKmm)
+    implementation(libs.play.services.wallet)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

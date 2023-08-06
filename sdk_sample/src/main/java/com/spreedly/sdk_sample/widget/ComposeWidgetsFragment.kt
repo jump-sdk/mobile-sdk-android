@@ -1,5 +1,6 @@
 package com.spreedly.sdk_sample.widget // ktlint-disable package-name
 
+import android.app.PendingIntent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,12 +26,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import com.google.android.gms.wallet.PaymentCardRecognitionIntentRequest
+import com.google.android.gms.wallet.PaymentsClient
+import com.google.android.gms.wallet.Wallet
+import com.google.android.gms.wallet.WalletConstants
 import com.spreedly.client.SpreedlyClient
 import com.spreedly.client.models.CreditCardInfo
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.CardBrand
 import com.spreedly.client.models.enums.isValid
 import com.spreedly.composewidgets.SecureCreditCardForm
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 import kotlinx.coroutines.launch
 
 class ComposeWidgetsFragment : Fragment() {
@@ -40,6 +47,28 @@ class ComposeWidgetsFragment : Fragment() {
             envSecret = "ghEGueczUT4BhJv54K24G6B4Oy9yWaM5R4dR2yt5gRsx3xnwbZE0OZ0mRg2zyI5g",
             test = true,
         )
+    }
+
+    private val paymentsClient: PaymentsClient by lazy {
+        val walletOptions = Wallet.WalletOptions.Builder()
+            .setEnvironment(WalletConstants.ENVIRONMENT_PRODUCTION)
+            .build()
+
+        Wallet.getPaymentsClient(requireContext(), walletOptions)
+    }
+
+    suspend fun getCardRecognitionIntent(): PendingIntent? = suspendCoroutine { continuation ->
+        paymentsClient
+            .getPaymentCardRecognitionIntent(
+                PaymentCardRecognitionIntentRequest.getDefaultInstance(),
+            )
+            .addOnSuccessListener { intentResponse ->
+                continuation.resume(intentResponse.paymentCardRecognitionPendingIntent)
+            }
+            .addOnFailureListener { e ->
+                Log.e("ComposeWidgetsFragment", "Error getting intent: ${e.message}", e)
+                continuation.resume(null)
+            }
     }
 
     override fun onCreateView(
@@ -77,6 +106,7 @@ class ComposeWidgetsFragment : Fragment() {
                                     isCardValid = creditCardInfo != null
                                     cardInfo.value = creditCardInfo
                                 },
+                                cardRecognitionIntent = ::getCardRecognitionIntent,
                             )
                             Text(
                                 modifier = Modifier.padding(16.dp),
@@ -150,7 +180,6 @@ class ComposeWidgetsFragment : Fragment() {
 }
 
 // ktlint-disable experimental:property-naming
-
 val CreditCardInfoSaver = listSaver<CreditCardInfo?, Any?>(
     save = {
         it?.let {

@@ -75,6 +75,7 @@ androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui", version = "1.4.3" }
+play-services-wallet = { group = "com.google.android.gms", name = "play-services-wallet", version = "19.2.0" }
 
 [plugins]
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }

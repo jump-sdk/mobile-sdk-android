@@ -1,5 +1,6 @@
 package com.spreedly.composewidgets
 
+import android.app.PendingIntent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -9,8 +10,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -23,6 +26,7 @@ import com.spreedly.client.models.CreditCardInfo
 import com.spreedly.client.models.CreditCardInfoBuilder
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.CardBrand
+import kotlin.reflect.KSuspendFunction0
 
 @Suppress("LongMethod")
 @Composable
@@ -33,15 +37,23 @@ fun SecureCreditCardForm(
     textStyle: TextStyle = LocalTextStyle.current,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
     shape: Shape = MaterialTheme.shapes.small,
+    cardRecognitionIntent: KSuspendFunction0<PendingIntent?>,
     labelFactory: @Composable (String) -> Unit = { Text(it) },
     onValidCreditCardInfo: (CardBrand, CreditCardInfo?) -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
     val creditCardInfoBuilder = rememberSaveable(
         saver = CreditCardInfoBuilderSaver,
     ) {
         CreditCardInfoBuilder()
     }
     var brand by rememberSaveable { mutableStateOf(CardBrand.unknown) }
+    var recognitionIntent: PendingIntent? by rememberSaveable {
+        mutableStateOf(null)
+    }
+    LaunchedEffect(cardRecognitionIntent) {
+        recognitionIntent = cardRecognitionIntent()
+    }
 
     Column(modifier) {
         NameField(
@@ -64,7 +76,6 @@ fun SecureCreditCardForm(
             modifier = fieldModifier,
             onValueChange = {
                 brand = it.brand
-                println(it)
                 creditCardInfoBuilder.cardNumber = if (it.isValid) {
                     it.number
                 } else {
@@ -76,6 +87,7 @@ fun SecureCreditCardForm(
             textStyle = textStyle,
             colors = colors,
             shape = shape,
+            recognitionIntent = recognitionIntent,
         )
         Spacer(modifier = Modifier.height(fieldSpacing))
         SecureVerificationNumberField(

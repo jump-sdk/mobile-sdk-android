@@ -8,12 +8,6 @@ class CreditCardInfoBuilder {
     var year: Int? = null
 
     fun build(): CreditCardInfo? {
-        println("fullName: $fullName")
-        println("cardNumber: $cardNumber")
-        println("cvc: $cvc")
-        println("month: $month")
-        println("year: $year")
-
         return try {
             CreditCardInfo(
                 firstName = null,

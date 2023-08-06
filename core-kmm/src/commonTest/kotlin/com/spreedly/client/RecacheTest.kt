@@ -42,7 +42,7 @@ class RecacheTest {
             retained = true,
         )
         val trans1 = client.createCreditCardPaymentMethod(cc)
-        val trans2 = client.recache(trans1.result!!.token, client.createString("423"))
+        val trans2 = client.recache(trans1.result!!.token!!, client.createString("423"))
         assertNotNull(trans2.result?.token)
     }
 

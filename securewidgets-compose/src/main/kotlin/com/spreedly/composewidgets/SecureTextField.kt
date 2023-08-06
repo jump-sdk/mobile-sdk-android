@@ -28,9 +28,11 @@ fun SecureTextField(
     maxValueLength: Int,
     visualTransformation: VisualTransformation,
     onValueChange: (SpreedlySecureOpaqueString) -> Unit,
+    initialValue: String = "",
+    trailingIcon: @Composable (() -> Unit)? = null,
     label: @Composable (() -> Unit)?,
 ) {
-    var value by rememberSaveable { mutableStateOf("") }
+    var value by rememberSaveable(initialValue) { mutableStateOf(initialValue) }
     OutlinedTextField(
         modifier = modifier.autofill(
             autofillTypes = listOf(autofill),
@@ -53,5 +55,6 @@ fun SecureTextField(
         ),
         singleLine = true,
         visualTransformation = visualTransformation,
+        trailingIcon = trailingIcon,
     )
 }
