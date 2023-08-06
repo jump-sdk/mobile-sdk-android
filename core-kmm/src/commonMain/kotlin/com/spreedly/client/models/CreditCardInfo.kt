@@ -29,7 +29,7 @@ class CreditCardInfo(
             !fullName.isNullOrBlank() xor
                 (!firstName.isNullOrBlank() && !lastName.isNullOrBlank()),
         ) {
-            "Either fullName or firstName and lastName must be provided"
+            "Either fullName or firstName and lastName must be provided but not both"
         }
     }
 

@@ -1,6 +1,5 @@
 package com.spreedly.composewidgets
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -37,7 +36,7 @@ fun SecureCreditCardForm(
     labelFactory: @Composable (String) -> Unit = { Text(it) },
     onValidCreditCardInfo: (CardBrand, CreditCardInfo?) -> Unit,
 ) {
-    var creditCardInfoBuilder = rememberSaveable(
+    val creditCardInfoBuilder = rememberSaveable(
         saver = CreditCardInfoBuilderSaver,
     ) {
         CreditCardInfoBuilder()
@@ -48,10 +47,10 @@ fun SecureCreditCardForm(
         NameField(
             modifier = fieldModifier,
             onValueChange = {
-                creditCardInfoBuilder = if (it.isNotBlank()) {
-                    creditCardInfoBuilder.copy(fullName = it)
+                creditCardInfoBuilder.fullName = if (it.isNotBlank()) {
+                    it
                 } else {
-                    creditCardInfoBuilder.copy(fullName = null)
+                    null
                 }
                 onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
             },
@@ -65,10 +64,11 @@ fun SecureCreditCardForm(
             modifier = fieldModifier,
             onValueChange = {
                 brand = it.brand
-                creditCardInfoBuilder = if (it.isValid) {
-                    creditCardInfoBuilder.copy(cardNumber = it.number)
+                println(it)
+                creditCardInfoBuilder.cardNumber = if (it.isValid) {
+                    it.number
                 } else {
-                    creditCardInfoBuilder.copy(cardNumber = null)
+                    null
                 }
                 onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
             },
@@ -81,10 +81,10 @@ fun SecureCreditCardForm(
         SecureVerificationNumberField(
             modifier = fieldModifier,
             onValueChange = { number, isValid ->
-                creditCardInfoBuilder = if (isValid) {
-                    creditCardInfoBuilder.copy(cvc = number)
+                creditCardInfoBuilder.cvc = if (isValid) {
+                    number
                 } else {
-                    creditCardInfoBuilder.copy(cvc = null)
+                    null
                 }
                 onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
             },
@@ -97,13 +97,16 @@ fun SecureCreditCardForm(
         ExpirationField(
             modifier = fieldModifier,
             onValueChange = { validatedDate ->
-                Log.i("ComposeWidgetsFragment", "expiration: $validatedDate")
-                creditCardInfoBuilder = validatedDate
+                validatedDate
                     .getValidatedMonthAndYear()
                     ?.let { (month, year) ->
-                        creditCardInfoBuilder.copy(month = month, year = year)
+                        creditCardInfoBuilder.month = month
+                        creditCardInfoBuilder.year = year
                     }
-                    ?: creditCardInfoBuilder.copy(month = null, year = null)
+                    ?: run {
+                        creditCardInfoBuilder.month = null
+                        creditCardInfoBuilder.year = null
+                    }
                 onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
             },
             label = { labelFactory(stringResource(id = R.string.expiration_hint)) },
@@ -115,15 +118,23 @@ fun SecureCreditCardForm(
 }
 
 // ktlint-disable experimental:property-naming
-private val CreditCardInfoBuilderSaver = listSaver(
-    save = { listOf(it.fullName, it.cardNumber?._encode(), it.cvc?._encode(), it.month, it.year) },
-    restore = { valueList ->
-        CreditCardInfoBuilder(
-            fullName = valueList[0] as? String,
-            cardNumber = (valueList[1] as? String)?.let { SpreedlySecureOpaqueString(it) },
-            cvc = (valueList[2] as? String)?.let { SpreedlySecureOpaqueString(it) },
-            month = valueList[2] as? Int,
-            year = valueList[3] as? Int,
+val CreditCardInfoBuilderSaver = listSaver(
+    save = {
+        listOf(
+            it.fullName,
+            it.cardNumber?._encode(),
+            it.cvc?._encode(),
+            it.month,
+            it.year,
         )
+    },
+    restore = { valueList ->
+        CreditCardInfoBuilder().apply {
+            fullName = valueList[0] as? String
+            cardNumber = (valueList[1] as? String)?.let { SpreedlySecureOpaqueString(it) }
+            cvc = (valueList[2] as? String)?.let { SpreedlySecureOpaqueString(it) }
+            month = valueList[2] as? Int
+            year = valueList[3] as? Int
+        }
     },
 )

@@ -1,13 +1,19 @@
 package com.spreedly.client.models
 
-data class CreditCardInfoBuilder(
-    val fullName: String? = null,
-    val cardNumber: SpreedlySecureOpaqueString? = null,
-    val cvc: SpreedlySecureOpaqueString? = null,
-    val month: Int? = null,
-    val year: Int? = null,
-) {
+class CreditCardInfoBuilder {
+    var fullName: String? = null
+    var cardNumber: SpreedlySecureOpaqueString? = null
+    var cvc: SpreedlySecureOpaqueString? = null
+    var month: Int? = null
+    var year: Int? = null
+
     fun build(): CreditCardInfo? {
+        println("fullName: $fullName")
+        println("cardNumber: $cardNumber")
+        println("cvc: $cvc")
+        println("month: $month")
+        println("year: $year")
+
         return try {
             CreditCardInfo(
                 firstName = null,
@@ -21,5 +27,29 @@ data class CreditCardInfoBuilder(
         } catch (e: IllegalArgumentException) {
             null
         }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as CreditCardInfoBuilder
+
+        if (fullName != other.fullName) return false
+        if (cardNumber != other.cardNumber) return false
+        if (cvc != other.cvc) return false
+        if (month != other.month) return false
+        if (year != other.year) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = fullName?.hashCode() ?: 0
+        result = 31 * result + (cardNumber?.hashCode() ?: 0)
+        result = 31 * result + (cvc?.hashCode() ?: 0)
+        result = 31 * result + (month ?: 0)
+        result = 31 * result + (year ?: 0)
+        return result
     }
 }

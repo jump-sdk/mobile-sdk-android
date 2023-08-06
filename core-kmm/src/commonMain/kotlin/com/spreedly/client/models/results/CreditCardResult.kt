@@ -3,7 +3,7 @@ package com.spreedly.client.models.results
 import kotlinx.datetime.Instant
 
 class CreditCardResult(
-    override val token: String,
+    override val token: String?,
     override val storageState: String?,
     override val test: Boolean,
     override val paymentMethodType: String?,
@@ -17,5 +17,5 @@ class CreditCardResult(
     val cardType: String?,
     val number: String?,
     val month: String?,
-    val year: String?
+    val year: String?,
 ) : PaymentMethodResult

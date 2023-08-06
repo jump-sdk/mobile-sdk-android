@@ -79,7 +79,7 @@ internal class SpreedlyClientImpl(
         val rawResult = rawTransaction["payment_method"] as? JsonObject
         val result: CreditCardResult? = rawResult?.let {
             CreditCardResult(
-                token = rawResult["token"]!!.jsonPrimitive.content,
+                token = rawResult["token"]?.jsonPrimitive?.content,
                 storageState = rawResult["storage_state"]?.jsonPrimitive?.contentOrNull,
                 test = rawResult["test"]?.jsonPrimitive?.booleanOrNull ?: test,
                 paymentMethodType = rawResult["payment_method_type"]?.jsonPrimitive?.contentOrNull,
