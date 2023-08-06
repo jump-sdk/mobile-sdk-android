@@ -17,6 +17,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Detekt with type resolution for core-kmm
@@ -29,3 +31,7 @@ jobs:
         run: ./gradlew :securewidgets-compose:lintRelease
       - name: Assemble sample app
         run: ./gradlew :sdk_sample:assemble
+      - name: Publish packages
+        run: ./gradlew :core-kmm:publish :securewidgets-compose:publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

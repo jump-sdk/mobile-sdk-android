@@ -2,7 +2,11 @@
 plugins {
     kotlin("android")
     id("com.android.library")
+    id("maven-publish")
 }
+
+group = "com.jump.spreedly"
+version = System.getenv()["GITHUB_RUN_NUMBER"] ?: "1"
 
 android {
     namespace = "com.spreedly.composewidgets"
@@ -54,4 +58,27 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("ReleaseAar") {
+            afterEvaluate {
+                tasks.withType(AbstractPublishToMaven::class.java) {
+                    dependsOn(tasks.getByName("assembleRelease"))
+                }
+                artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/jump-sdk/mobile-sdk-android")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
 }
