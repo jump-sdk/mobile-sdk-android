@@ -47,6 +47,7 @@ import com.spreedly.composewidgets.utils.PaymentCardRecognition
  * @param walletEnvironment The environment for OCR detection, should be a WalletConstants.ENVIRONMENT_* value.
  * @param labelFactory The composable function used to render the labels for input fields.
  *                      Takes a hint string as a parameter.
+ * @param textFieldPadding The padding to be applied to the input fields.
  * @param onValidCreditCardInfo The callback function triggered when valid credit card information is provided.
  *                              It provides the detected card brand and credit card info as parameters.
  *                              Will be null if internal validation fails.

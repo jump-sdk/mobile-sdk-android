@@ -34,6 +34,7 @@ import com.spreedly.composewidgets.utils.CreditCardNumberTransformation
  * @param textStyle The text style to be applied to the input text.
  * @param shape The shape customization for the credit card input field.
  * @param colors The colors customization for the text field.
+ * @param textFieldPadding The padding to be applied to the input field.
  * @param modifier The modifier for the credit card input field.
  * @param recognitionIntent The PendingIntent to initiate OCR card recognition if available.
  * @param cardRecognitionLauncher The ManagedActivityResultLauncher for launching the card recognition process.

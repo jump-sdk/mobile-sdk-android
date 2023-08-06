@@ -13,7 +13,6 @@ import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.TextFieldDefaults.outlinedTextFieldPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -29,6 +28,7 @@ import androidx.compose.ui.unit.dp
 // the difference is that it exposes a contentPadding parameter for padding within the text box
 internal val OutlinedTextFieldTopPadding = 8.dp
 
+@Suppress("LongMethod", "ComposableParamOrder")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PaddableOutlinedTextField(
@@ -75,7 +75,7 @@ fun PaddableOutlinedTextField(
             .background(colors.backgroundColor(enabled).value, shape)
             .defaultMinSize(
                 minWidth = TextFieldDefaults.MinWidth,
-                minHeight = TextFieldDefaults.MinHeight
+                minHeight = TextFieldDefaults.MinHeight,
             ),
         onValueChange = onValueChange,
         enabled = enabled,
@@ -110,10 +110,10 @@ fun PaddableOutlinedTextField(
                         isError,
                         interactionSource,
                         colors,
-                        shape
+                        shape,
                     )
-                }
+                },
             )
-        }
+        },
     )
 }

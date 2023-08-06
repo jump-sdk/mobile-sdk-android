@@ -26,6 +26,7 @@ import com.spreedly.composewidgets.utils.PaddableOutlinedTextField
  * @param textStyle The text style to be applied to the input text.
  * @param shape The shape customization for the expiration date input field.
  * @param colors The colors customization for the text field.
+ * @param textFieldPadding The padding to be applied to the input field.
  * @param modifier The modifier for the expiration date input field.
  * @param initialValue The initial value to populate the expiration date input field. Used to
  *                      update from OCR.
@@ -40,8 +41,8 @@ fun ExpirationField(
     textStyle: TextStyle,
     shape: Shape,
     colors: TextFieldColors,
-    modifier: Modifier,
     textFieldPadding: PaddingValues,
+    modifier: Modifier,
     initialValue: ValidatedExpirationDate = ValidatedExpirationDate(),
     separator: String = " / ",
     label: @Composable (() -> Unit)?,

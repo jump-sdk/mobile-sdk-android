@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>AvoidVarsExceptWithDelegate:ComposeWidgetsFragment.kt$ComposeWidgetsFragment$var cardInfo = rememberSaveable&lt;CreditCardInfo?>( stateSaver = CreditCardInfoSaver, ) { mutableStateOf(null) }</ID>
+    <ID>AvoidVarsExceptWithDelegate:CreditCardFragment.kt$CreditCardFragment$private var mViewModel: CreditCardFragmentViewModel? = null</ID>
+    <ID>AvoidVarsExceptWithDelegate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var cc = MutableLiveData("")</ID>
+    <ID>AvoidVarsExceptWithDelegate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var cvv = MutableLiveData("")</ID>
+    <ID>AvoidVarsExceptWithDelegate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var error = MutableLiveData&lt;String?>(null)</ID>
+    <ID>AvoidVarsExceptWithDelegate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var inProgress = MutableLiveData&lt;Boolean>(false)</ID>
+    <ID>AvoidVarsExceptWithDelegate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var month = MutableLiveData&lt;Int?>(null)</ID>
+    <ID>AvoidVarsExceptWithDelegate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var name = MutableLiveData("")</ID>
+    <ID>AvoidVarsExceptWithDelegate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var token = MutableLiveData&lt;String?>(null)</ID>
+    <ID>AvoidVarsExceptWithDelegate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var year = MutableLiveData&lt;Int?>(null)</ID>
+    <ID>AvoidVarsExceptWithDelegate:GooglePayFragment.kt$GooglePayFragment$private var mViewModel: GooglePayFragmentViewModel? = null</ID>
+    <ID>AvoidVarsExceptWithDelegate:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var error = MutableLiveData&lt;String?>(null)</ID>
+    <ID>AvoidVarsExceptWithDelegate:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var inProgress = MutableLiveData(false)</ID>
+    <ID>AvoidVarsExceptWithDelegate:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var name = MutableLiveData("")</ID>
+    <ID>AvoidVarsExceptWithDelegate:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var token = MutableLiveData&lt;String?>(null)</ID>
+    <ID>AvoidVarsExceptWithDelegate:SecureFormCreditCardFragment.kt$SecureFormCreditCardFragment$private var mViewModel: SecureFormCreditCardViewModel? = null</ID>
+    <ID>AvoidVarsExceptWithDelegate:SecureFormCreditCardViewModel.kt$SecureFormCreditCardViewModel$@JvmField var error: TextView? = null</ID>
+    <ID>AvoidVarsExceptWithDelegate:SecureFormCreditCardViewModel.kt$SecureFormCreditCardViewModel$@JvmField var token: TextView? = null</ID>
+    <ID>AvoidVarsExceptWithDelegate:SecureFormCreditCardViewModel.kt$SecureFormCreditCardViewModel$var layout: SecureFormLayout? = null</ID>
+    <ID>CastNullableToNonNullableType:ComposeWidgetsFragment.kt$as</ID>
+    <ID>CognitiveComplexMethod:ComposeWidgetsFragment.kt$ComposeWidgetsFragment$override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View?</ID>
+    <ID>Deprecation:CreditCardFragment.kt$CreditCardFragment$onActivityCreated</ID>
+    <ID>Deprecation:GooglePayFragment.kt$GooglePayFragment$onActivityCreated</ID>
+    <ID>Deprecation:MainActivity.kt$FragmentPagerAdapter</ID>
+    <ID>Deprecation:MainActivity.kt$MainActivity$FragmentPagerAdapter</ID>
+    <ID>Deprecation:MainActivity.kt$MainActivity$locale</ID>
+    <ID>Deprecation:MainActivity.kt$MainActivity$updateConfiguration</ID>
+    <ID>Deprecation:SectionsPagerAdapter.kt$FragmentPagerAdapter</ID>
+    <ID>Deprecation:SectionsPagerAdapter.kt$SectionsPagerAdapter$FragmentPagerAdapter</ID>
+    <ID>Deprecation:SecureFormCreditCardFragment.kt$SecureFormCreditCardFragment$onActivityCreated</ID>
+    <ID>Deprecation:SimpleExamplesFragment.kt$SimpleExamplesFragment$onActivityCreated</ID>
+    <ID>Deprecation:SimplePagerAdapter.kt$FragmentPagerAdapter</ID>
+    <ID>Deprecation:SimplePagerAdapter.kt$SimplePagerAdapter$FragmentPagerAdapter</ID>
+    <ID>DontForceCast:ComposeWidgetsFragment.kt$as</ID>
+    <ID>EmptyFunctionBlock:BillingFragmentBase.kt$BillingFragmentBase.&lt;no name provided>${}</ID>
+    <ID>ExpressionBodySyntax:ComposeWidgetsFragment.kt$ComposeWidgetsFragment.Companion$return ComposeWidgetsFragment()</ID>
+    <ID>ExpressionBodySyntax:CreditCardFragment.kt$CreditCardFragment$return inflater.inflate(R.layout.credit_card_fragment, container, false)</ID>
+    <ID>ExpressionBodySyntax:CreditCardFragment.kt$CreditCardFragment.Companion$return CreditCardFragment()</ID>
+    <ID>ExpressionBodySyntax:GooglePayFragment.kt$GooglePayFragment$return inflater.inflate(R.layout.google_pay_fragment, container, false)</ID>
+    <ID>ExpressionBodySyntax:GooglePayFragment.kt$GooglePayFragment.Companion$return GooglePayFragment()</ID>
+    <ID>ExpressionBodySyntax:PlaceholderFragment.kt$PlaceholderFragment.Companion$return PlaceholderFragment()</ID>
+    <ID>ExpressionBodySyntax:SectionsPagerAdapter.kt$SectionsPagerAdapter$return TAB_TITLES.size</ID>
+    <ID>ExpressionBodySyntax:SectionsPagerAdapter.kt$SectionsPagerAdapter$return mContext.resources.getString(TAB_TITLES[position])</ID>
+    <ID>ExpressionBodySyntax:SecureFormCreditCardFragment.kt$SecureFormCreditCardFragment$return inflater.inflate(R.layout.secure_form_credit_card_fragment, container, false)</ID>
+    <ID>ExpressionBodySyntax:SecureFormCreditCardFragment.kt$SecureFormCreditCardFragment.Companion$return SecureFormCreditCardFragment()</ID>
+    <ID>ExpressionBodySyntax:SimpleExamplesFragment.kt$SimpleExamplesFragment$return inflater.inflate(R.layout.fragment_core_api, container, false)</ID>
+    <ID>ExpressionBodySyntax:SimpleExamplesFragment.kt$SimpleExamplesFragment.Companion$return SimpleExamplesFragment()</ID>
+    <ID>ExpressionBodySyntax:SimplePagerAdapter.kt$SimplePagerAdapter$return 2</ID>
+    <ID>LabeledExpression:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@launch</ID>
+    <ID>LabeledExpression:SecureFormCreditCardViewModel.kt$SecureFormCreditCardViewModel$@launch</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:ComposeWidgetsFragment.kt$// ktlint-disable experimental:property-naming val CreditCardInfoSaver = listSaver&lt;CreditCardInfo?, Any?>( save = { it?.let { listOf&lt;Any?>( it.firstName, it.lastName, it.fullName, it.number._encode(), it.verificationValue._encode(), it.month, it.year, it.retained, ) } ?: emptyList&lt;Any>() }, restore = { valueList -> if (valueList.size != 8) { null } else { CreditCardInfo( firstName = valueList[0] as? String, lastName = valueList[1] as? String, fullName = valueList[2] as? String, number = SpreedlySecureOpaqueString(valueList[3] as String), verificationValue = SpreedlySecureOpaqueString(valueList[4] as String), month = valueList[5] as Int, year = valueList[6] as Int, retained = valueList[7] as? Boolean, ) } }, )</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var cc = MutableLiveData("")</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var cvv = MutableLiveData("")</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var error = MutableLiveData&lt;String?>(null)</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var inProgress = MutableLiveData&lt;Boolean>(false)</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var month = MutableLiveData&lt;Int?>(null)</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var name = MutableLiveData("")</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var token = MutableLiveData&lt;String?>(null)</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var year = MutableLiveData&lt;Int?>(null)</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var error = MutableLiveData&lt;String?>(null)</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var inProgress = MutableLiveData(false)</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var name = MutableLiveData("")</ID>
+    <ID>LibraryCodeMustSpecifyReturnType:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var token = MutableLiveData&lt;String?>(null)</ID>
+    <ID>LongMethod:ComposeWidgetsFragment.kt$ComposeWidgetsFragment$override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View?</ID>
+    <ID>MagicNumber:ComposeWidgetsFragment.kt$ComposeWidgetsFragment$16</ID>
+    <ID>MultilineLambdaItParameter:ComposeWidgetsFragment.kt${ it?.let { listOf&lt;Any?>( it.firstName, it.lastName, it.fullName, it.number._encode(), it.verificationValue._encode(), it.month, it.year, it.retained, ) } ?: emptyList&lt;Any>() }</ID>
+    <ID>MutableTypeShouldBePrivate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var cc = MutableLiveData("")</ID>
+    <ID>MutableTypeShouldBePrivate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var cvv = MutableLiveData("")</ID>
+    <ID>MutableTypeShouldBePrivate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var error = MutableLiveData&lt;String?>(null)</ID>
+    <ID>MutableTypeShouldBePrivate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var inProgress = MutableLiveData&lt;Boolean>(false)</ID>
+    <ID>MutableTypeShouldBePrivate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var month = MutableLiveData&lt;Int?>(null)</ID>
+    <ID>MutableTypeShouldBePrivate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var name = MutableLiveData("")</ID>
+    <ID>MutableTypeShouldBePrivate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var token = MutableLiveData&lt;String?>(null)</ID>
+    <ID>MutableTypeShouldBePrivate:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$@JvmField var year = MutableLiveData&lt;Int?>(null)</ID>
+    <ID>MutableTypeShouldBePrivate:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var error = MutableLiveData&lt;String?>(null)</ID>
+    <ID>MutableTypeShouldBePrivate:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var inProgress = MutableLiveData(false)</ID>
+    <ID>MutableTypeShouldBePrivate:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var name = MutableLiveData("")</ID>
+    <ID>MutableTypeShouldBePrivate:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$@JvmField var token = MutableLiveData&lt;String?>(null)</ID>
+    <ID>NamedArguments:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$GooglePayInfo(names[0], names[1], paymentData, false)</ID>
+    <ID>NestedScopeFunctions:ComposeWidgetsFragment.kt$ComposeWidgetsFragment$let { error = it.toString() }</ID>
+    <ID>NestedScopeFunctions:ComposeWidgetsFragment.kt$ComposeWidgetsFragment$let { spreedlyClient.createCreditCardPaymentMethod(it) }</ID>
+    <ID>NestedScopeFunctions:ComposeWidgetsFragment.kt$ComposeWidgetsFragment$let { token = it }</ID>
+    <ID>NestedScopeFunctions:SecureFormCreditCardViewModel.kt$SecureFormCreditCardViewModel$let { error?.text = it.message }</ID>
+    <ID>NestedScopeFunctions:SecureFormCreditCardViewModel.kt$SecureFormCreditCardViewModel$run { error?.setText(R.string.generic_error) }</ID>
+    <ID>NewLineAtEndOfFile:PlaceholderFragment.kt$com.spreedly.sdk_sample.ui.main.PlaceholderFragment.kt</ID>
+    <ID>NoNameShadowing:ComposeWidgetsFragment.kt${ listOf&lt;Any?>( it.firstName, it.lastName, it.fullName, it.number._encode(), it.verificationValue._encode(), it.month, it.year, it.retained, ) }</ID>
+    <ID>NoNotNullOperator:CreditCardFragment.kt$CreditCardFragment$mViewModel!!</ID>
+    <ID>NoNotNullOperator:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$cc.value!!</ID>
+    <ID>NoNotNullOperator:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$cvv.value!!</ID>
+    <ID>NoNotNullOperator:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$trans.result!!</ID>
+    <ID>NoNotNullOperator:GooglePayFragment.kt$GooglePayFragment$mViewModel!!</ID>
+    <ID>NoNotNullOperator:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$name.value!!</ID>
+    <ID>NoNotNullOperator:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$trans.result!!</ID>
+    <ID>NoNotNullOperator:SecureFormCreditCardFragment.kt$SecureFormCreditCardFragment$mViewModel!!</ID>
+    <ID>NoNotNullOperator:SecureFormCreditCardFragment.kt$SecureFormCreditCardFragment$mViewModel!!.layout!!</ID>
+    <ID>NoNotNullOperator:SimpleExamplesFragment.kt$SimpleExamplesFragment$view!!</ID>
+    <ID>PackageNaming:BillingFragmentBase.kt$package com.spreedly.sdk_sample.simple</ID>
+    <ID>PackageNaming:ComposeWidgetsFragment.kt$package com.spreedly.sdk_sample.widget</ID>
+    <ID>PackageNaming:CreditCardFragment.kt$package com.spreedly.sdk_sample.simple</ID>
+    <ID>PackageNaming:CreditCardFragmentViewModel.kt$package com.spreedly.sdk_sample.simple</ID>
+    <ID>PackageNaming:GooglePayFragment.kt$package com.spreedly.sdk_sample.simple</ID>
+    <ID>PackageNaming:GooglePayFragmentViewModel.kt$package com.spreedly.sdk_sample.simple</ID>
+    <ID>PackageNaming:MainActivity.kt$package com.spreedly.sdk_sample</ID>
+    <ID>PackageNaming:PlaceholderFragment.kt$package com.spreedly.sdk_sample.ui.main</ID>
+    <ID>PackageNaming:SectionsPagerAdapter.kt$package com.spreedly.sdk_sample.ui.main</ID>
+    <ID>PackageNaming:SecureFormCreditCardFragment.kt$package com.spreedly.sdk_sample.widget</ID>
+    <ID>PackageNaming:SecureFormCreditCardViewModel.kt$package com.spreedly.sdk_sample.widget</ID>
+    <ID>PackageNaming:SimpleExamplesFragment.kt$package com.spreedly.sdk_sample.ui.main</ID>
+    <ID>PackageNaming:SimplePagerAdapter.kt$package com.spreedly.sdk_sample.simple</ID>
+    <ID>StringLiteralDuplication:ComposeWidgetsFragment.kt$ComposeWidgetsFragment$"ComposeWidgetsFragment"</ID>
+    <ID>SwallowedException:SecureFormCreditCardViewModel.kt$SecureFormCreditCardViewModel$e: Exception</ID>
+    <ID>ThrowingExceptionsWithoutMessageOrCause:SimplePagerAdapter.kt$SimplePagerAdapter$IndexOutOfBoundsException()</ID>
+    <ID>TooGenericExceptionCaught:ComposeWidgetsFragment.kt$ComposeWidgetsFragment$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SecureFormCreditCardViewModel.kt$SecureFormCreditCardViewModel$e: Exception</ID>
+    <ID>TrimMultilineRawString:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$"""{ "protocolVersion":"ECv2", "signature":"MEQCIH6Q4OwQ0jAceFEkGF0JID6sJNXxOEi4r+mA7biRxqBQAiAondqoUpU/bdsrAOpZIsrHQS9nwiiNwOrr24RyPeHA0Q\u003d\u003d", "intermediateSigningKey":{ "signedKey": "{\"keyExpiration\":\"1542323393147\",\"keyValue\":\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE/1+3HBVSbdv+j7NaArdgMyoSAM43yRydzqdg1TxodSzA96Dj4Mc1EiKroxxunavVIvdxGnJeFViTzFvzFRxyCw\\u003d\\u003d\"}", "signatures": ["MEYCIQCO2EIi48s8VTH+ilMEpoXLFfkxAwHjfPSCVED/QDSHmQIhALLJmrUlNAY8hDQRV/y1iKZGsWpeNmIP+z+tCQHQxP0v"] }, "signedMessage":"{\"tag\":\"jpGz1F1Bcoi/fCNxI9n7Qrsw7i7KHrGtTf3NrRclt+U\\u003d\",\"ephemeralPublicKey\":\"BJatyFvFPPD21l8/uLP46Ta1hsKHndf8Z+tAgk+DEPQgYTkhHy19cF3h/bXs0tWTmZtnNm+vlVrKbRU9K8+7cZs\\u003d\",\"encryptedMessage\":\"mKOoXwi8OavZ\"}" }"""</ID>
+    <ID>UnnecessaryAbstractClass:BillingFragmentBase.kt$BillingFragmentBase$BillingFragmentBase</ID>
+    <ID>UnsafeCallOnNullableType:CreditCardFragment.kt$CreditCardFragment$mViewModel!!</ID>
+    <ID>UnsafeCallOnNullableType:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$cc.value!!</ID>
+    <ID>UnsafeCallOnNullableType:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$cvv.value!!</ID>
+    <ID>UnsafeCallOnNullableType:CreditCardFragmentViewModel.kt$CreditCardFragmentViewModel$trans.result!!</ID>
+    <ID>UnsafeCallOnNullableType:GooglePayFragment.kt$GooglePayFragment$mViewModel!!</ID>
+    <ID>UnsafeCallOnNullableType:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$name.value!!</ID>
+    <ID>UnsafeCallOnNullableType:GooglePayFragmentViewModel.kt$GooglePayFragmentViewModel$trans.result!!</ID>
+    <ID>UnsafeCallOnNullableType:SecureFormCreditCardFragment.kt$SecureFormCreditCardFragment$mViewModel!!</ID>
+    <ID>UnsafeCallOnNullableType:SecureFormCreditCardFragment.kt$SecureFormCreditCardFragment$mViewModel!!.layout!!</ID>
+    <ID>UnsafeCallOnNullableType:SimpleExamplesFragment.kt$SimpleExamplesFragment$view!!</ID>
+    <ID>UnusedImports:CreditCardFragmentViewModel.kt$import com.spreedly.client.models.results.PaymentMethodResult</ID>
+    <ID>UnusedImports:CreditCardFragmentViewModel.kt$import com.spreedly.client.models.results.TransactionResult</ID>
+    <ID>VarCouldBeVal:ComposeWidgetsFragment.kt$ComposeWidgetsFragment$var cardInfo = rememberSaveable&lt;CreditCardInfo?>( stateSaver = CreditCardInfoSaver, ) { mutableStateOf(null) }</ID>
+  </CurrentIssues>
+</SmellBaseline>
