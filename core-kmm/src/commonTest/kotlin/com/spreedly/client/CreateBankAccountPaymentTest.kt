@@ -1,6 +1,7 @@
 package com.spreedly.client
 
 import com.spreedly.client.models.BankAccountInfo
+import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.AccountType
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -9,10 +10,12 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class CreateBankAccountPaymentTest {
     lateinit var client: SpreedlyClient
 
@@ -38,7 +41,7 @@ class CreateBankAccountPaymentTest {
             firstName = "John",
             lastName = "Doe",
             routingNumber = "021000021",
-            accountNumber = client.createString("9876543210"),
+            accountNumber = SpreedlySecureOpaqueString("9876543210"),
             accountType = AccountType.checking,
         )
         val trans = client.createBankPaymentMethod(bankAccountInfo)
@@ -53,7 +56,7 @@ class CreateBankAccountPaymentTest {
             firstName = "Jane",
             lastName = "Doe",
             routingNumber = "",
-            accountNumber = client.createString("9876543210"),
+            accountNumber = SpreedlySecureOpaqueString("9876543210"),
             accountType = AccountType.checking,
             retained = false,
         )
@@ -68,7 +71,7 @@ class CreateBankAccountPaymentTest {
             firstName = "John",
             lastName = "Doe",
             routingNumber = "021000021",
-            accountNumber = client.createString("9876543210"),
+            accountNumber = SpreedlySecureOpaqueString("9876543210"),
             accountType = AccountType.checking,
             retained = true,
         )

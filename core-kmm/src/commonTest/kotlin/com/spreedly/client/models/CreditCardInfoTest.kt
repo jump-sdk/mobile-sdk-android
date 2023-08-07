@@ -26,8 +26,8 @@ class CreditCardInfoTest {
             fullName = null,
             firstName = "Jane",
             lastName = "Doe",
-            number = client.createString("sample card number"),
-            verificationValue = client.createString("sample cvv"),
+            number = SpreedlySecureOpaqueString("sample card number"),
+            verificationValue = SpreedlySecureOpaqueString("sample cvv"),
             month = 12,
             year = 2030,
         )
@@ -48,8 +48,8 @@ class CreditCardInfoTest {
             fullName = "Jane Doe",
             firstName = null,
             lastName = null,
-            number = client.createString("sample card number"),
-            verificationValue = client.createString("sample cvv"),
+            number = SpreedlySecureOpaqueString("sample card number"),
+            verificationValue = SpreedlySecureOpaqueString("sample cvv"),
             month = 12,
             year = 2030,
         )
@@ -70,8 +70,8 @@ class CreditCardInfoTest {
                 fullName = "Jane Doe",
                 firstName = "Jane",
                 lastName = "Doe",
-                number = client.createString("sample card number"),
-                verificationValue = client.createString("sample cvv"),
+                number = SpreedlySecureOpaqueString("sample card number"),
+                verificationValue = SpreedlySecureOpaqueString("sample cvv"),
                 month = 12,
                 year = 2030,
             )

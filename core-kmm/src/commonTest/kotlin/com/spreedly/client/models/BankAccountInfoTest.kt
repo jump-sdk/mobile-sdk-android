@@ -20,7 +20,7 @@ class BankAccountInfoTest {
             firstName = "Jane",
             lastName = "Doe",
             routingNumber = "1234567",
-            accountNumber = client.createString("0000000"),
+            accountNumber = SpreedlySecureOpaqueString("0000000"),
             accountType = AccountType.checking,
         )
 
@@ -40,7 +40,7 @@ class BankAccountInfoTest {
             firstName = "Jane",
             lastName = "Doe",
             routingNumber = "1234567",
-            accountNumber = client.createString("0000000"),
+            accountNumber = SpreedlySecureOpaqueString("0000000"),
             accountType = null,
         )
 

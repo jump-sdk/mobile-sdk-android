@@ -36,21 +36,6 @@ class SpreedlySecureOpaqueStringTest {
     }
 
     @Test
-    fun CanRemoveChar() {
-        val string = SpreedlySecureOpaqueString("")
-        string.append("test")
-        string.removeLastCharacter()
-        assertEquals(3, string.length)
-    }
-
-    @Test
-    fun CanRemoveCharIfEmpty() {
-        val string = SpreedlySecureOpaqueString("")
-        string.removeLastCharacter()
-        assertEquals(0, string.length)
-    }
-
-    @Test
     fun canIdentifyMasterCard() {
         val string = SpreedlySecureOpaqueString("")
         string.append("5555555555554444")

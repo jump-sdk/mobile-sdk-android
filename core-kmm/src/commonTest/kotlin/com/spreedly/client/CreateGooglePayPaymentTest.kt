@@ -8,10 +8,12 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class CreateGooglePayPaymentTest {
     lateinit var client: SpreedlyClient
 
@@ -72,7 +74,7 @@ class CreateGooglePayPaymentTest {
         )
         googlePayInfo.testCardNumber = "4111111111111111"
         val trans = client.createGooglePaymentMethod(googlePayInfo)
-        assertEquals("Succeeded!", trans.message);
-        assertNotNull(trans.result?.token);
+        assertEquals("Succeeded!", trans.message)
+        assertNotNull(trans.result?.token)
     }
 }

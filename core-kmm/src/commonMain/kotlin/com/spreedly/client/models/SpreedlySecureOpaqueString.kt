@@ -17,13 +17,6 @@ class SpreedlySecureOpaqueString(private var data: String) {
         data += string
     }
 
-    fun removeLastCharacter() {
-        if (length == 0) {
-            return
-        }
-        data = data.substring(0, length - 1)
-    }
-
     fun _encode(): String {
         data = data.replace(" ", "")
         return data

@@ -1,8 +1,6 @@
 package com.spreedly.client
 
 import com.spreedly.client.models.ApplePayInfo
-import com.spreedly.client.models.results.PaymentMethodResult
-import com.spreedly.client.models.results.TransactionResult
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Ignore
@@ -10,10 +8,12 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class CreateApplePayPaymentTest {
     lateinit var client: SpreedlyClient
 

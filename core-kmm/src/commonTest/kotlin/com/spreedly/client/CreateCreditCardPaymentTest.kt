@@ -1,6 +1,7 @@
 package com.spreedly.client
 
 import com.spreedly.client.models.CreditCardInfo
+import com.spreedly.client.models.SpreedlySecureOpaqueString
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Ignore
@@ -8,10 +9,12 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class CreateCreditCardPaymentTest {
     lateinit var client: SpreedlyClient
 
@@ -36,8 +39,8 @@ class CreateCreditCardPaymentTest {
             fullName = null,
             firstName = "Joe",
             lastName = "Jones",
-            number = client.createString("5555555555554444"),
-            verificationValue = client.createString("432"),
+            number = SpreedlySecureOpaqueString("5555555555554444"),
+            verificationValue = SpreedlySecureOpaqueString("432"),
             month = 12,
             year = 2032,
             retained = false,
@@ -52,8 +55,8 @@ class CreateCreditCardPaymentTest {
             fullName = null,
             firstName = "Joe",
             lastName = "Jones",
-            number = client.createString("5555555555554444"),
-            verificationValue = client.createString("432"),
+            number = SpreedlySecureOpaqueString("5555555555554444"),
+            verificationValue = SpreedlySecureOpaqueString("432"),
             month = 12,
             year = 2032,
             retained = true,
@@ -69,8 +72,8 @@ class CreateCreditCardPaymentTest {
             fullName = null,
             firstName = "Joe",
             lastName = "Jones",
-            number = client.createString("55555555555"),
-            verificationValue = client.createString("432"),
+            number = SpreedlySecureOpaqueString("55555555555"),
+            verificationValue = SpreedlySecureOpaqueString("432"),
             month = 12,
             year = 2032,
         )
@@ -85,8 +88,8 @@ class CreateCreditCardPaymentTest {
             fullName = null,
             firstName = "Joe",
             lastName = "Jones",
-            number = client.createString("5555555555554444"),
-            verificationValue = client.createString("432"),
+            number = SpreedlySecureOpaqueString("5555555555554444"),
+            verificationValue = SpreedlySecureOpaqueString("432"),
             month = 12,
             year = 2030,
         )
