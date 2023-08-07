@@ -5,7 +5,7 @@ import kotlinx.datetime.Instant
 class CreditCardResult(
     override val token: String?,
     override val storageState: String?,
-    override val test: Boolean,
+    override val test: Boolean?,
     override val paymentMethodType: String?,
     override val errors: List<SpreedlyError>?,
     override val createdAt: Instant?,

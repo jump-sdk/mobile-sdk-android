@@ -32,11 +32,8 @@ class KtorClient(
     private val key: String,
     private val secret: String?,
 ) {
-    private val credentials: String
-        get() {
-            val raw = "$key:$secret"
-            return "Basic " + safeBase64(raw.toByteArray())
-        }
+    private val credentials: String by lazy { "Basic " + safeBase64("$key:$secret".toByteArray()) }
+
     private val client = HttpClient(engine) {
         expectSuccess = false
         install(ContentNegotiation) {

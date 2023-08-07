@@ -6,25 +6,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.spreedly.client.SpreedlyClient.Companion.newInstance
 import com.spreedly.client.models.CreditCardInfo
-import com.spreedly.client.models.results.PaymentMethodResult
-import com.spreedly.client.models.results.TransactionResult
+import com.spreedly.client.models.SpreedlySecureOpaqueString
 import kotlinx.coroutines.launch
 
 class CreditCardFragmentViewModel : ViewModel() {
     @JvmField
     var name = MutableLiveData("")
+
     @JvmField
     var cc = MutableLiveData("")
+
     @JvmField
     var cvv = MutableLiveData("")
+
     @JvmField
     var year = MutableLiveData<Int?>(null)
+
     @JvmField
     var month = MutableLiveData<Int?>(null)
+
     @JvmField
     var inProgress = MutableLiveData<Boolean>(false)
+
     @JvmField
     var token = MutableLiveData<String?>(null)
+
     @JvmField
     var error = MutableLiveData<String?>(null)
 
@@ -34,12 +40,12 @@ class CreditCardFragmentViewModel : ViewModel() {
             fullName = name.value,
             firstName = null,
             lastName = null,
-            number = client.createString(cc.value!!),
-            verificationValue = client.createString(cvv.value!!),
+            number = SpreedlySecureOpaqueString(cc.value!!),
+            verificationValue = SpreedlySecureOpaqueString(cvv.value!!),
             year = year.value ?: 0,
             month = month.value ?: 0,
         )
-        inProgress.setValue(true)
+        inProgress.value = true
         token.postValue("")
         error.postValue("")
         viewModelScope.launch {

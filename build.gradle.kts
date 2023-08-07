@@ -44,6 +44,8 @@ sonar {
         property("sonar.projectKey", "jump-sdk_mobile-sdk-android")
         property("sonar.organization", "jump-sdk")
         property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.kotlin.source.version", "1.9.0")
+        property("sonar.pullrequest.github.summary_comment", "true")
     }
 }
 

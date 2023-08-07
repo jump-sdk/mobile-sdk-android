@@ -5,7 +5,7 @@ import kotlinx.datetime.Instant
 data class BankAccountResult(
     override val token: String?,
     override val storageState: String?,
-    override val test: Boolean,
+    override val test: Boolean?,
     override val paymentMethodType: String?,
     override val createdAt: Instant?,
     override val updatedAt: Instant?,
@@ -20,5 +20,5 @@ data class BankAccountResult(
     val accountNumber: String?,
     val firstName: String?,
     val lastName: String?,
-    val fullName: String?
+    val fullName: String?,
 ) : PaymentMethodResult

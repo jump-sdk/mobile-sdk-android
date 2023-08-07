@@ -5,7 +5,7 @@ import kotlinx.datetime.Instant
 interface PaymentMethodResult {
     val token: String?
     val storageState: String?
-    val test: Boolean
+    val test: Boolean?
     val paymentMethodType: String?
     val createdAt: Instant?
     val updatedAt: Instant?
