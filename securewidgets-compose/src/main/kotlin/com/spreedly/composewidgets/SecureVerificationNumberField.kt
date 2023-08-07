@@ -11,7 +11,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.CardBrand
-import com.spreedly.client.models.enums.isValid
 
 /**
  * Composable function representing a secure input field for entering verification numbers (CVV/CVC).
@@ -58,6 +57,7 @@ fun SecureVerificationNumberField(
     contentPadding = textFieldPadding,
 )
 
+@Suppress("MagicNumber")
 val CardBrand?.maxLength: Int
     get() = when (this) {
         CardBrand.unknown, CardBrand.error, null, CardBrand.americanExpress -> 4

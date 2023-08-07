@@ -1,4 +1,4 @@
-package com.spreedly.sdk_sample.widget // ktlint-disable package-name
+package com.spreedly.sdk_sample.compose // ktlint-disable package-name
 
 import android.os.Bundle
 import android.util.Log
@@ -53,6 +53,8 @@ class ComposeWidgetsFragment : Fragment() {
                     Surface(Modifier.fillMaxSize()) {
                         val coroutineScope = rememberCoroutineScope()
 
+                        // These values would usually be handled in a ViewModel and are stored here
+                        /// only for demo purposes
                         var isCardValid by rememberSaveable { mutableStateOf(false) }
                         var brand by rememberSaveable { mutableStateOf(CardBrand.unknown) }
                         var cardInfo = rememberSaveable<CreditCardInfo?>(

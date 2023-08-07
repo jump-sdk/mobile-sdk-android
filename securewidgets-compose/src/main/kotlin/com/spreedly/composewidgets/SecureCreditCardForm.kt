@@ -3,13 +3,13 @@ package com.spreedly.composewidgets
 import android.app.PendingIntent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
@@ -26,7 +26,9 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.google.android.gms.wallet.WalletConstants
 import com.spreedly.client.models.CreditCardInfo
 import com.spreedly.client.models.CreditCardInfoBuilder
@@ -119,15 +121,11 @@ fun SecureCreditCardForm(
         }
     }
 
-    Column(modifier) {
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(fieldSpacing)) {
         NameField(
             modifier = fieldModifier,
             onValueChange = {
-                creditCardInfoBuilder.fullName = if (it.isNotBlank()) {
-                    it
-                } else {
-                    null
-                }
+                creditCardInfoBuilder.fullName = it.ifBlank { null }
                 onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
             },
             label = { labelFactory(stringResource(id = R.string.card_name_hint)) },
@@ -136,7 +134,6 @@ fun SecureCreditCardForm(
             shape = shape,
             textFieldPadding = textFieldPadding,
         )
-        Spacer(modifier = Modifier.height(fieldSpacing))
         SecureCreditCardField(
             modifier = fieldModifier,
             onValueChange = cardChanged,
@@ -149,7 +146,16 @@ fun SecureCreditCardForm(
             cardRecognitionLauncher = cardRecognitionLauncher,
             textFieldPadding = textFieldPadding,
         )
-        Spacer(modifier = Modifier.height(fieldSpacing))
+        ExpirationField(
+            modifier = fieldModifier,
+            onValueChange = expirationChanged,
+            label = { labelFactory(stringResource(id = R.string.expiration_hint)) },
+            textStyle = textStyle,
+            colors = colors,
+            shape = shape,
+            initialValue = initialExpiration,
+            textFieldPadding = textFieldPadding,
+        )
         SecureVerificationNumberField(
             modifier = fieldModifier,
             onValueChange = { number, isValid ->
@@ -164,17 +170,6 @@ fun SecureCreditCardForm(
             textStyle = textStyle,
             colors = colors,
             shape = shape,
-            textFieldPadding = textFieldPadding,
-        )
-        Spacer(modifier = Modifier.height(fieldSpacing))
-        ExpirationField(
-            modifier = fieldModifier,
-            onValueChange = expirationChanged,
-            label = { labelFactory(stringResource(id = R.string.expiration_hint)) },
-            textStyle = textStyle,
-            colors = colors,
-            shape = shape,
-            initialValue = initialExpiration,
             textFieldPadding = textFieldPadding,
         )
     }
@@ -201,3 +196,14 @@ val CreditCardInfoBuilderSaver = listSaver(
         }
     },
 )
+
+@Preview
+@Composable
+fun SecureCreditCardFormPreview() {
+    Surface {
+        SecureCreditCardForm(
+            fieldSpacing = 16.dp,
+            onValidCreditCardInfo = { _, _ -> },
+        )
+    }
+}

@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.spreedly.sdk_sample.R
-import com.spreedly.sdk_sample.ui.main.SimpleExamplesFragment.Companion.newInstance
-import com.spreedly.sdk_sample.widget.ComposeWidgetsFragment
+import com.spreedly.sdk_sample.compose.ComposeWidgetsFragment
 import com.spreedly.sdk_sample.widget.SecureFormCreditCardFragment
 
 /**

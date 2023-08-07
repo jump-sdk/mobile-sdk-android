@@ -60,7 +60,7 @@ fun SecureCreditCardField(
 ) {
     var brand by rememberSaveable { mutableStateOf(CardBrand.unknown) }
     var transformation by remember(brand) {
-        mutableStateOf(CreditCardNumberTransformation(brand, separator))
+        mutableStateOf(CreditCardNumberTransformation.forBrand(brand, separator))
     }
 
     SecureTextField(

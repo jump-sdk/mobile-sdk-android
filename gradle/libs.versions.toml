@@ -76,6 +76,8 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
 play-services-wallet = { group = "com.google.android.gms", name = "play-services-wallet", version = "19.2.0" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version = "1.4.3" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version = "1.4.3" }
 
 [plugins]
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }

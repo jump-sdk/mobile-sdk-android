@@ -61,9 +61,11 @@ dependencies {
     implementation(libs.compose.activity)
     implementation(libs.compose.material)
     implementation(libs.play.services.wallet)
+    implementation(libs.androidx.ui.tooling.preview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    debugImplementation(libs.androidx.ui.tooling)
 }
 
 publishing {

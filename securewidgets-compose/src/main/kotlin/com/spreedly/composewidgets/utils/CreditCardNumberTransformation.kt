@@ -6,25 +6,20 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import com.spreedly.client.models.enums.CardBrand
 
-// https://dev.to/benyam7/formatting-credit-card-number-input-in-jetpack-compose-android-2nal
-@Suppress("MagicNumber", "AvoidVarsExceptWithDelegate")
-class CreditCardNumberTransformation(
-    private val cardBrand: CardBrand,
-    private val separator: String,
-) : VisualTransformation {
-    init {
+object CreditCardNumberTransformation {
+    fun forBrand(cardBrand: CardBrand, separator: String): VisualTransformation {
         require(separator.length == 1) { "Separator must be a single character" }
-    }
 
-    override fun filter(text: AnnotatedString): TransformedText {
         return when (cardBrand) {
-            CardBrand.americanExpress -> formatAmex(text)
-            CardBrand.dinersClub -> formatDinersClub(text)
-            else -> formatOtherCardNumbers(text)
+            CardBrand.americanExpress -> AmExTransformation(separator)
+            CardBrand.dinersClub -> DinersClubTransformation(separator)
+            else -> FourDigitChunkTransformation(separator)
         }
     }
-
-    private fun formatAmex(text: AnnotatedString): TransformedText {
+}
+@Suppress("MagicNumber", "AvoidVarsExceptWithDelegate")
+class AmExTransformation(private val separator: String) : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
         var out = ""
 
         for (i in text.indices) {
@@ -53,8 +48,11 @@ class CreditCardNumberTransformation(
         }
         return TransformedText(AnnotatedString(out), creditCardOffsetTranslator)
     }
+}
 
-    private fun formatDinersClub(text: AnnotatedString): TransformedText {
+@Suppress("MagicNumber", "AvoidVarsExceptWithDelegate")
+class DinersClubTransformation(private val separator: String) : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
         var out = ""
 
         for (i in text.indices) {
@@ -82,8 +80,11 @@ class CreditCardNumberTransformation(
         }
         return TransformedText(AnnotatedString(out), creditCardOffsetTranslator)
     }
+}
 
-    private fun formatOtherCardNumbers(text: AnnotatedString): TransformedText {
+@Suppress("MagicNumber", "AvoidVarsExceptWithDelegate")
+class FourDigitChunkTransformation(private val separator: String) : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
         var out = ""
 
         for (i in text.indices) {
