@@ -4,7 +4,6 @@ import com.spreedly.client.models.CreditCardInfo
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
-import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -65,20 +64,19 @@ class CreateCreditCardPaymentTest {
         assertNotNull(trans.result?.token)
     }
 
-    @Ignore
     @Test
-    fun badCreditCardFails() = runTest {
+    fun badCreditCardYearFails() = runTest {
         val cc = CreditCardInfo(
             fullName = null,
             firstName = "Joe",
             lastName = "Jones",
-            number = SpreedlySecureOpaqueString("55555555555"),
+            number = SpreedlySecureOpaqueString("4111111111111111"),
             verificationValue = SpreedlySecureOpaqueString("432"),
             month = 12,
-            year = 2032,
+            year = 3000,
         )
         val trans = client.createCreditCardPaymentMethod(cc)
-        assertEquals(expected = "Month can't be blank", actual = trans.errors?.first()?.message)
+        assertEquals(expected = "year", actual = trans.errors?.first()?.attribute)
     }
 
     @Test

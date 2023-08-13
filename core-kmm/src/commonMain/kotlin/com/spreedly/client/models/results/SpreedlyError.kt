@@ -1,7 +1,7 @@
 package com.spreedly.client.models.results
 
-class SpreedlyError(
+data class SpreedlyError(
     val attribute: String?,
     val key: String?,
-    val message: String?,
-)
+    override val message: String?,
+) : Throwable(message)
