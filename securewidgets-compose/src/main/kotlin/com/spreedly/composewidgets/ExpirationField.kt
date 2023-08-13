@@ -67,6 +67,8 @@ fun ExpirationField(
                 onValueChange(ValidatedExpirationDate(month = month, year = year))
             } catch (e: NumberFormatException) {
                 onValueChange(ValidatedExpirationDate())
+            } catch (e: StringIndexOutOfBoundsException) {
+                onValueChange(ValidatedExpirationDate())
             }
         },
         label = label,
