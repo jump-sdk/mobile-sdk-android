@@ -61,14 +61,14 @@ fun ExpirationField(
         value = value,
         onValueChange = { date ->
             value = date.filter { it.isDigit() }
-            try {
-                val month = value.take(2).toInt()
-                val year = value.substring(2).toInt()
-                onValueChange(ValidatedExpirationDate(month = month, year = year))
-            } catch (e: NumberFormatException) {
-                onValueChange(ValidatedExpirationDate())
-            } catch (e: StringIndexOutOfBoundsException) {
-                onValueChange(ValidatedExpirationDate())
+            if (value.length == 6) {
+                try {
+                    val month = value.take(2).toInt()
+                    val year = value.substring(2).toInt()
+                    onValueChange(ValidatedExpirationDate(month = month, year = year))
+                } catch (e: NumberFormatException) {
+                    onValueChange(ValidatedExpirationDate())
+                }
             }
         },
         label = label,
