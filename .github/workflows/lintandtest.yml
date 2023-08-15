@@ -1,6 +1,9 @@
 name: Lint and Test
-  
-on: [workflow_call, pull_request]
+
+pull_request:
+  branches: [ master ]
+push:
+  branches: [ master ]
 
 jobs:
   build:
