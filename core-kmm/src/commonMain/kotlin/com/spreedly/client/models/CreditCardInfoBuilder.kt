@@ -17,7 +17,9 @@ class CreditCardInfoBuilder {
                 verificationValue = requireNotNull(cvc),
                 month = requireNotNull(month),
                 year = requireNotNull(year),
-            )
+            ).takeIf {
+                it.prevalidate()
+            }
         } catch (e: IllegalArgumentException) {
             null
         }

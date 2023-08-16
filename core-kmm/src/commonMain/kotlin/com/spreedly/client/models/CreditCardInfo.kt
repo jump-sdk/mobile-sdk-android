@@ -22,16 +22,14 @@ class CreditCardInfo(
     address = address,
     shippingAddress = shippingAddress,
 ) {
-    init {
-        require(year >= 2023) { "Year must be 2023 or later" }
-        require(month in 1..12) { "Month must be between 1 and 12" }
-        require(
+    fun prevalidate(): Boolean = year >= 2023 &&
+        month in 1..12 &&
+        number.isValidCreditCard &&
+        verificationValue.isValidCvc(number.cardBrand) &&
+        (
             !fullName.isNullOrBlank() xor
-                (!firstName.isNullOrBlank() && !lastName.isNullOrBlank()),
-        ) {
-            "Either fullName or firstName and lastName must be provided but not both"
-        }
-    }
+                (!firstName.isNullOrBlank() && !lastName.isNullOrBlank())
+            )
 
     override fun toJson(): JsonObject {
         val paymentMethod = mutableMapOf<String, JsonElement>()
