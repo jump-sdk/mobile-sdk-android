@@ -16,25 +16,27 @@ abstract class PaymentMethodInfo(
 ) {
     abstract fun toJson(): JsonObject
 
-    fun addCommonJsonFields(
-        paymentMethodEntries: MutableMap<String, JsonElement>,
-        subTypeEntries: MutableMap<String, JsonElement>,
-    ) {
-        if (fullName != null) {
-            subTypeEntries.putAsJsonElement("full_name", fullName)
-        } else {
-            subTypeEntries.putAsJsonElement("first_name", firstName)
-            subTypeEntries.putAsJsonElement("last_name", lastName)
+    fun generateBaseRequestMap(): MutableMap<String, JsonElement> =
+        mutableMapOf<String, JsonElement>().apply {
+            putAsJsonElement("retained", retained)
+            metadata?.let {
+                put("metadata", it)
+            }
+            email?.let {
+                putAsJsonElement("email", it)
+            }
         }
-        subTypeEntries.putAsJsonElement("company", company)
-        address?.let { it.toJson(subTypeEntries, "") }
-        shippingAddress?.let { it.toJson(subTypeEntries, "shipping_") }
-        paymentMethodEntries.putAsJsonElement("retained", retained)
-        metadata?.let {
-            paymentMethodEntries.put("metadata", it)
+
+    fun generatePersonInfoMap(): MutableMap<String, JsonElement> =
+        mutableMapOf<String, JsonElement>().apply {
+            if (fullName != null) {
+                putAsJsonElement("full_name", fullName)
+            } else {
+                putAsJsonElement("first_name", firstName)
+                putAsJsonElement("last_name", lastName)
+            }
+            putAsJsonElement("company", company)
+            address?.let { it.toJson(this, "") }
+            shippingAddress?.let { it.toJson(this, "shipping_") }
         }
-        email?.let {
-            paymentMethodEntries.putAsJsonElement("email", it)
-        }
-    }
 }

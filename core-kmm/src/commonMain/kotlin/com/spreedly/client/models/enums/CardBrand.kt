@@ -38,7 +38,11 @@ enum class CardBrand(val range: List<IntRange>?, val bins: List<String>?) {
         null,
     ),
     cabal(
-        listOf(IntRange(60420100, 60440099), IntRange(58965700, 58965799), IntRange(60352200, 60352299)),
+        listOf(
+            IntRange(60420100, 60440099),
+            IntRange(58965700, 58965799),
+            IntRange(60352200, 60352299),
+        ),
         null,
     ),
     carnet(
@@ -158,7 +162,6 @@ enum class CardBrand(val range: List<IntRange>?, val bins: List<String>?) {
     vr(null, null),
     unknown(null, null),
     error(null, null),
-    ;
 }
 
 val CardBrand.isValid: Boolean

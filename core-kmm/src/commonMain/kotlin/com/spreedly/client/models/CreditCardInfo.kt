@@ -1,6 +1,5 @@
 package com.spreedly.client.models
 
-import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
 class CreditCardInfo(
@@ -32,16 +31,15 @@ class CreditCardInfo(
             )
 
     override fun toJson(): JsonObject {
-        val paymentMethod = mutableMapOf<String, JsonElement>()
-        val creditCard = mutableMapOf<String, JsonElement>()
-        addCommonJsonFields(paymentMethod, creditCard)
+        val request = generateBaseRequestMap()
+        val creditCard = generatePersonInfoMap()
         creditCard.putAsJsonElement("verification_value", verificationValue._encode())
         creditCard.putAsJsonElement("number", number._encode())
         creditCard.putAsJsonElement("month", month)
         creditCard.putAsJsonElement("year", year)
-        paymentMethod.put("credit_card", JsonObject(creditCard))
+        request["credit_card"] = JsonObject(creditCard)
         return JsonObject(
-            mapOf("payment_method" to JsonObject(paymentMethod)),
+            mapOf("payment_method" to JsonObject(request)),
         )
     }
 

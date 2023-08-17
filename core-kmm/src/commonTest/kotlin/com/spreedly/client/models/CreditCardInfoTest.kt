@@ -5,7 +5,11 @@ import com.spreedly.client.TestCredentials
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertContains
-import kotlin.test.assertFailsWith
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.boolean
+import kotlinx.serialization.json.jsonPrimitive
 
 class CreditCardInfoTest {
 
@@ -64,17 +68,25 @@ class CreditCardInfoTest {
     }
 
     @Test
-    fun CanNotEncodeCreditCardWithBothFullNameAndNameParts() {
-        assertFailsWith<IllegalArgumentException> {
-            val creditCard = CreditCardInfo(
-                fullName = "Jane Doe",
-                firstName = "Jane",
-                lastName = "Doe",
-                number = SpreedlySecureOpaqueString("sample card number"),
-                verificationValue = SpreedlySecureOpaqueString("sample cvv"),
-                month = 12,
-                year = 2030,
-            )
-        }
+    fun CanEncodeRetainedCreditCardWithFullNameInPaymentMethod() {
+        val creditCardInfo = CreditCardInfo(
+            fullName = "Jane Doe",
+            firstName = null,
+            lastName = null,
+            number = SpreedlySecureOpaqueString("sample card number"),
+            verificationValue = SpreedlySecureOpaqueString("sample cvv"),
+            month = 12,
+            year = 2030,
+            retained = true,
+        )
+
+        val json = creditCardInfo.toJson()
+        val paymentMethod = json["payment_method"] as JsonObject
+        val creditCard = paymentMethod["credit_card"] as JsonObject
+        assertEquals(
+            expected = "Jane Doe",
+            actual = creditCard["full_name"]!!.jsonPrimitive.content,
+        )
+        assertTrue(paymentMethod["retained"]!!.jsonPrimitive.boolean)
     }
 }

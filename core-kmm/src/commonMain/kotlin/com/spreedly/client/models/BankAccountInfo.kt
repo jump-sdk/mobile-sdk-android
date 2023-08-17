@@ -2,7 +2,6 @@ package com.spreedly.client.models
 
 import com.spreedly.client.models.enums.AccountHolderType
 import com.spreedly.client.models.enums.AccountType
-import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
 class BankAccountInfo(
@@ -24,16 +23,9 @@ class BankAccountInfo(
     address = address,
     shippingAddress = shippingAddress,
 ) {
-    init {
-        require(!fullName.isNullOrBlank() || (!firstName.isNullOrBlank() && !lastName.isNullOrBlank())) {
-            "Either fullName or firstName and lastName must be provided"
-        }
-    }
-
     override fun toJson(): JsonObject {
-        val paymentMethod = mutableMapOf<String, JsonElement>()
-        val bankAccount = mutableMapOf<String, JsonElement>()
-        addCommonJsonFields(paymentMethod, bankAccount)
+        val request = generateBaseRequestMap()
+        val bankAccount = generatePersonInfoMap()
         bankAccount.putAsJsonElement("bank_routing_number", routingNumber)
         bankAccount.putAsJsonElement("bank_account_number", accountNumber._encode())
         accountType?.also {
@@ -44,9 +36,9 @@ class BankAccountInfo(
         accountHolderType?.let {
             bankAccount.putAsJsonElement("bank_account_holder_type", it.toString().lowercase())
         }
-        paymentMethod.put("bank_account", JsonObject(bankAccount))
+        request["bank_account"] = JsonObject(bankAccount)
         return JsonObject(
-            mapOf("payment_method" to JsonObject(paymentMethod)),
+            mapOf("payment_method" to JsonObject(request)),
         )
     }
 
