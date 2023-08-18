@@ -10,6 +10,7 @@ import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.results.BankAccountResult
 import com.spreedly.client.models.results.CreditCardResult
 import com.spreedly.client.models.results.SpreedlyError
+import com.spreedly.client.models.results.StorageState
 import com.spreedly.client.models.results.TransactionResult
 import kotlinx.datetime.Instant
 import kotlinx.serialization.json.JsonArray
@@ -105,12 +106,15 @@ internal class SpreedlyClientImpl(
                 )
             }
             return TransactionResult(
-                token = rawTransaction["token"]?.jsonPrimitive?.contentOrNull,
+                transactionToken = rawTransaction["token"]?.jsonPrimitive?.contentOrNull,
                 createdAt = parseDate(rawTransaction["created_at"]?.jsonPrimitive?.contentOrNull),
                 updatedAt = parseDate(rawTransaction["updated_at"]?.jsonPrimitive?.contentOrNull),
                 succeeded = rawTransaction["succeeded"]?.jsonPrimitive?.booleanOrNull ?: false,
                 transactionType = rawTransaction["transaction_type"]?.jsonPrimitive?.contentOrNull,
                 retained = rawTransaction["retained"]?.jsonPrimitive?.booleanOrNull ?: false,
+                storageState = rawTransaction["state"]?.jsonPrimitive?.contentOrNull?.let {
+                    StorageState.fromString(it)
+                },
                 state = rawTransaction["state"]?.jsonPrimitive?.contentOrNull,
                 messageKey = rawTransaction["messageKey"]?.jsonPrimitive?.contentOrNull,
                 message = rawTransaction["message"]?.jsonPrimitive?.contentOrNull,
@@ -149,12 +153,15 @@ internal class SpreedlyClientImpl(
                 )
             }
             return TransactionResult(
-                token = rawTransaction["token"]?.jsonPrimitive?.contentOrNull,
+                transactionToken = rawTransaction["token"]?.jsonPrimitive?.contentOrNull,
                 createdAt = parseDate(rawTransaction["created_at"]?.jsonPrimitive?.contentOrNull),
                 updatedAt = parseDate(rawTransaction["updated_at"]?.jsonPrimitive?.contentOrNull),
                 succeeded = rawTransaction["succeeded"]?.jsonPrimitive?.booleanOrNull ?: false,
                 transactionType = rawTransaction["transaction_type"]?.jsonPrimitive?.contentOrNull,
                 retained = rawTransaction["retained"]?.jsonPrimitive?.booleanOrNull ?: false,
+                storageState = rawTransaction["state"]?.jsonPrimitive?.contentOrNull?.let {
+                    StorageState.fromString(it)
+                },
                 state = rawTransaction["state"]?.jsonPrimitive?.contentOrNull,
                 messageKey = rawTransaction["messageKey"]?.jsonPrimitive?.contentOrNull,
                 message = rawTransaction["message"]?.jsonPrimitive?.contentOrNull,

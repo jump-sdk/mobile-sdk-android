@@ -54,7 +54,7 @@ class ComposeWidgetsFragment : Fragment() {
                         val coroutineScope = rememberCoroutineScope()
 
                         // These values would usually be handled in a ViewModel and are stored here
-                        /// only for demo purposes
+                        // only for demo purposes
                         var isCardValid by rememberSaveable { mutableStateOf(false) }
                         var brand by rememberSaveable { mutableStateOf(CardBrand.unknown) }
                         var cardInfo = rememberSaveable<CreditCardInfo?>(
@@ -120,7 +120,7 @@ class ComposeWidgetsFragment : Fragment() {
                                             "ComposeWidgetsFragment",
                                             result.toString(),
                                         )
-                                        result?.token?.let {
+                                        result?.result?.token?.let {
                                             token = it
                                         }
                                         result?.errors?.firstOrNull()?.let {

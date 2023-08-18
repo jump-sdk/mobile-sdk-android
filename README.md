@@ -68,37 +68,8 @@ client.createCreditCardPaymentMethod(info, null, null).subscribe(new SingleObser
 });
 ```
 
-# Lint
+# Checks / pre-commit
 
-Run
-
-    ./gradlew lint
-
-
-# Coverage
-
-A coverage report is regularly posted [here](https://ergonlabs.github.io/spreedly-docs/coverage/java/core-sdk/index.html).
-
-To see this locally run:
-
-    ./gradlew test
-
-Then open [build/core-sdk/reports/jacoco/test/html/index.html](build/core-sdk/reports/jacoco/test/html/index.html)
-
-# Docs
-
-To build docs use:
-
-    rm -rf docs
-    ./gradlew alljavadoc
-
-
-
-
-
-
-
-
-
-
-
+```
+./gradlew :core-kmm:detektAndroidRelease :core-kmm:test :securewidgets-compose:detekt :securewidgets-compose:lintRelease
+```

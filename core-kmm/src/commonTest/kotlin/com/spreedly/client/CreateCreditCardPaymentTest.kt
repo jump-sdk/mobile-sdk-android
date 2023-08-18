@@ -62,6 +62,8 @@ class CreateCreditCardPaymentTest {
         )
         val trans = client.createCreditCardPaymentMethod(cc)
         assertNotNull(trans.result?.token)
+        assertEquals("4444", trans.result?.lastFourDigits)
+        assertEquals("555555", trans.result?.firstSixDigits)
     }
 
     @Test
