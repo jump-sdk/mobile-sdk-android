@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import com.spreedly.client.models.validatedMonthAndYear
 import com.spreedly.composewidgets.utils.ExpirationDateTransformation
 import com.spreedly.composewidgets.utils.PaddableOutlinedTextField
 
@@ -34,7 +35,7 @@ import com.spreedly.composewidgets.utils.PaddableOutlinedTextField
  * @param label The composable function used to display the label for the input field.
  *              It provides a label as a content parameter.
  */
-@Suppress("CognitiveComplexMethod")
+@Suppress("CognitiveComplexMethod", "LongParameterList")
 @Composable
 fun ExpirationField(
     onValueChange: (ValidatedExpirationDate) -> Unit,
@@ -89,12 +90,6 @@ data class ValidatedExpirationDate(
     private val month: Int? = null,
     private val year: Int? = null,
 ) {
-    fun getValidatedMonthAndYear(): Pair<Int, Int>? {
-        @Suppress("ComplexCondition", "MagicNumber")
-        return if (month != null && month in 1..12 && year != null && year >= 2023) {
-            month to year
-        } else {
-            null
-        }
-    }
+    fun getValidatedMonthAndYear(): Pair<Int, Int>? =
+        validatedMonthAndYear(month = month, year = year)
 }

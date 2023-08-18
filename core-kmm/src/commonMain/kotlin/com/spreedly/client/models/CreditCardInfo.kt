@@ -21,8 +21,7 @@ class CreditCardInfo(
     address = address,
     shippingAddress = shippingAddress,
 ) {
-    fun prevalidate(): Boolean = year >= 2023 &&
-        month in 1..12 &&
+    fun prevalidate(): Boolean = validatedMonthAndYear(month = month, year = year) != null &&
         number.isValidCreditCard &&
         verificationValue.isValidCvc(number.cardBrand) &&
         (

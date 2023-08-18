@@ -3,7 +3,7 @@ package com.spreedly.client.models
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
-abstract class PaymentMethodInfo(
+sealed class PaymentMethodInfo(
     open val company: String? = null,
     open val firstName: String? = null,
     open val lastName: String? = null,
