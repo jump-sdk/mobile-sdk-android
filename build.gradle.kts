@@ -31,7 +31,7 @@ allprojects {
     dependencies {
         val detektVersion = rootProject.libs.versions.detekt.get()
         detektPlugins("ru.kode:detekt-rules-compose:1.3.0")
-        detektPlugins("io.nlopez.compose.rules:detekt:0.1.13")
+        detektPlugins("io.nlopez.compose.rules:detekt:0.2.1")
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:$detektVersion")
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
         detektPlugins("com.braisgabin.detekt:kotlin-compiler-wrapper:0.0.4")
@@ -44,7 +44,7 @@ sonar {
         property("sonar.projectKey", "jump-sdk_mobile-sdk-android")
         property("sonar.organization", "jump-sdk")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.kotlin.source.version", "1.9.0")
+        property("sonar.kotlin.source.version", libs.versions.kotlin.get())
         property("sonar.pullrequest.github.summary_comment", "true")
     }
 }
@@ -52,7 +52,7 @@ sonar {
 tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
     checkForGradleUpdate = true
     rejectVersionIf {
-        listOf("-mercury-", "-station-", "-alpha", "-dev-").any { word ->
+        listOf("-saturn-", "-station-", "-alpha", "-dev-").any { word ->
             candidate.version.contains(word)
         }
     }

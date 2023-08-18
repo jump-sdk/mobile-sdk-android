@@ -3,6 +3,7 @@ package com.spreedly.client.models.results
 import kotlinx.datetime.Instant
 
 data class TransactionResult<T>(
+    @Deprecated("You probably want result.token instead")
     val transactionToken: String?,
     val createdAt: Instant?,
     val updatedAt: Instant?,
