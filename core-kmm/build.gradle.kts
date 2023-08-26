@@ -13,6 +13,7 @@ version = System.getenv()["GITHUB_RUN_NUMBER"] ?: "1"
 @Suppress("UnusedPrivateProperty")
 kotlin {
     targetHierarchy.default()
+
     androidTarget {
         publishLibraryVariants("release")
     }

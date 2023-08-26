@@ -58,7 +58,6 @@ android {
 dependencies {
     api(projects.coreKmm)
     implementation(libs.androidx.core)
-    implementation(libs.appcompat)
     implementation(libs.compose.activity)
     implementation(libs.compose.material)
     implementation(libs.play.services.wallet)
