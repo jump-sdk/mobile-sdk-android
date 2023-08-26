@@ -15,7 +15,16 @@ allprojects {
         google()
         mavenCentral()
         gradlePluginPortal()
-        maven("https://jitpack.io")
+        maven("https://jitpack.io") {
+            content {
+                includeGroup("com.github.hbmartin")
+            }
+        }
+        maven("https://oss.sonatype.org/content/repositories/snapshots/") {
+            content {
+                includeGroup("app.cash.paparazzi")
+            }
+        }
     }
     apply(plugin = "io.gitlab.arturbosch.detekt")
     detekt {
@@ -35,7 +44,7 @@ allprojects {
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:$detektVersion")
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
         detektPlugins("com.braisgabin.detekt:kotlin-compiler-wrapper:0.0.4")
-        detektPlugins("com.github.hbmartin:hbmartin-detekt-rules:0.0.9")
+        detektPlugins("com.github.hbmartin:hbmartin-detekt-rules:0.1.0")
     }
 }
 

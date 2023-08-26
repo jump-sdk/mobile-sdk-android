@@ -4,6 +4,7 @@ plugins {
     id("com.android.library")
     id("maven-publish")
     id("org.jetbrains.dokka")
+    alias(libs.plugins.paparazzi)
 }
 
 group = "com.jump.spreedly"
@@ -63,8 +64,6 @@ dependencies {
     implementation(libs.play.services.wallet)
     implementation(libs.androidx.ui.tooling.preview)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
     debugImplementation(libs.androidx.ui.tooling)
 }
 

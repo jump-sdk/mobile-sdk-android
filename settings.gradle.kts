@@ -3,7 +3,11 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
-        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/")
+        maven("https://oss.sonatype.org/content/repositories/snapshots/") {
+            content {
+                includeGroup("app.cash.paparazzi")
+            }
+        }
     }
 }
 

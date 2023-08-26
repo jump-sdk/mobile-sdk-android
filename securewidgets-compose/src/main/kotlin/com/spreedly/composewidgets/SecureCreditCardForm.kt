@@ -43,6 +43,7 @@ import com.spreedly.composewidgets.utils.PaymentCardRecognition
  * @param fieldSpacing The vertical spacing between the input fields.
  * @param modifier The modifier for the entire credit card form.
  * @param fieldModifier The modifier for individual input fields.
+ * @param showPostalCodeField Whether or not to show the postal code input field.
  * @param textStyle The text style to be applied to the input fields.
  * @param colors The colors customization for the input fields.
  * @param shape The shape customization for the input fields.
@@ -55,12 +56,13 @@ import com.spreedly.composewidgets.utils.PaymentCardRecognition
  *                              Will be null if internal validation fails.
  */
 @OptIn(ExperimentalMaterialApi::class)
-@Suppress("LongMethod")
+@Suppress("LongMethod", "LongParameterList")
 @Composable
 fun SecureCreditCardForm(
     fieldSpacing: Dp,
     modifier: Modifier = Modifier,
     fieldModifier: Modifier = Modifier,
+    showPostalCodeField: Boolean = true,
     textStyle: TextStyle = LocalTextStyle.current,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
     shape: Shape = MaterialTheme.shapes.small,
@@ -172,6 +174,20 @@ fun SecureCreditCardForm(
             shape = shape,
             textFieldPadding = textFieldPadding,
         )
+        if (showPostalCodeField) {
+            PostalCodeField(
+                modifier = fieldModifier,
+                onValueChange = {
+                    creditCardInfoBuilder.postalCode = it.ifBlank { null }
+                    onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
+                },
+                label = { labelFactory(stringResource(id = R.string.postal_code_hint)) },
+                textStyle = textStyle,
+                colors = colors,
+                shape = shape,
+                textFieldPadding = textFieldPadding,
+            )
+        }
     }
 }
 

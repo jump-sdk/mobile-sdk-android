@@ -20,7 +20,7 @@ androidx-ui-tooling = "1.5.0"
 compose = "1.5.0"
 # https://androidx.dev/storage/compose-compiler/repository/
 # https://developer.android.com/jetpack/androidx/releases/compose-compiler
-composeCompiler = "1.5.1"
+composeCompiler = "1.5.2"
 
 kotlinx-coroutines = "1.7.3"
 kotlinx-datetime = "0.4.0"
@@ -37,6 +37,7 @@ junit-junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 appcompat = "1.6.1"
+paparazzi = "1.3.2-SNAPSHOT"
 
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
@@ -84,6 +85,7 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", vers
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
 
 [bundles]
 compose = [

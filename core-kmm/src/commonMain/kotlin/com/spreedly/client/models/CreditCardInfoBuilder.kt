@@ -1,6 +1,7 @@
 package com.spreedly.client.models
 
 class CreditCardInfoBuilder {
+    var postalCode: String? = null
     var fullName: String? = null
     var cardNumber: SpreedlySecureOpaqueString? = null
     var cvc: SpreedlySecureOpaqueString? = null
@@ -8,6 +9,7 @@ class CreditCardInfoBuilder {
     var year: Int? = null
 
     fun build(): CreditCardInfo? {
+        @Suppress("SwallowedException")
         return try {
             CreditCardInfo(
                 firstName = null,
@@ -17,6 +19,7 @@ class CreditCardInfoBuilder {
                 verificationValue = requireNotNull(cvc),
                 month = requireNotNull(month),
                 year = requireNotNull(year),
+                address = postalCode?.let { Address(zip = it) },
             ).takeIf {
                 it.prevalidate()
             }

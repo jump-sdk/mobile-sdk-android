@@ -28,7 +28,7 @@ private const val BASE_URL = "https://core.spreedly.com"
 private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 internal expect val engine: HttpClientEngine
 
-class KtorClient(
+internal class KtorClient(
     private val key: String,
     private val secret: String?,
 ) {
