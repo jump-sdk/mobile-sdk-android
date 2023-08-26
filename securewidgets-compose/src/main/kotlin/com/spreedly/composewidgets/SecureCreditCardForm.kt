@@ -50,6 +50,7 @@ import com.spreedly.composewidgets.utils.PaymentCardRecognition
  * @param walletEnvironment The environment for OCR detection, should be a WalletConstants.ENVIRONMENT_* value.
  * @param labelFactory The composable function used to render the labels for input fields.
  *                      Takes a hint string as a parameter.
+ * @param saveCardCheckbox The composable function used to render the save card checkbox.
  * @param textFieldPadding The padding to be applied to the input fields.
  * @param onValidCreditCardInfo The callback function triggered when valid credit card information is provided.
  *                              It provides the detected card brand and credit card info as parameters.
@@ -68,6 +69,7 @@ fun SecureCreditCardForm(
     shape: Shape = MaterialTheme.shapes.small,
     walletEnvironment: Int? = WalletConstants.ENVIRONMENT_TEST,
     labelFactory: @Composable (String) -> Unit = { Text(it) },
+    saveCardCheckbox: @Composable (((Boolean) -> Unit) -> Unit)? = null,
     textFieldPadding: PaddingValues = TextFieldDefaults.outlinedTextFieldPadding(),
     onValidCreditCardInfo: (CardBrand, CreditCardInfo?) -> Unit,
 ) {
@@ -187,6 +189,12 @@ fun SecureCreditCardForm(
                 shape = shape,
                 textFieldPadding = textFieldPadding,
             )
+        }
+        if (saveCardCheckbox != null) {
+            saveCardCheckbox { isRetained ->
+                creditCardInfoBuilder.retained = isRetained
+                onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
+            }
         }
     }
 }

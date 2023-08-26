@@ -2,17 +2,17 @@ package com.spreedly.client.models
 
 import kotlinx.serialization.json.JsonObject
 
-class CreditCardInfo(
-    firstName: String?,
-    lastName: String?,
-    fullName: String?,
+data class CreditCardInfo(
+    override val firstName: String?,
+    override val lastName: String?,
+    override val fullName: String?,
     val number: SpreedlySecureOpaqueString,
     val verificationValue: SpreedlySecureOpaqueString,
     val month: Int = 0,
     val year: Int = 0,
-    retained: Boolean? = null,
-    address: Address? = null,
-    shippingAddress: Address? = null,
+    override val retained: Boolean? = null,
+    override val address: Address? = null,
+    override val shippingAddress: Address? = null,
 ) : PaymentMethodInfo(
     firstName = firstName,
     lastName = lastName,

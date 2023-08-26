@@ -79,14 +79,15 @@ class ComposeWidgetsFragment : Fragment() {
                                     isCardValid = creditCardInfo != null
                                     cardInfo.value = creditCardInfo
                                 },
+                                saveCardCheckbox = { SaveCardCheckbox(it) },
                             )
                             Text(
-                                modifier = Modifier.padding(16.dp),
+                                modifier = Modifier.padding(8.dp),
                                 text = "card brand: $brand",
                                 color = if (brand.isValid) Color.Black else Color.Red,
                             )
                             Text(
-                                modifier = Modifier.padding(16.dp),
+                                modifier = Modifier.padding(8.dp),
                                 text = "info complete and valid: $isCardValid",
                                 color = if (isCardValid) Color.Black else Color.Red,
                             )

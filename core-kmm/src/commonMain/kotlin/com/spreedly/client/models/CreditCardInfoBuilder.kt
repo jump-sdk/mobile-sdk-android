@@ -7,6 +7,7 @@ class CreditCardInfoBuilder {
     var cvc: SpreedlySecureOpaqueString? = null
     var month: Int? = null
     var year: Int? = null
+    var retained: Boolean? = null
 
     fun build(): CreditCardInfo? {
         @Suppress("SwallowedException")
@@ -20,6 +21,7 @@ class CreditCardInfoBuilder {
                 month = requireNotNull(month),
                 year = requireNotNull(year),
                 address = postalCode?.let { Address(zip = it) },
+                retained = retained,
             ).takeIf {
                 it.prevalidate()
             }
