@@ -89,7 +89,7 @@ fun SecureCreditCardField(
                     Icon(
                         painter = painterResource(id = R.drawable.baseline_photo_camera_24),
                         contentDescription = "Scan card",
-                        tint = colors.cursorColor(isError = false).value,
+                        tint = colors.trailingIconColor(isError = false, enabled = true).value,
                     )
                 }
             }
