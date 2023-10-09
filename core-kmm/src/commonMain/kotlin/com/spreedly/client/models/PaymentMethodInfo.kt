@@ -3,6 +3,7 @@ package com.spreedly.client.models
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
+@Suppress("LongParameterList")
 sealed class PaymentMethodInfo(
     open val company: String? = null,
     open val firstName: String? = null,
@@ -36,7 +37,7 @@ sealed class PaymentMethodInfo(
                 putAsJsonElement("last_name", lastName)
             }
             putAsJsonElement("company", company)
-            address?.let { it.toJson(this, "") }
-            shippingAddress?.let { it.toJson(this, "shipping_") }
+            address?.toJson(this, "")
+            shippingAddress?.toJson(this, "shipping_")
         }
 }

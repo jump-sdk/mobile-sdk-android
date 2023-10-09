@@ -37,7 +37,7 @@ fun SecureVerificationNumberField(
     shape: Shape,
     colors: TextFieldColors,
     textFieldPadding: PaddingValues,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     cardBrand: CardBrand? = null,
     label: @Composable (() -> Unit)?,
 ) = SecureTextField(

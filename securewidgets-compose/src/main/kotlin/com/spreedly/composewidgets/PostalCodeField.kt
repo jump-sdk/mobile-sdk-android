@@ -22,9 +22,9 @@ fun PostalCodeField(
     textStyle: TextStyle,
     shape: Shape,
     colors: TextFieldColors,
-    modifier: Modifier,
     textFieldPadding: PaddingValues,
-    label: @Composable (() -> Unit)?,
+    modifier: Modifier = Modifier,
+    label: @Composable () -> Unit,
 ) {
     var value by rememberSaveable { mutableStateOf("") }
 

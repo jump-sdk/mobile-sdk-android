@@ -4,6 +4,7 @@ import com.spreedly.client.models.enums.AccountHolderType
 import com.spreedly.client.models.enums.AccountType
 import kotlinx.serialization.json.JsonObject
 
+@Suppress("LongParameterList")
 class BankAccountInfo(
     firstName: String?,
     lastName: String?,

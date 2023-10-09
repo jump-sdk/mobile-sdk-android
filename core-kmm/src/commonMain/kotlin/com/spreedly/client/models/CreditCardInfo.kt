@@ -41,26 +41,4 @@ data class CreditCardInfo(
             mapOf("payment_method" to JsonObject(request)),
         )
     }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as CreditCardInfo
-
-        if (number != other.number) return false
-        if (verificationValue != other.verificationValue) return false
-        if (month != other.month) return false
-        if (year != other.year) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = number.hashCode()
-        result = 31 * result + verificationValue.hashCode()
-        result = 31 * result + month
-        result = 31 * result + year
-        return result
-    }
 }

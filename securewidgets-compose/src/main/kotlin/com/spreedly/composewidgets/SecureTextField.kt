@@ -22,7 +22,6 @@ import com.spreedly.composewidgets.utils.autofill
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SecureTextField(
-    modifier: Modifier,
     autofill: AutofillType,
     textStyle: TextStyle,
     shape: Shape,
@@ -31,9 +30,10 @@ fun SecureTextField(
     visualTransformation: VisualTransformation,
     contentPadding: PaddingValues,
     onValueChange: (SpreedlySecureOpaqueString) -> Unit,
+    label: @Composable (() -> Unit),
+    modifier: Modifier = Modifier,
     initialValue: String = "",
     trailingIcon: @Composable (() -> Unit)? = null,
-    label: @Composable (() -> Unit)?,
 ) {
     var value by rememberSaveable(initialValue) { mutableStateOf(initialValue) }
     PaddableOutlinedTextField(

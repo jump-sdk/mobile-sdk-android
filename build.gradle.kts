@@ -5,7 +5,7 @@ plugins {
     id("com.android.library") version libs.versions.android.gradle.plugin.get() apply false
     id("com.android.application") version libs.versions.android.gradle.plugin apply false
     id("io.gitlab.arturbosch.detekt") version libs.versions.detekt.get()
-    id("org.sonarqube") version "4.3.1.3277"
+    id("org.sonarqube") version "4.4.1.3373"
     alias(libs.plugins.gradleVersions)
     id("org.jetbrains.dokka") version "1.9.0"
 }
@@ -40,7 +40,7 @@ allprojects {
     dependencies {
         val detektVersion = rootProject.libs.versions.detekt.get()
         detektPlugins("ru.kode:detekt-rules-compose:1.3.0")
-        detektPlugins("io.nlopez.compose.rules:detekt:0.2.3")
+        detektPlugins("io.nlopez.compose.rules:detekt:0.3.0")
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:$detektVersion")
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
         detektPlugins("com.braisgabin.detekt:kotlin-compiler-wrapper:0.0.4")

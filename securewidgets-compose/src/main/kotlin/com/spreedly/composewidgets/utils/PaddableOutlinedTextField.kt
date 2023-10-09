@@ -34,6 +34,7 @@ internal val OutlinedTextFieldTopPadding = 8.dp
 fun PaddableOutlinedTextField(
     value: String,
     onValueChange: (String) -> Unit,
+    contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
@@ -52,7 +53,6 @@ fun PaddableOutlinedTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = MaterialTheme.shapes.small,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
-    contentPadding: PaddingValues,
 ) {
     // If color is not provided via the text style, use content color as a default
     val textColor = textStyle.color.takeOrElse {

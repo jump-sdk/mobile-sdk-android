@@ -5,7 +5,7 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonPrimitive
 
-class Address(
+data class Address(
     val address1: String? = null,
     val address2: String? = null,
     val city: String? = null,

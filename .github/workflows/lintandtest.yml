@@ -22,6 +22,8 @@ jobs:
         run: chmod +x gradlew
       - name: Detekt with type resolution for core-kmm
         run: ./gradlew :core-kmm:detektAndroidRelease
+      - name: Android Lint core-kmm
+        run: ./gradlew :core-kmm:lintRelease
       - name: Test core-kmm
         run: ./gradlew :core-kmm:test
       - name: Detekt for securewidgets-compose

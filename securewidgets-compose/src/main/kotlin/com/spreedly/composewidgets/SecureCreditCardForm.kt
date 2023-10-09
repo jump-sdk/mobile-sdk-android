@@ -57,7 +57,7 @@ import com.spreedly.composewidgets.utils.PaymentCardRecognition
  *                              Will be null if internal validation fails.
  */
 @OptIn(ExperimentalMaterialApi::class)
-@Suppress("LongMethod", "LongParameterList")
+@Suppress("LongMethod", "LongParameterList", "ModifierParameterPosition")
 @Composable
 fun SecureCreditCardForm(
     fieldSpacing: Dp,
@@ -223,7 +223,7 @@ val CreditCardInfoBuilderSaver = listSaver(
 
 @Preview
 @Composable
-fun SecureCreditCardFormPreview() {
+private fun SecureCreditCardFormPreview() {
     Surface {
         SecureCreditCardForm(
             fieldSpacing = 16.dp,

@@ -43,7 +43,7 @@ fun ExpirationField(
     shape: Shape,
     colors: TextFieldColors,
     textFieldPadding: PaddingValues,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     initialValue: ValidatedExpirationDate = ValidatedExpirationDate(),
     separator: String = " / ",
     label: @Composable (() -> Unit)?,
