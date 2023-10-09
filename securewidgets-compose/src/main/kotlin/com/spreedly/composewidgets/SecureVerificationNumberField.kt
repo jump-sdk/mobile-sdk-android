@@ -23,9 +23,9 @@ import com.spreedly.client.models.maxCvcLength
  * @param shape The shape customization for the verification number input field.
  * @param colors The colors customization for the text field.
  * @param textFieldPadding The padding to be applied to the input field.
- * @param modifier The modifier for the verification number input field.
  * @param cardBrand The brand of the credit card. If unknown or null, will validate with either 3 or 4 digits.
  *                  If AmEx, will validate with 4 digits. Otherwise, will validate with 3 digits.
+ * @param modifier The modifier for the verification number input field.
  * @param label The composable function used to display the label for the input field.
  *              It provides a label as a content parameter.
  */
@@ -37,8 +37,8 @@ fun SecureVerificationNumberField(
     shape: Shape,
     colors: TextFieldColors,
     textFieldPadding: PaddingValues,
-    modifier: Modifier = Modifier,
     cardBrand: CardBrand,
+    modifier: Modifier = Modifier,
     label: @Composable () -> Unit,
 ) = SecureTextField(
     modifier = modifier,
