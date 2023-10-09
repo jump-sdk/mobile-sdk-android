@@ -51,7 +51,7 @@ fun ExpirationField(
     var value by rememberSaveable(initialValue) {
         mutableStateOf(
             initialValue.getValidatedMonthAndYear()?.let { (month, year) ->
-                "%02d%d".format(month, year)
+                "$month$year"
             } ?: "",
         )
     }
@@ -61,7 +61,7 @@ fun ExpirationField(
         modifier = modifier,
         value = value,
         onValueChange = { date ->
-            value = date.filter { it.isDigit() }
+            value = date.filter { it.isDigit() }.take(6)
             if (value.length == 6) {
                 try {
                     val month = value.take(2).toInt()

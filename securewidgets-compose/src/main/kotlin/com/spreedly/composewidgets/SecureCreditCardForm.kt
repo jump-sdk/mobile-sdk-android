@@ -175,6 +175,7 @@ fun SecureCreditCardForm(
             colors = colors,
             shape = shape,
             textFieldPadding = textFieldPadding,
+            cardBrand = brand,
         )
         if (showPostalCodeField) {
             PostalCodeField(

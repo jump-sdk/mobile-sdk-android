@@ -6,6 +6,10 @@
 .idea/**/shelf
 .idea/misc.xml
 .idea/deploymentTargetDropDown.xml
+.idea/apollo.xml
+.idea/graphql-settings.xml
+.idea/androidTestResultsUserPreferences.xml
+.idea/assetWizardSettings.xml
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
