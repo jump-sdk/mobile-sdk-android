@@ -26,6 +26,9 @@ import com.spreedly.client.models.enums.CardBrand
 import com.spreedly.client.models.enums.maxNumberLength
 import com.spreedly.composewidgets.utils.CreditCardNumberTransformation
 
+typealias CardActivityResultLauncher =
+    ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>
+
 /**
  * Composable function representing a secure input field for entering credit card numbers.
  *
@@ -53,13 +56,13 @@ fun SecureCreditCardField(
     textFieldPadding: PaddingValues,
     modifier: Modifier = Modifier,
     recognitionIntent: PendingIntent? = null,
-    cardRecognitionLauncher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>? = null,
+    cardRecognitionLauncher: CardActivityResultLauncher? = null,
     separator: String = " ",
     initialValue: String = "",
-    label: @Composable() (() -> Unit)?,
+    label: @Composable () -> Unit,
 ) {
     var brand by rememberSaveable { mutableStateOf(CardBrand.unknown) }
-    var transformation by remember(brand) {
+    val transformation by remember(brand) {
         mutableStateOf(CreditCardNumberTransformation.forBrand(brand, separator))
     }
 

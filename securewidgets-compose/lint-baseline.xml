@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.1.0" type="baseline" client="gradle" dependencies="true" name="AGP (8.1.0)" variant="all" version="8.1.0">
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of org.jetbrains.kotlin:kotlin-test than 1.9.0 is available: 1.9.10"
-        errorLine1="kotlin = &quot;1.9.0&quot;"
-        errorLine2="         ~~~~~~~">
-        <location
-            file="../gradle/libs.versions.toml"
-            line="2"
-            column="10"/>
-    </issue>
+<issues format="6" by="lint 8.2.0-beta06" type="baseline" client="gradle" dependencies="true" name="AGP (8.2.0-beta06)" variant="all" version="8.2.0-beta06">
 
     <issue
         id="ComposableLambdaParameterNaming"
@@ -26,7 +15,7 @@
     <issue
         id="ComposableLambdaParameterNaming"
         message="Composable lambda parameter should be named `content`"
-        errorLine1="    label: @Composable (() -> Unit)?,"
+        errorLine1="    label: @Composable () -> Unit,"
         errorLine2="    ~~~~~">
         <location
             file="src/main/kotlin/com/spreedly/composewidgets/NameField.kt"
@@ -37,44 +26,33 @@
     <issue
         id="ComposableLambdaParameterNaming"
         message="Composable lambda parameter should be named `content`"
-        errorLine1="    label: @Composable() (() -> Unit)?,"
+        errorLine1="    label: @Composable () -> Unit,"
         errorLine2="    ~~~~~">
         <location
-            file="src/main/kotlin/com/spreedly/composewidgets/SecureCreditCardField.kt"
-            line="59"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="ComposableLambdaParameterNaming"
-        message="Composable lambda parameter should be named `content`"
-        errorLine1="    label: @Composable (() -> Unit)?,"
-        errorLine2="    ~~~~~">
-        <location
-            file="src/main/kotlin/com/spreedly/composewidgets/SecureVerificationNumberField.kt"
-            line="42"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="ComposableLambdaParameterNaming"
-        message="Composable lambda parameter should be named `content`"
-        errorLine1="    label: @Composable (() -> Unit)?,"
-        errorLine2="    ~~~~~">
-        <location
-            file="src/main/kotlin/com/spreedly/composewidgets/ZipField.kt"
+            file="src/main/kotlin/com/spreedly/composewidgets/PostalCodeField.kt"
             line="27"
             column="5"/>
     </issue>
 
     <issue
-        id="ComposableLambdaParameterPosition"
-        message="Composable lambda parameter should be the last parameter so it can be used as a trailing lambda"
-        errorLine1="    labelFactory: @Composable (String) -> Unit = { Text(it) },"
-        errorLine2="    ~~~~~~~~~~~~">
+        id="ComposableLambdaParameterNaming"
+        message="Composable lambda parameter should be named `content`"
+        errorLine1="    label: @Composable () -> Unit,"
+        errorLine2="    ~~~~~">
         <location
-            file="src/main/kotlin/com/spreedly/composewidgets/SecureCreditCardForm.kt"
-            line="70"
+            file="src/main/kotlin/com/spreedly/composewidgets/SecureCreditCardField.kt"
+            line="62"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ComposableLambdaParameterNaming"
+        message="Composable lambda parameter should be named `content`"
+        errorLine1="    label: @Composable () -> Unit,"
+        errorLine2="    ~~~~~">
+        <location
+            file="src/main/kotlin/com/spreedly/composewidgets/SecureVerificationNumberField.kt"
+            line="42"
             column="5"/>
     </issue>
 

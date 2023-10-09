@@ -39,7 +39,7 @@ fun SecureVerificationNumberField(
     textFieldPadding: PaddingValues,
     modifier: Modifier = Modifier,
     cardBrand: CardBrand? = null,
-    label: @Composable (() -> Unit)?,
+    label: @Composable () -> Unit,
 ) = SecureTextField(
     modifier = modifier,
     autofill = AutofillType.CreditCardSecurityCode,
