@@ -57,6 +57,7 @@ fun ExpirationField(
     }
     val transformation = remember(separator) { ExpirationDateTransformation(separator) }
 
+    @Suppress("MagicNumber")
     PaddableOutlinedTextField(
         modifier = modifier,
         value = value,

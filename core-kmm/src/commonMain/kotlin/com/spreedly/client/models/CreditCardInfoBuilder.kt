@@ -1,6 +1,6 @@
 package com.spreedly.client.models
 
-class CreditCardInfoBuilder(private val addressRequired: Boolean = false) {
+class CreditCardInfoBuilder(private val postalCodeRequired: Boolean = false) {
     var postalCode: String? = null
     var fullName: String? = null
     var cardNumber: SpreedlySecureOpaqueString? = null
@@ -11,7 +11,7 @@ class CreditCardInfoBuilder(private val addressRequired: Boolean = false) {
 
     fun build(): CreditCardInfo? {
         @Suppress("SwallowedException")
-        return if (addressRequired && postalCode == null) {
+        return if (postalCodeRequired && postalCode == null) {
             null
         } else {
             try {
