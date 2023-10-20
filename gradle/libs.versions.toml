@@ -15,9 +15,9 @@ androidx-activity-compose = "1.8.0"
 androidx-core = "1.12.0"
 androidx-lifecycle = "2.6.2"
 androidx-test-junit = "1.1.5"
-androidx-ui-tooling = "1.5.3"
+androidx-ui-tooling = "1.5.4"
 
-compose = "1.5.3"
+compose = "1.5.4"
 # https://androidx.dev/storage/compose-compiler/repository/
 # https://developer.android.com/jetpack/androidx/releases/compose-compiler
 composeCompiler = "1.5.3"
