@@ -2,7 +2,7 @@ package com.spreedly.client.models.results
 
 import kotlinx.datetime.Instant
 
-data class TransactionResult<T>(
+data class TransactionResult<T : PaymentMethodResult>(
     @Deprecated("You probably want result.token instead")
     val transactionToken: String?,
     val createdAt: Instant?,
@@ -19,4 +19,7 @@ data class TransactionResult<T>(
     val message: String?,
     val errors: List<SpreedlyError>?,
     val result: T?,
-)
+) {
+    val paymentMethodToken: String?
+        get() = result?.token
+}

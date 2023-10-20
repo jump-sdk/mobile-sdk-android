@@ -21,4 +21,13 @@ data class BankAccountResult(
     val firstName: String?,
     val lastName: String?,
     val fullName: String?,
-) : PaymentMethodResult
+) : PaymentMethodResult(
+    token = token,
+    storageState = storageState,
+    test = test,
+    paymentMethodType = paymentMethodType,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+    email = email,
+    errors = errors,
+)

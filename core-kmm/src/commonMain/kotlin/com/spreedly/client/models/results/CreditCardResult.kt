@@ -2,6 +2,7 @@ package com.spreedly.client.models.results
 
 import kotlinx.datetime.Instant
 
+@Suppress("LongParameterList")
 class CreditCardResult(
     override val token: String?,
     override val storageState: String?,
@@ -18,4 +19,13 @@ class CreditCardResult(
     val number: String?,
     val month: String?,
     val year: String?,
-) : PaymentMethodResult
+) : PaymentMethodResult(
+    token = token,
+    storageState = storageState,
+    test = test,
+    paymentMethodType = paymentMethodType,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+    email = email,
+    errors = errors,
+)

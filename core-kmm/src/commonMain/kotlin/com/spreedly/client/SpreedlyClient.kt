@@ -4,9 +4,11 @@ import com.spreedly.client.models.ApplePayInfo
 import com.spreedly.client.models.BankAccountInfo
 import com.spreedly.client.models.CreditCardInfo
 import com.spreedly.client.models.GooglePayInfo
+import com.spreedly.client.models.PaymentMethodInfo
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.results.BankAccountResult
 import com.spreedly.client.models.results.CreditCardResult
+import com.spreedly.client.models.results.PaymentMethodResult
 import com.spreedly.client.models.results.TransactionResult
 
 /**
@@ -16,6 +18,15 @@ import com.spreedly.client.models.results.TransactionResult
  * This class handles all the client side API communication.
  */
 interface SpreedlyClient {
+    suspend fun createPaymentMethod(
+        info: PaymentMethodInfo,
+    ): TransactionResult<out PaymentMethodResult> = when (info) {
+        is ApplePayInfo -> createApplePaymentMethod(info)
+        is CreditCardInfo -> createCreditCardPaymentMethod(info)
+        is BankAccountInfo -> createBankPaymentMethod(info)
+        is GooglePayInfo -> createGooglePaymentMethod(info)
+    }
+
     /**
      * Creates a credit card payment method using the provided credit card information.
      *
