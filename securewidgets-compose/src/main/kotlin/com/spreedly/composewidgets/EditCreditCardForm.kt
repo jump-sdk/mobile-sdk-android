@@ -11,7 +11,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
@@ -26,6 +25,10 @@ import com.spreedly.client.models.PartialCreditCardInfoBuilder
 /**
  * Composable function that creates a secure credit card input form for collecting credit card information.
  *
+ * @param initialFullName The initial value for the full name input field.
+ * @param initialPostalCode The initial value for the postal code input field.
+ * @param initialExpiryMonth The initial value for the expiry month input field.
+ * @param initialExpiryYear The initial value for the expiry year input field.
  * @param fieldSpacing The vertical spacing between the input fields.
  * @param modifier The modifier for the entire credit card form.
  * @param fieldModifier The modifier for individual input fields.
@@ -37,7 +40,6 @@ import com.spreedly.client.models.PartialCreditCardInfoBuilder
  *                      Takes a hint string as a parameter.
  * @param textFieldPadding The padding to be applied to the input fields.
  * @param onCreditCardInfo The callback function triggered when valid credit card information is provided.
- *                              It provides the detected card brand and credit card info as parameters.
  *                              Will be null if internal validation fails.
  */
 @OptIn(ExperimentalMaterialApi::class)
@@ -140,23 +142,3 @@ private fun SecureCreditCardFormPreview() {
         )
     }
 }
-
-// ktlint-disable experimental:property-naming
-val PartialCreditCardInfoBuilderSaver = listSaver(
-    save = {
-        listOf(
-            it.fullName,
-            it.month,
-            it.year,
-            it.postalCode,
-        )
-    },
-    restore = { valueList ->
-        PartialCreditCardInfoBuilder().apply {
-            fullName = valueList[0] as? String
-            month = valueList[1] as? Int
-            year = valueList[2] as? Int
-            postalCode = valueList[3] as? String
-        }
-    },
-)

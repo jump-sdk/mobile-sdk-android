@@ -18,7 +18,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -199,32 +198,6 @@ fun SecureCreditCardForm(
         }
     }
 }
-
-// ktlint-disable experimental:property-naming
-val CreditCardInfoBuilderSaver = listSaver(
-    save = {
-        listOf(
-            it.fullName,
-            it.cardNumber?._encode(),
-            it.cvc?._encode(),
-            it.month,
-            it.year,
-            it.postalCode,
-            it.retained,
-        )
-    },
-    restore = { valueList ->
-        CreditCardInfoBuilder().apply {
-            fullName = valueList[0] as? String
-            cardNumber = (valueList[1] as? String)?.let { SpreedlySecureOpaqueString(it) }
-            cvc = (valueList[2] as? String)?.let { SpreedlySecureOpaqueString(it) }
-            month = valueList[2] as? Int
-            year = valueList[3] as? Int
-            postalCode = valueList[4] as? String
-            retained = valueList[5] as? Boolean
-        }
-    },
-)
 
 @Preview
 @Composable
