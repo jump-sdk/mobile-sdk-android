@@ -7,7 +7,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version libs.versions.detekt.get()
     id("org.sonarqube") version "4.4.1.3373"
     alias(libs.plugins.gradleVersions)
-    id("org.jetbrains.dokka") version "1.9.0"
+    id("org.jetbrains.dokka") version "1.9.10"
 }
 
 allprojects {

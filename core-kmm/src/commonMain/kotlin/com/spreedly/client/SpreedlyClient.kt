@@ -63,9 +63,8 @@ interface SpreedlyClient {
     ): TransactionResult<CreditCardResult>
 
     companion object {
-        fun newInstance(envKey: String, test: Boolean): SpreedlyClient {
-            return SpreedlyClientImpl(envKey, null, test)
-        }
+        fun newInstance(envKey: String, test: Boolean): SpreedlyClient =
+            SpreedlyClientImpl(envKey, null, test)
 
         /**
          * Creates a new instance of the Spreedly client with the provided environment key and secret.
@@ -75,8 +74,7 @@ interface SpreedlyClient {
          * @param test Indicates whether the client is meant for testing purposes.
          * @return An instance of the Spreedly client.
          */
-        fun newInstance(envKey: String, envSecret: String, test: Boolean): SpreedlyClient {
-            return SpreedlyClientImpl(envKey, envSecret, test)
-        }
+        fun newInstance(envKey: String, envSecret: String, test: Boolean): SpreedlyClient =
+            SpreedlyClientImpl(envKey, envSecret, test)
     }
 }

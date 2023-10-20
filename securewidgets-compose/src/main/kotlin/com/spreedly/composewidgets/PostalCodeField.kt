@@ -24,9 +24,10 @@ fun PostalCodeField(
     colors: TextFieldColors,
     textFieldPadding: PaddingValues,
     modifier: Modifier = Modifier,
+    initialValue: String = "",
     label: @Composable () -> Unit,
 ) {
-    var value by rememberSaveable { mutableStateOf("") }
+    var value by rememberSaveable { mutableStateOf(initialValue) }
 
     PaddableOutlinedTextField(
         modifier = modifier.autofill(

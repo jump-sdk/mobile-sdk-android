@@ -38,7 +38,7 @@ import com.spreedly.composewidgets.utils.PaddableOutlinedTextField
 @Suppress("CognitiveComplexMethod", "LongParameterList")
 @Composable
 fun ExpirationField(
-    onValueChange: (ValidatedExpirationDate) -> Unit,
+    onValueChange: (ValidatedExpirationDate?) -> Unit,
     textStyle: TextStyle,
     shape: Shape,
     colors: TextFieldColors,
@@ -69,8 +69,10 @@ fun ExpirationField(
                     val year = value.substring(2).toInt()
                     onValueChange(ValidatedExpirationDate(month = month, year = year))
                 } catch (e: NumberFormatException) {
-                    onValueChange(ValidatedExpirationDate())
+                    onValueChange(null)
                 }
+            } else {
+                onValueChange(null)
             }
         },
         label = label,

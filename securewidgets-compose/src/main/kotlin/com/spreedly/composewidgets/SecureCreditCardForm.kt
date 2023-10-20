@@ -92,9 +92,9 @@ fun SecureCreditCardForm(
         }
         onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
     }
-    val expirationChanged: (ValidatedExpirationDate) -> Unit = { validatedDate ->
+    val expirationChanged: (ValidatedExpirationDate?) -> Unit = { validatedDate ->
         validatedDate
-            .getValidatedMonthAndYear()
+            ?.getValidatedMonthAndYear()
             ?.let { (month, year) ->
                 creditCardInfoBuilder.month = month
                 creditCardInfoBuilder.year = year
@@ -209,6 +209,8 @@ val CreditCardInfoBuilderSaver = listSaver(
             it.cvc?._encode(),
             it.month,
             it.year,
+            it.postalCode,
+            it.retained,
         )
     },
     restore = { valueList ->
@@ -218,6 +220,8 @@ val CreditCardInfoBuilderSaver = listSaver(
             cvc = (valueList[2] as? String)?.let { SpreedlySecureOpaqueString(it) }
             month = valueList[2] as? Int
             year = valueList[3] as? Int
+            postalCode = valueList[4] as? String
+            retained = valueList[5] as? Boolean
         }
     },
 )
