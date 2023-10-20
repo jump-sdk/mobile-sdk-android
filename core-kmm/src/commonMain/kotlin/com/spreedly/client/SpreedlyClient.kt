@@ -4,9 +4,11 @@ import com.spreedly.client.models.ApplePayInfo
 import com.spreedly.client.models.BankAccountInfo
 import com.spreedly.client.models.CreditCardInfo
 import com.spreedly.client.models.GooglePayInfo
+import com.spreedly.client.models.PaymentMethodInfo
 import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.results.BankAccountResult
 import com.spreedly.client.models.results.CreditCardResult
+import com.spreedly.client.models.results.PaymentMethodResult
 import com.spreedly.client.models.results.TransactionResult
 
 /**
@@ -16,6 +18,15 @@ import com.spreedly.client.models.results.TransactionResult
  * This class handles all the client side API communication.
  */
 interface SpreedlyClient {
+    suspend fun createPaymentMethod(
+        info: PaymentMethodInfo,
+    ): TransactionResult<out PaymentMethodResult> = when (info) {
+        is ApplePayInfo -> createApplePaymentMethod(info)
+        is CreditCardInfo -> createCreditCardPaymentMethod(info)
+        is BankAccountInfo -> createBankPaymentMethod(info)
+        is GooglePayInfo -> createGooglePaymentMethod(info)
+    }
+
     /**
      * Creates a credit card payment method using the provided credit card information.
      *
@@ -63,9 +74,8 @@ interface SpreedlyClient {
     ): TransactionResult<CreditCardResult>
 
     companion object {
-        fun newInstance(envKey: String, test: Boolean): SpreedlyClient {
-            return SpreedlyClientImpl(envKey, null, test)
-        }
+        fun newInstance(envKey: String, test: Boolean): SpreedlyClient =
+            SpreedlyClientImpl(envKey, null, test)
 
         /**
          * Creates a new instance of the Spreedly client with the provided environment key and secret.
@@ -75,8 +85,7 @@ interface SpreedlyClient {
          * @param test Indicates whether the client is meant for testing purposes.
          * @return An instance of the Spreedly client.
          */
-        fun newInstance(envKey: String, envSecret: String, test: Boolean): SpreedlyClient {
-            return SpreedlyClientImpl(envKey, envSecret, test)
-        }
+        fun newInstance(envKey: String, envSecret: String, test: Boolean): SpreedlyClient =
+            SpreedlyClientImpl(envKey, envSecret, test)
     }
 }

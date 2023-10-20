@@ -17,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -27,9 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.spreedly.client.SpreedlyClient
 import com.spreedly.client.models.CreditCardInfo
-import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.CardBrand
 import com.spreedly.client.models.enums.isValid
+import com.spreedly.composewidgets.CreditCardInfoSaver
 import com.spreedly.composewidgets.SecureCreditCardForm
 import kotlinx.coroutines.launch
 
@@ -151,37 +150,3 @@ class ComposeWidgetsFragment : Fragment() {
         }
     }
 }
-
-// ktlint-disable experimental:property-naming
-val CreditCardInfoSaver = listSaver<CreditCardInfo?, Any?>(
-    save = {
-        it?.let {
-            listOf<Any?>(
-                it.firstName,
-                it.lastName,
-                it.fullName,
-                it.number._encode(),
-                it.verificationValue._encode(),
-                it.month,
-                it.year,
-                it.retained,
-            )
-        } ?: emptyList<Any>()
-    },
-    restore = { valueList ->
-        if (valueList.size != 8) {
-            null
-        } else {
-            CreditCardInfo(
-                firstName = valueList[0] as? String,
-                lastName = valueList[1] as? String,
-                fullName = valueList[2] as? String,
-                number = SpreedlySecureOpaqueString(valueList[3] as String),
-                verificationValue = SpreedlySecureOpaqueString(valueList[4] as String),
-                month = valueList[5] as Int,
-                year = valueList[6] as Int,
-                retained = valueList[7] as? Boolean,
-            )
-        }
-    },
-)

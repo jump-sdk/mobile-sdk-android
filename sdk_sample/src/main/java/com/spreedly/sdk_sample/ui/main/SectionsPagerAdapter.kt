@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.spreedly.sdk_sample.R
 import com.spreedly.sdk_sample.compose.ComposeWidgetsFragment
+import com.spreedly.sdk_sample.compose.EditCardFragment
 import com.spreedly.sdk_sample.widget.SecureFormCreditCardFragment
 
 /**
@@ -20,6 +21,7 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager, b
             0 -> SimpleExamplesFragment.newInstance()
             1 -> SecureFormCreditCardFragment.newInstance()
             2 -> ComposeWidgetsFragment.newInstance()
+            3 -> EditCardFragment.newInstance()
             else -> PlaceholderFragment.newInstance()
         }
     }
@@ -38,6 +40,7 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager, b
             R.string.tab_core_api,
             R.string.tab_secure_widgets,
             R.string.tab_compose_widgets,
+            R.string.tab_edit,
         )
     }
 }
