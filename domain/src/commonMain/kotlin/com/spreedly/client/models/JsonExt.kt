@@ -3,7 +3,7 @@ package com.spreedly.client.models
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonPrimitive
 
-internal fun MutableMap<String, JsonElement>.putAsJsonElement(key: String, value: String?) {
+fun MutableMap<String, JsonElement>.putAsJsonElement(key: String, value: String?) {
     value?.also {
         this.put(key, JsonPrimitive(it))
     } ?: run {

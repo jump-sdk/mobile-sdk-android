@@ -20,6 +20,8 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: Detekt with type resolution for domain
+        run: ./gradlew :domain:detektAndroidRelease
       - name: Detekt with type resolution for core-kmm
         run: ./gradlew :core-kmm:detektAndroidRelease
       - name: Android Lint core-kmm

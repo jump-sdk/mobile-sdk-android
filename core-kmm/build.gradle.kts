@@ -30,8 +30,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(projects.domain)
                 implementation(libs.bundles.ktor.common)
-                implementation(libs.kotlinx.dateTime)
                 implementation(libs.coroutines.core)
             }
         }
