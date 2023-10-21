@@ -41,7 +41,7 @@ val CreditCardInfoSaver = listSaver<CreditCardInfo?, Any?>(
 )
 
 // ktlint-disable experimental:property-naming
-val CreditCardInfoBuilderSaver = listSaver(
+val CreditCardInfoBuilderSaver = listSaver<CreditCardInfoBuilder, Any?>(
     save = {
         listOf(
             it.fullName,
@@ -55,13 +55,13 @@ val CreditCardInfoBuilderSaver = listSaver(
     },
     restore = { valueList ->
         CreditCardInfoBuilder().apply {
-            fullName = valueList[0]
+            fullName = valueList[0] as? String
             cardNumber = (valueList[1] as? String)?.let { SpreedlySecureOpaqueString(it) }
             cvc = (valueList[2] as? String)?.let { SpreedlySecureOpaqueString(it) }
-            month = valueList[2]
-            year = valueList[3]
-            postalCode = valueList[4]
-            retained = valueList[5]
+            month = valueList[3] as? Int
+            year = valueList[4] as? Int
+            postalCode = valueList[5] as? String
+            retained = valueList[6] as? Boolean
         }
     },
 )
