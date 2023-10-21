@@ -137,7 +137,7 @@ class SpreedlySecureOpaqueString(private var data: String) {
         var isSecond = false
         for (i in nDigits - 1 downTo 0) {
             var d: Int = numbers[i].code - '0'.code
-            if (isSecond == true) d = d * 2
+            if (isSecond) d *= 2
             nSum += d / 10
             nSum += d % 10
             isSecond = !isSecond
@@ -184,9 +184,7 @@ class SpreedlySecureOpaqueString(private var data: String) {
 
         other as SpreedlySecureOpaqueString
 
-        if (data != other.data) return false
-
-        return true
+        return data == other.data
     }
 
     override fun hashCode(): Int = data.hashCode()

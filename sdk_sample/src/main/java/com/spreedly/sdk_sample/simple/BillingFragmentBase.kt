@@ -36,7 +36,7 @@ abstract class BillingFragmentBase : Fragment() {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
-                data.postValue(if (s.length == 0) null else s.toString().toInt())
+                data.postValue(if (s.isEmpty()) null else s.toString().toInt())
             }
         })
     }

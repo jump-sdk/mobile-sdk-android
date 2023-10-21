@@ -52,9 +52,7 @@ class BankAccountInfo(
         if (routingNumber != other.routingNumber) return false
         if (accountNumber != other.accountNumber) return false
         if (accountType != other.accountType) return false
-        if (accountHolderType != other.accountHolderType) return false
-
-        return true
+        return accountHolderType == other.accountHolderType
     }
 
     override fun hashCode(): Int {

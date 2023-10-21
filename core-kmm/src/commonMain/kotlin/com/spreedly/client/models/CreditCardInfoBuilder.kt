@@ -44,9 +44,7 @@ class CreditCardInfoBuilder(private val postalCodeRequired: Boolean = false) {
         if (cardNumber != other.cardNumber) return false
         if (cvc != other.cvc) return false
         if (month != other.month) return false
-        if (year != other.year) return false
-
-        return true
+        return year == other.year
     }
 
     override fun hashCode(): Int {

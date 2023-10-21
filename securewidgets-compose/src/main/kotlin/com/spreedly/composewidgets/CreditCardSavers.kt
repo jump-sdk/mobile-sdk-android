@@ -55,13 +55,13 @@ val CreditCardInfoBuilderSaver = listSaver(
     },
     restore = { valueList ->
         CreditCardInfoBuilder().apply {
-            fullName = valueList[0] as? String
+            fullName = valueList[0]
             cardNumber = (valueList[1] as? String)?.let { SpreedlySecureOpaqueString(it) }
             cvc = (valueList[2] as? String)?.let { SpreedlySecureOpaqueString(it) }
-            month = valueList[2] as? Int
-            year = valueList[3] as? Int
-            postalCode = valueList[4] as? String
-            retained = valueList[5] as? Boolean
+            month = valueList[2]
+            year = valueList[3]
+            postalCode = valueList[4]
+            retained = valueList[5]
         }
     },
 )

@@ -15,5 +15,4 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":core-kmm")
 include(":sdk_sample")
-include(":securewidgets")
 include(":securewidgets-compose")

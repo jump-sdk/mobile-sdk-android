@@ -170,8 +170,7 @@ public class ThreeDSUITest {
                 if (childMatcher.matches(view)) {
                     return true;
                 }
-                if (view instanceof ViewGroup) {
-                    ViewGroup group = (ViewGroup) view;
+                if (view instanceof ViewGroup group) {
                     for (int i = 0; i < group.getChildCount(); i++) {
                         if (matchesSafely(group.getChildAt(i))) {
                             return true;

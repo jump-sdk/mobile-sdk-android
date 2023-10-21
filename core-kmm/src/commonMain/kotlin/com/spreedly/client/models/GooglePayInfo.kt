@@ -32,9 +32,7 @@ class GooglePayInfo(
         other as GooglePayInfo
 
         if (paymentData != other.paymentData) return false
-        if (testCardNumber != other.testCardNumber) return false
-
-        return true
+        return testCardNumber == other.testCardNumber
     }
 
     override fun hashCode(): Int {

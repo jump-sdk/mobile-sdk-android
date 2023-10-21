@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 
 class SimplePagerAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         when (position) {
             0 -> return "Credit Card"
             1 -> return "Google Pay"

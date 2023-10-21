@@ -11,10 +11,13 @@ import kotlinx.coroutines.launch
 class GooglePayFragmentViewModel : ViewModel() {
     @JvmField
     var name = MutableLiveData("")
+
     @JvmField
     var token = MutableLiveData<String?>(null)
+
     @JvmField
     var error = MutableLiveData<String?>(null)
+
     @JvmField
     var inProgress = MutableLiveData(false)
 
@@ -36,7 +39,7 @@ class GooglePayFragmentViewModel : ViewModel() {
 }"""
         val info = GooglePayInfo(names[0], names[1], paymentData, false)
         info.testCardNumber = "411111111111111"
-        inProgress.setValue(true)
+        inProgress.value = true
         token.postValue("")
         error.postValue("")
         viewModelScope.launch {

@@ -33,19 +33,21 @@ class AddressTest {
         addressWithPrefix.put("shipping_address_zip", "55555")
         addressWithPrefix.put("shipping_address_country", "USA")
         addressWithPrefix.put("shipping_address_phone_number", "444-444-4444")
-        jsonAddressWithPrefix = JsonObject(addressWithPrefix.map { (k, v) -> k to JsonPrimitive(v) }.toMap())
+        jsonAddressWithPrefix = JsonObject(
+            addressWithPrefix.map { (k, v) -> k to JsonPrimitive(v) }.toMap()
+        )
     }
 
     @Test
     fun fromJsonJsonObjectNonNull() {
         val actualAddress: Address? = Address.fromJson(jsonAddress, "")
         assertEquals(address.address1, actualAddress!!.address1)
-        assertEquals(address.address2, actualAddress!!.address2)
-        assertEquals(address.city, actualAddress!!.city)
-        assertEquals(address.state, actualAddress!!.state)
-        assertEquals(address.zip, actualAddress!!.zip)
-        assertEquals(address.phoneNumber, actualAddress!!.phoneNumber)
-        assertEquals(address.country, actualAddress!!.country)
+        assertEquals(address.address2, actualAddress.address2)
+        assertEquals(address.city, actualAddress.city)
+        assertEquals(address.state, actualAddress.state)
+        assertEquals(address.zip, actualAddress.zip)
+        assertEquals(address.phoneNumber, actualAddress.phoneNumber)
+        assertEquals(address.country, actualAddress.country)
     }
 
     @Test
@@ -59,12 +61,12 @@ class AddressTest {
         var actualAddress: Address? = null
         actualAddress = Address.fromJson(jsonAddressWithPrefix, "shipping_address_")
         assertEquals(address.address1, actualAddress!!.address1)
-        assertEquals(address.address2, actualAddress!!.address2)
-        assertEquals(address.city, actualAddress!!.city)
-        assertEquals(address.state, actualAddress!!.state)
-        assertEquals(address.zip, actualAddress!!.zip)
-        assertEquals(address.phoneNumber, actualAddress!!.phoneNumber)
-        assertEquals(address.country, actualAddress!!.country)
+        assertEquals(address.address2, actualAddress.address2)
+        assertEquals(address.city, actualAddress.city)
+        assertEquals(address.state, actualAddress.state)
+        assertEquals(address.zip, actualAddress.zip)
+        assertEquals(address.phoneNumber, actualAddress.phoneNumber)
+        assertEquals(address.country, actualAddress.country)
     }
 
     @Test

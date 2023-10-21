@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.spreedly.sdk_sample.R
 import com.spreedly.sdk_sample.compose.ComposeWidgetsFragment
 import com.spreedly.sdk_sample.compose.EditCardFragment
-import com.spreedly.sdk_sample.widget.SecureFormCreditCardFragment
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -19,14 +18,13 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager, b
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> SimpleExamplesFragment.newInstance()
-            1 -> SecureFormCreditCardFragment.newInstance()
-            2 -> ComposeWidgetsFragment.newInstance()
-            3 -> EditCardFragment.newInstance()
+            1 -> ComposeWidgetsFragment.newInstance()
+            2 -> EditCardFragment.newInstance()
             else -> PlaceholderFragment.newInstance()
         }
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return mContext.resources.getString(TAB_TITLES[position])
     }
 
@@ -38,7 +36,6 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager, b
         @StringRes
         private val TAB_TITLES = intArrayOf(
             R.string.tab_core_api,
-            R.string.tab_secure_widgets,
             R.string.tab_compose_widgets,
             R.string.tab_edit,
         )

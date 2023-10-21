@@ -43,10 +43,10 @@ val PartialCreditCardInfoBuilderSaver = listSaver(
     },
     restore = { valueList ->
         PartialCreditCardInfoBuilder().apply {
-            fullName = valueList[0] as? String
-            month = valueList[1] as? Int
-            year = valueList[2] as? Int
-            postalCode = valueList[3] as? String
+            fullName = valueList[0]
+            month = valueList[1]
+            year = valueList[2]
+            postalCode = valueList[3]
         }
     },
 )
