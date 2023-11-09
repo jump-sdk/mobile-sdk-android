@@ -8,10 +8,8 @@ plugins {
 group = "com.jump.spreedly"
 version = System.getenv()["GITHUB_RUN_NUMBER"] ?: "1"
 
-@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    targetHierarchy.default()
-
+    applyDefaultHierarchyTemplate()
     androidTarget {
         publishLibraryVariants("release")
     }
@@ -33,22 +31,11 @@ kotlin {
                 implementation(libs.ktor.client.serialization)
             }
         }
-        val commonTest by getting
-        val androidMain by getting
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by getting {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-        }
     }
 }
 
 android {
-    namespace = "com.spreedly.client.models"
+    namespace = "com.spreedly.client.domain"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
