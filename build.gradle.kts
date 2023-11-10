@@ -45,7 +45,7 @@ allprojects {
     dependencies {
         val detektVersion = rootProject.libs.versions.detekt.get()
         detektPlugins("ru.kode:detekt-rules-compose:1.3.0")
-        detektPlugins("io.nlopez.compose.rules:detekt:0.3.2")
+        detektPlugins("io.nlopez.compose.rules:detekt:0.3.3")
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:$detektVersion")
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
         detektPlugins("com.braisgabin.detekt:kotlin-compiler-wrapper:0.0.4")
