@@ -1,6 +1,7 @@
 package com.spreedly.composewidgets
 
 import androidx.compose.runtime.saveable.listSaver
+import com.spreedly.client.models.Address
 import com.spreedly.client.models.CreditCardInfo
 import com.spreedly.client.models.CreditCardInfoBuilder
 import com.spreedly.client.models.SpreedlySecureOpaqueString
@@ -18,11 +19,12 @@ val CreditCardInfoSaver = listSaver<CreditCardInfo?, Any?>(
                 it.month,
                 it.year,
                 it.retained,
+                it.address?.zip,
             )
         } ?: emptyList<Any>()
     },
     restore = { valueList ->
-        if (valueList.size != 8) {
+        if (valueList.size != 9) {
             null
         } else {
             @Suppress("DontForceCast")
@@ -35,6 +37,7 @@ val CreditCardInfoSaver = listSaver<CreditCardInfo?, Any?>(
                 month = valueList[5] as Int,
                 year = valueList[6] as Int,
                 retained = valueList[7] as? Boolean,
+                address = valueList[8]?.let { Address(zip = it as String) },
             )
         }
     },

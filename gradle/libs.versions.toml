@@ -8,12 +8,12 @@ compileSdk = "34"
 
 # Dependencies
 android-gradle-plugin = "8.2.0-rc03"
-gradle-versions = "0.49.0"
+gradle-versions = "0.50.0"
 
 android-desugaring = "2.0.4"
-androidx-activity-compose = "1.8.0"
+androidx-activity-compose = "1.8.1"
 androidx-core = "1.12.0"
-androidx-lifecycle = "2.7.0-beta01"
+androidx-lifecycle = "2.7.0-rc01"
 androidx-test-junit = "1.1.5"
 
 compose = "1.5.4"

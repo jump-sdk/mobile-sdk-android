@@ -49,7 +49,7 @@ allprojects {
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:$detektVersion")
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
         detektPlugins("com.braisgabin.detekt:kotlin-compiler-wrapper:0.0.4")
-        detektPlugins("com.github.hbmartin:hbmartin-detekt-rules:0.1.1")
+        detektPlugins("com.github.hbmartin:hbmartin-detekt-rules:0.1.3")
     }
 }
 
@@ -66,7 +66,7 @@ sonar {
 tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
     checkForGradleUpdate = true
     rejectVersionIf {
-        listOf("-saturn-", "-station-", "-alpha", "-dev-").any { word ->
+        listOf("2.0.0-Beta1", "-station-", "-alpha", "-dev-").any { word ->
             candidate.version.contains(word)
         }
     }
