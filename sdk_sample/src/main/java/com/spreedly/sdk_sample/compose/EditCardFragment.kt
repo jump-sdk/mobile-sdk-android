@@ -51,7 +51,7 @@ class EditCardFragment : Fragment() {
                             EditCreditCardForm(
                                 initialFullName = "Test Full Name",
                                 initialExpiryMonth = "12",
-                                initialExpiryYear = "2025",
+                                initialExpiryYear = "25",
                                 initialPostalCode = "12345",
                                 modifier = Modifier.padding(16.dp),
                                 fieldModifier = Modifier.fillMaxWidth(),
