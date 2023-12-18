@@ -12,7 +12,7 @@ class CreditCardInfoBuilderTest {
         builder.cardNumber = SpreedlySecureOpaqueString("4111111111111111")
         builder.cvc = SpreedlySecureOpaqueString("123")
         builder.month = 12
-        builder.year = 2023
+        builder.year = 23
         assertNotNull(builder.build())
     }
 
@@ -33,7 +33,7 @@ class CreditCardInfoBuilderTest {
         builder.cardNumber = SpreedlySecureOpaqueString("4111111111111111")
         builder.cvc = SpreedlySecureOpaqueString("123")
         builder.month = 12
-        builder.year = 2020
+        builder.year = 20
         assertNull(builder.build())
     }
 
