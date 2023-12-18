@@ -36,6 +36,8 @@ import com.spreedly.client.models.SpreedlySecureOpaqueString
 import com.spreedly.client.models.enums.CardBrand
 import com.spreedly.composewidgets.utils.PaymentCardRecognition
 
+private const val MILLENNIUM = 2000
+
 /**
  * Composable function that creates a secure credit card input form for collecting credit card information.
  *
@@ -96,7 +98,7 @@ fun SecureCreditCardForm(
             ?.getValidatedMonthAndYear()
             ?.let { (month, year) ->
                 creditCardInfoBuilder.month = month
-                creditCardInfoBuilder.year = year
+                creditCardInfoBuilder.year = MILLENNIUM + year
             }
             ?: run {
                 creditCardInfoBuilder.month = null

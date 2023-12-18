@@ -4,7 +4,7 @@ import com.spreedly.client.models.enums.CardBrand
 import com.spreedly.client.models.enums.isValid
 import com.spreedly.client.models.enums.validateNumberLength
 
-private const val MIN_YEAR = 2023
+private const val MIN_YEAR = 23
 
 val SpreedlySecureOpaqueString.cardBrand: CardBrand
     get() = if (this._encode().length < 16) {

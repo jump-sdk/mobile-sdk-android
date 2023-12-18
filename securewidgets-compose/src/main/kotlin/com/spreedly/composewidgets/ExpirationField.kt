@@ -62,8 +62,8 @@ fun ExpirationField(
         modifier = modifier,
         value = value,
         onValueChange = { date ->
-            value = date.filter { it.isDigit() }.take(6)
-            if (value.length == 6) {
+            value = date.filter { it.isDigit() }.take(4)
+            if (value.length == 4) {
                 try {
                     val month = value.take(2).toInt()
                     val year = value.substring(2).toInt()

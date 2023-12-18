@@ -2,6 +2,6 @@
     <string name="cvc_hint">CVC</string>
     <string name="card_number_hint">Card Number</string>
     <string name="card_name_hint">Name on Card</string>
-    <string name="expiration_hint">MM / YYYY</string>
+    <string name="expiration_hint">MM / YY</string>
     <string name="postal_code_hint">Zip / Postal Code</string>
 </resources>
