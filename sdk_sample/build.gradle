@@ -56,20 +56,21 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
+
 }
 
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation projects.coreKmm
-    implementation 'com.google.android.material:material:1.11.0-rc01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation libs.androidx.lifecycle.viewmodel
+    implementation(libs.androidx.constraint)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.extension)
     implementation projects.securewidgetsCompose
-    implementation libs.androidx.ui
-    implementation libs.compose.material
-    androidTestImplementation libs.espresso.core
-    androidTestImplementation 'androidx.test:rules:1.6.0-alpha01'
-    androidTestImplementation libs.androidx.test.ext.junit
+    implementation(libs.compose.ui)
+    implementation(libs.compose.material)
+    implementation(libs.google.material)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.test.ext.junit)
 }
