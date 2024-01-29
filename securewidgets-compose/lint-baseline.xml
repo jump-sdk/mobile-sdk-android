@@ -1,70 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.2.0-rc01" type="baseline" client="gradle" dependencies="true" name="AGP (8.2.0-rc01)" variant="all" version="8.2.0-rc01">
+<issues format="6" by="lint 8.2.0-rc03" type="baseline" client="gradle" dependencies="true" name="AGP (8.2.0-rc03)" variant="all" version="8.2.0-rc03">
 
     <issue
-        id="ComposableLambdaParameterNaming"
-        message="Composable lambda parameter should be named `content`"
-        errorLine1="    label: @Composable (() -> Unit)?,"
-        errorLine2="    ~~~~~">
+        id="ObsoleteLintCustomCheck"
+        message="Library lint checks reference invalid APIs; these checks **will be skipped**!&#xA;&#xA;Lint found an issue registry (`androidx.compose.runtime.lint.RuntimeIssueRegistry`)&#xA;which contains some references to invalid API:&#xA;org.jetbrains.kotlin.analysis.api.session.KtAnalysisSessionProvider: org.jetbrains.kotlin.analysis.api.lifetime.KtLifetimeTokenFactory getTokenFactory()&#xA;(Referenced from androidx/compose/runtime/lint/AutoboxingStateCreationDetector.class)&#xA;&#xA;Therefore, this lint check library is **not** included&#xA;in analysis. This affects the following lint checks:&#xA;`AutoboxingStateValueProperty`&#xA;`AutoboxingStateCreation`&#xA;`CoroutineCreationDuringComposition`&#xA;`FlowOperatorInvokedInComposition`&#xA;`ComposableLambdaParameterNaming`&#xA;`ComposableLambdaParameterPosition`&#xA;`ComposableNaming`&#xA;`StateFlowValueCalledInComposition`&#xA;`CompositionLocalNaming`&#xA;`MutableCollectionMutableState`&#xA;`ProduceStateDoesNotAssignValue`&#xA;`RememberReturnType`&#xA;`OpaqueUnitKey`&#xA;`UnrememberedMutableState`&#xA;&#xA;To use this lint check, upgrade to a more recent version&#xA;of the library.">
         <location
-            file="src/main/kotlin/com/spreedly/composewidgets/ExpirationField.kt"
-            line="49"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="ComposableLambdaParameterNaming"
-        message="Composable lambda parameter should be named `content`"
-        errorLine1="    label: @Composable () -> Unit,"
-        errorLine2="    ~~~~~">
-        <location
-            file="src/main/kotlin/com/spreedly/composewidgets/NameField.kt"
-            line="28"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="ComposableLambdaParameterNaming"
-        message="Composable lambda parameter should be named `content`"
-        errorLine1="    label: @Composable () -> Unit,"
-        errorLine2="    ~~~~~">
-        <location
-            file="src/main/kotlin/com/spreedly/composewidgets/PostalCodeField.kt"
-            line="28"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="ComposableLambdaParameterNaming"
-        message="Composable lambda parameter should be named `content`"
-        errorLine1="    label: @Composable () -> Unit,"
-        errorLine2="    ~~~~~">
-        <location
-            file="src/main/kotlin/com/spreedly/composewidgets/SecureCreditCardField.kt"
-            line="62"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="ComposableLambdaParameterNaming"
-        message="Composable lambda parameter should be named `content`"
-        errorLine1="    label: @Composable () -> Unit,"
-        errorLine2="    ~~~~~">
-        <location
-            file="src/main/kotlin/com/spreedly/composewidgets/SecureVerificationNumberField.kt"
-            line="42"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="ComposableLambdaParameterPosition"
-        message="Composable lambda parameter should be the last parameter so it can be used as a trailing lambda"
-        errorLine1="    labelFactory: @Composable (String) -> Unit = { Text(it) },"
-        errorLine2="    ~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/com/spreedly/composewidgets/EditCreditCardForm.kt"
-            line="60"
-            column="5"/>
+            file="../../../../../.gradle/caches/transforms-3/bd3c1037ee5ad3d802617c11c709de40/transformed/runtime-release/jars/lint.jar"/>
     </issue>
 
 </issues>
