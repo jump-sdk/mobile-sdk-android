@@ -16,6 +16,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import com.spreedly.client.models.validatedMonthAndYear
 import com.spreedly.composewidgets.utils.ExpirationDateTransformation
 import com.spreedly.composewidgets.utils.PaddableOutlinedTextField
+import java.util.Locale
 
 /**
  * Composable function representing an input field for entering expiration dates of credit cards.
@@ -51,7 +52,7 @@ fun ExpirationField(
     var value by rememberSaveable(initialValue) {
         mutableStateOf(
             initialValue.getValidatedMonthAndYear()?.let { (month, year) ->
-                "$month$year"
+                "${setMonthString(month)}$year"
             } ?: "",
         )
     }
@@ -86,6 +87,15 @@ fun ExpirationField(
         contentPadding = textFieldPadding,
         singleLine = true,
     )
+}
+
+@Suppress("MagicNumber")
+fun setMonthString(month: Int): String {
+    return if (month < 10) {
+        "%02d".format(Locale.US, month)
+    } else {
+        "$month"
+    }
 }
 
 @Suppress("DataClassContainsFunctions")
