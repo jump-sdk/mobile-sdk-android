@@ -4,6 +4,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 
 class ApplePayInfo(
+    val testCardNumber: String?,
     firstName: String?,
     lastName: String?,
     email: String?,
@@ -20,9 +21,10 @@ class ApplePayInfo(
         // information up at the payment_method level unlike the other
         // types of payment methods.
         val request = (generateBaseRequestMap() + generatePersonInfoMap()).toMutableMap()
-        request["apple_pay"] = JsonObject(
-            mapOf("payment_data" to Json.decodeFromString(paymentData)),
-        )
+        request["apple_pay"] = JsonObject(buildMap {
+            put("payment_data", Json.decodeFromString(paymentData))
+            testCardNumber?.let { put("test_card_number", it) }
+        })
         return JsonObject(
             mapOf("payment_method" to JsonObject(request)),
         )
