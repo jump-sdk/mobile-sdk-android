@@ -4,7 +4,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 
 class ApplePayInfo(
-    val testCardNumber: String?,
+    val testCardNumber: String? = null,
     firstName: String?,
     lastName: String?,
     email: String?,
