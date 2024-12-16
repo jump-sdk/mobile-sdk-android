@@ -23,7 +23,7 @@ class ApplePayInfo(
         val request = (generateBaseRequestMap() + generatePersonInfoMap()).toMutableMap()
         request["apple_pay"] = JsonObject(buildMap {
             put("payment_data", Json.decodeFromString(paymentData))
-            testCardNumber?.let { put("test_card_number", it) }
+            testCardNumber?.let { put("test_card_number", Json.decodeFromString(it)) }
         })
         return JsonObject(
             mapOf("payment_method" to JsonObject(request)),
