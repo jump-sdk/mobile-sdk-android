@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -47,12 +49,16 @@ class EditCardFragment : Fragment() {
                             mutableStateOf(null)
                         }
 
-                        Column {
+                        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                             EditCreditCardForm(
                                 initialFullName = "Test Full Name",
                                 initialExpiryMonth = "12",
                                 initialExpiryYear = "25",
                                 initialPostalCode = "12345",
+                                initialStreetAddress = "123 Main St",
+                                initialCity = "Test City",
+                                initialState = "Test State",
+                                showAddressFields = true,
                                 modifier = Modifier.padding(16.dp),
                                 fieldModifier = Modifier.fillMaxWidth(),
                                 fieldSpacing = 16.dp,

@@ -17,7 +17,7 @@ val PartialCreditCardInfoSaver = listSaver<PartialCreditCardInfo?, Any?>(
         } ?: emptyList<Any>()
     },
     restore = { valueList ->
-        if (valueList.size != 4) {
+        if (valueList.size != 7) {
             null
         } else {
             @Suppress("DontForceCast")
@@ -26,6 +26,9 @@ val PartialCreditCardInfoSaver = listSaver<PartialCreditCardInfo?, Any?>(
                 month = valueList[1] as Int,
                 year = valueList[2] as Int,
                 postalCode = valueList[3] as String,
+                streetAddress = valueList[4] as String,
+                city = valueList[5] as String,
+                state = valueList[6] as String,
             )
         }
     },

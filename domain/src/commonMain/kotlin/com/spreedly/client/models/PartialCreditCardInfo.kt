@@ -5,10 +5,18 @@ data class PartialCreditCardInfo(
     val month: Int,
     val year: Int,
     val postalCode: String,
+    var streetAddress: String,
+    var city: String,
+    var state: String,
 )
 
-class PartialCreditCardInfoBuilder {
+class PartialCreditCardInfoBuilder(
+    private val addressRequired: Boolean = false,
+) {
     var postalCode: String? = null
+    var streetAddress: String? = null
+    var city: String? = null
+    var state: String? = null
     var fullName: String? = null
     var month: Int? = null
     var year: Int? = null
@@ -17,12 +25,16 @@ class PartialCreditCardInfoBuilder {
         val expiry = validatedMonthAndYear(month = month, year = year)
         val postalCode = postalCode
         val fullName = fullName
-        return if (postalCode != null && fullName != null && expiry != null) {
+        return if (postalCode != null && fullName != null && expiry != null &&
+            (!addressRequired || (streetAddress != null && city != null && state != null))) {
             PartialCreditCardInfo(
                 fullName = fullName,
                 month = expiry.first,
                 year = expiry.second,
                 postalCode = postalCode,
+                streetAddress = streetAddress.orEmpty(),
+                city = city.orEmpty(),
+                state = state.orEmpty(),
             )
         } else {
             null

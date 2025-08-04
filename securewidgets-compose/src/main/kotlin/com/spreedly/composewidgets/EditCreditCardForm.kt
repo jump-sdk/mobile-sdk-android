@@ -33,6 +33,7 @@ import com.spreedly.client.models.PartialCreditCardInfoBuilder
  * @param modifier The modifier for the entire credit card form.
  * @param fieldModifier The modifier for individual input fields.
  * @param showPostalCodeField Whether or not to show the postal code input field.
+ * @param showAddressFields Whether or not to show the input fields for address.
  * @param textStyle The text style to be applied to the input fields.
  * @param colors The colors customization for the input fields.
  * @param shape The shape customization for the input fields.
@@ -50,10 +51,14 @@ fun EditCreditCardForm(
     initialPostalCode: String,
     initialExpiryMonth: String,
     initialExpiryYear: String,
+    initialStreetAddress: String,
+    initialCity: String,
+    initialState: String,
     fieldSpacing: Dp,
     modifier: Modifier = Modifier,
     fieldModifier: Modifier = Modifier,
     showPostalCodeField: Boolean = true,
+    showAddressFields: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
     shape: Shape = MaterialTheme.shapes.small,
@@ -64,11 +69,16 @@ fun EditCreditCardForm(
     val creditCardInfoBuilder = rememberSaveable(
         saver = PartialCreditCardInfoBuilderSaver,
     ) {
-        PartialCreditCardInfoBuilder().apply {
+        PartialCreditCardInfoBuilder(
+            addressRequired = showAddressFields
+        ).apply {
             fullName = initialFullName
             month = initialExpiryMonth.toIntOrNull()
             year = initialExpiryYear.toIntOrNull()
             postalCode = initialPostalCode
+            streetAddress = initialStreetAddress
+            city = initialCity
+            state = initialState
         }
     }
 
@@ -113,6 +123,48 @@ fun EditCreditCardForm(
             ),
             textFieldPadding = textFieldPadding,
         )
+
+        if (showAddressFields) {
+            StreetAddressField(
+                modifier = fieldModifier,
+                onValueChange = {
+                    creditCardInfoBuilder.streetAddress = it.ifBlank { null }
+                    onCreditCardInfo(creditCardInfoBuilder.build())
+                },
+                label = { labelFactory(stringResource(id = R.string.street_address_hint)) },
+                textStyle = textStyle,
+                colors = colors,
+                shape = shape,
+                textFieldPadding = textFieldPadding,
+                initialValue = initialStreetAddress,
+            )
+            CityAddressField(
+                modifier = fieldModifier,
+                onValueChange = {
+                    creditCardInfoBuilder.city = it.ifBlank { null }
+                    onCreditCardInfo(creditCardInfoBuilder.build())
+                },
+                label = { labelFactory(stringResource(id = R.string.city_hint)) },
+                textStyle = textStyle,
+                colors = colors,
+                shape = shape,
+                textFieldPadding = textFieldPadding,
+                initialValue = initialCity,
+            )
+            StateAddressField(
+                modifier = fieldModifier,
+                onValueChange = {
+                    creditCardInfoBuilder.state = it.ifBlank { null }
+                    onCreditCardInfo(creditCardInfoBuilder.build())
+                },
+                label = { labelFactory(stringResource(id = R.string.state_hint)) },
+                textStyle = textStyle,
+                colors = colors,
+                shape = shape,
+                textFieldPadding = textFieldPadding,
+                initialValue = initialState,
+            )
+        }
 
         if (showPostalCodeField) {
             PostalCodeField(

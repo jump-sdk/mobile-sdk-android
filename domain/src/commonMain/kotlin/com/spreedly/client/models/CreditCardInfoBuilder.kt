@@ -1,7 +1,13 @@
 package com.spreedly.client.models
 
-class CreditCardInfoBuilder(private val postalCodeRequired: Boolean = false) {
+class CreditCardInfoBuilder(
+    private val postalCodeRequired: Boolean = false,
+    private val addressRequired: Boolean = false,
+) {
     var postalCode: String? = null
+    var streetAddress: String? = null
+    var city: String? = null
+    var state: String? = null
     var fullName: String? = null
     var cardNumber: SpreedlySecureOpaqueString? = null
     var cvc: SpreedlySecureOpaqueString? = null
@@ -11,7 +17,8 @@ class CreditCardInfoBuilder(private val postalCodeRequired: Boolean = false) {
 
     fun build(): CreditCardInfo? {
         @Suppress("SwallowedException")
-        return if (postalCodeRequired && postalCode == null) {
+        return if ((postalCodeRequired && postalCode == null) ||
+            (addressRequired && (streetAddress == null || city == null || state == null))) {
             null
         } else {
             try {
@@ -23,7 +30,16 @@ class CreditCardInfoBuilder(private val postalCodeRequired: Boolean = false) {
                     verificationValue = requireNotNull(cvc),
                     month = requireNotNull(month),
                     year = requireNotNull(year),
-                    address = postalCode?.let { Address(zip = it) },
+                    address = if (postalCode != null || streetAddress != null || city != null || state != null) {
+                        Address(
+                            address1 = streetAddress,
+                            city = city,
+                            state = state,
+                            zip = postalCode,
+                        )
+                    } else {
+                        null
+                    },
                     retained = retained,
                 ).takeIf {
                     it.prevalidate()
@@ -44,6 +60,10 @@ class CreditCardInfoBuilder(private val postalCodeRequired: Boolean = false) {
         if (cardNumber != other.cardNumber) return false
         if (cvc != other.cvc) return false
         if (month != other.month) return false
+        if (postalCode != other.postalCode) return false
+        if (streetAddress != other.streetAddress) return false
+        if (city != other.city) return false
+        if (state != other.state) return false
         return year == other.year
     }
 
@@ -53,6 +73,10 @@ class CreditCardInfoBuilder(private val postalCodeRequired: Boolean = false) {
         result = 31 * result + (cvc?.hashCode() ?: 0)
         result = 31 * result + (month ?: 0)
         result = 31 * result + (year ?: 0)
+        result = 31 * result + (postalCode?.hashCode() ?: 0)
+        result = 31 * result + (streetAddress?.hashCode() ?: 0)
+        result = 31 * result + (city?.hashCode() ?: 0)
+        result = 31 * result + (state?.hashCode() ?: 0)
         return result
     }
 }

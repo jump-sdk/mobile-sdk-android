@@ -45,6 +45,7 @@ private const val MILLENNIUM = 2000
  * @param modifier The modifier for the entire credit card form.
  * @param fieldModifier The modifier for individual input fields.
  * @param showPostalCodeField Whether or not to show the postal code input field.
+ * @param showAddressFields Whether or not to show the input fields for address.
  * @param textStyle The text style to be applied to the input fields.
  * @param colors The colors customization for the input fields.
  * @param shape The shape customization for the input fields.
@@ -65,6 +66,7 @@ fun SecureCreditCardForm(
     modifier: Modifier = Modifier,
     fieldModifier: Modifier = Modifier,
     showPostalCodeField: Boolean = true,
+    showAddressFields: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
     shape: Shape = MaterialTheme.shapes.small,
@@ -78,7 +80,10 @@ fun SecureCreditCardForm(
     val creditCardInfoBuilder = rememberSaveable(
         saver = CreditCardInfoBuilderSaver,
     ) {
-        CreditCardInfoBuilder()
+        CreditCardInfoBuilder(
+            postalCodeRequired = showPostalCodeField,
+            addressRequired = showAddressFields,
+        )
     }
     var brand by rememberSaveable { mutableStateOf(CardBrand.unknown) }
     var recognitionIntent: PendingIntent? by remember(context) {
@@ -178,6 +183,44 @@ fun SecureCreditCardForm(
             textFieldPadding = textFieldPadding,
             cardBrand = brand,
         )
+        if (showAddressFields) {
+            StreetAddressField(
+                modifier = fieldModifier,
+                onValueChange = {
+                    creditCardInfoBuilder.streetAddress = it.ifBlank { null }
+                    onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
+                },
+                label = { labelFactory(stringResource(id = R.string.street_address_hint)) },
+                textStyle = textStyle,
+                colors = colors,
+                shape = shape,
+                textFieldPadding = textFieldPadding,
+            )
+            CityAddressField(
+                modifier = fieldModifier,
+                onValueChange = {
+                    creditCardInfoBuilder.city = it.ifBlank { null }
+                    onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
+                },
+                label = { labelFactory(stringResource(id = R.string.city_hint)) },
+                textStyle = textStyle,
+                colors = colors,
+                shape = shape,
+                textFieldPadding = textFieldPadding,
+            )
+            StateAddressField(
+                modifier = fieldModifier,
+                onValueChange = {
+                    creditCardInfoBuilder.state = it.ifBlank { null }
+                    onValidCreditCardInfo(brand, creditCardInfoBuilder.build())
+                },
+                label = { labelFactory(stringResource(id = R.string.state_hint)) },
+                textStyle = textStyle,
+                colors = colors,
+                shape = shape,
+                textFieldPadding = textFieldPadding,
+            )
+        }
         if (showPostalCodeField) {
             PostalCodeField(
                 modifier = fieldModifier,
@@ -208,6 +251,7 @@ private fun SecureCreditCardFormPreview() {
         SecureCreditCardForm(
             fieldSpacing = 16.dp,
             onValidCreditCardInfo = { _, _ -> },
+            showAddressFields = true,
         )
     }
 }

@@ -4,4 +4,7 @@
     <string name="card_name_hint">Name on Card</string>
     <string name="expiration_hint">MM / YY</string>
     <string name="postal_code_hint">Zip / Postal Code</string>
+    <string name="street_address_hint">Street Address</string>
+    <string name="city_hint">City</string>
+    <string name="state_hint">State</string>
 </resources>
