@@ -25,8 +25,9 @@ class PartialCreditCardInfoBuilder(
         val expiry = validatedMonthAndYear(month = month, year = year)
         val postalCode = postalCode
         val fullName = fullName
-        return if (postalCode != null && fullName != null && expiry != null &&
-            (!addressRequired || (streetAddress != null && city != null && state != null))) {
+        val isAddressValid =
+            !addressRequired || (streetAddress != null && city != null && state != null)
+        return if (postalCode != null && fullName != null && expiry != null && isAddressValid) {
             PartialCreditCardInfo(
                 fullName = fullName,
                 month = expiry.first,

@@ -17,8 +17,9 @@ class CreditCardInfoBuilder(
 
     fun build(): CreditCardInfo? {
         @Suppress("SwallowedException")
-        return if ((postalCodeRequired && postalCode == null) ||
-            (addressRequired && (streetAddress == null || city == null || state == null))) {
+        val isMissingPostalCode = (postalCodeRequired && postalCode == null)
+        val isMissingAddressField = (addressRequired && (streetAddress == null || city == null || state == null))
+        return if (isMissingPostalCode || isMissingAddressField) {
             null
         } else {
             try {
