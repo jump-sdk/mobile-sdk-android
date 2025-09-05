@@ -12,6 +12,8 @@ sealed class PaymentMethodInfo(
     open val address: Address? = null,
     open val shippingAddress: Address? = null,
     open val retained: Boolean? = null,
+    open val retainOnSuccess: Boolean = true,
+    open val provisionNetworkToken: Boolean = true,
     open val metadata: JsonObject? = null,
     open val email: String? = null,
 ) {
@@ -20,6 +22,8 @@ sealed class PaymentMethodInfo(
     fun generateBaseRequestMap(): MutableMap<String, JsonElement> =
         mutableMapOf<String, JsonElement>().apply {
             putAsJsonElement("retained", retained)
+            putAsJsonElement("retain_on_success", retainOnSuccess)
+            putAsJsonElement("provision_network_token", provisionNetworkToken)
             metadata?.let {
                 put("metadata", it)
             }
