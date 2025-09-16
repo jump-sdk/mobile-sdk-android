@@ -72,13 +72,13 @@ fun EditCreditCardForm(
         PartialCreditCardInfoBuilder(
             addressRequired = showAddressFields
         ).apply {
-            fullName = initialFullName
+            fullName = initialFullName.ifBlank { null }
             month = initialExpiryMonth.toIntOrNull()
             year = initialExpiryYear.toIntOrNull()
-            postalCode = initialPostalCode
-            streetAddress = initialStreetAddress
-            city = initialCity
-            state = initialState
+            postalCode = initialPostalCode.ifBlank { null }
+            streetAddress = initialStreetAddress.ifBlank { null }
+            city = initialCity.ifBlank { null }
+            state = initialState.ifBlank { null }
         }
     }
 
